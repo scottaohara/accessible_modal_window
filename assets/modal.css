@@ -23,6 +23,7 @@
   z-index: 5;
 }
 
+.modal, /* updated jquery class */
 .modal-content {
   background: #efefef;
   margin: auto;
@@ -36,15 +37,21 @@
   width: 100%;
 }
 
+.modal:focus {
+  box-shadow: 0 0 6px white;
+}
+
 .modal-overlay[aria-hidden="false"] .modal-content {
   transform: scale(1);
 }
 
+.modal__intro__title, /* updated jquery class */
 #modal-title {
   margin-top: 0;
   padding-right: 1.25em;
 }
 
+.modal__outro__close,
 .btn-close {
   background: none;
   border: none;
@@ -58,12 +65,15 @@
   right: .25em;
   top: .25em;
   z-index: 2;
+  text-decoration: none;
 }
 
+.modal__outro__close:focus,
 .btn-close:focus {
   outline: 1px dotted;
 }
 
+.modal__outro__close:hover,
 .btn-close:hover {
   color: #921c2b;
 }
@@ -136,6 +146,7 @@ button::-moz-focus-inner, input::-moz-focus-inner {
   position: relative;
   text-align: center;
   transition: transform .2s, background .2s;
+  text-decoration: none;
 }
 
 .btn:hover, .btn:focus {

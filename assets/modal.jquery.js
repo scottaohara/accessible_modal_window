@@ -1,103 +1,108 @@
-// modal window
+// Scoping the $, incase you want to use jQuery, but it's not required
 ;(function ($, w, doc) {
 
-  'use strict';
+  // Enable strict mode
+  "use strict";
 
-  // list out the vars
-  var $body = $('body'),
+  // Local object for method references
+  var Modal = {};
+
+  // Namespace
+  Modal.NS = "Modal";
+  Modal.AUTHOR = "Scott O'Hara";
+  Modal.VERSION = "0.0.4";
+  Modal.DOCUMENTATION = "http://www.smashingmagazine.com/2014/09/making-modals-better-for-everyone/";
+  Modal.LICENSE = "https://github.com/scottaohara/accessible-components/blob/master/LICENSE.md";
+
+  // set Modal variables
+  var $m = $('.modal-overlay'),
       $html = $('html'),
-      $m = $('#modal_window'),
-      $mOpen = $('#modal_open'),
-      $mClose = $('#modal_close'),
-      $modal = $('#modal_holder'),
-      $allNodes =   $('*'),
+      $body = $('body'),
+      $mOpen = $('.js-open-modal'),
+      $mTitle = $('.modal__intro__title'),
+      $mOpenTarget,
+      $mClose = $('.modal__outro__close'),
+      $modal = $('.modal'),
+      $allNodes = $("*"),
+      $isModalOpen = false,
       $lastFocus,
       i;
-      // be sure to replace p with the appropriate
-      // ID of your document wrapper element.
+
+  // initialize the modal(s) on load
+  Modal.Init = function() {
+
+    // take all instances of modals
+    // and put them at the top of the <body>
+    // this allows for backwards tab into the url bar
+    this.Swap($m, $body);
+
+    // open modal by btn click/hit
+    $(document).on('click', '.js-open-modal', function(){
+      $modal = $('.modal', $mOpenTarget);
+      $mOpenTarget = $('#'+$(this).attr('data-open'));
+      $lastFocus = document.activeElement;
+      $isModalOpen = true;
+
+      $html.addClass('modal-is-open');
+      $mOpenTarget.attr('aria-hidden', 'false');
+      $modal.attr('tabindex', '-1').focus();
+    });
+
+    // close modal by btn click/hit
+    $mClose.on('click', this.Close);
+
+    $m.on('click touchstart', this.OverlayClose);
+
+    // close modal by keydown, but only if modal is open
+    $(document).on('keydown', this.Close);
+
+    // restrict tab focus on elements only inside modal window
+    $allNodes.on('focus', this.Restrict );
+  };
 
 
-  // helper function to place modal window as the first child
-  // of the #page node
-  function swap () {
-    // $body.parentNode.insertBefore($m, $body);
-    $body.prepend($m);
-  }
-
-  swap();
-
-
-  // set aria attributes to modal elements.
-  // Doing this in case JavaScript doesn't load, so that
-  // there aren't aria attributes attached to something
-  // that doesn't behave the way it should, due to lack of JS.
-  $m.attr({
-    'aria-hidden' : true,
-    'role' : 'dialog',
-    'tabindex' : '-1',
-    'aria-labelledby' : 'modal_title'
-  });
-
-  $modal.attr({
-    'role' : 'document',
-    'tabindex' : '-1'
-  });
-  // this role has been added to take care of a bug
-
-  // Open the modal
-  function modalShow () {
-    $html.addClass('modal-is-open');
-    $lastFocus = document.activeElement;
-    $m.attr('aria-hidden', 'false');
-    $modal.focus();
-  }
+  /*
+    Modal Window Functions
+  */
+  /* Place modal window(s) as the first child(ren) of the $body node */
+  Modal.Swap = function( m, p ) {
+    // this if is only here for use in the UI-kit.
+    if ( !$body.hasClass('cs-body')) {
+      $body.prepend($m);
+    }
+  };
 
 
-  // binds to both the button click and the escape key to close the modal window
-  // but only if the html element has a class of 'modal-is-open'
-  function modalClose ( e ) {
-    if ( $html.hasClass('modal-is-open') && !e.keyCode || e.keyCode === 27  ) {
+  /*
+    Bind to both the button click and the escape key to
+    close the modal window  but only if isModalOpen is set to true
+  */
+  Modal.Close = function( e ) {
+    if ( $isModalOpen && ( !e.keyCode || e.keyCode === 27 ) ) {
       $html.removeClass('modal-is-open');
       $m.attr('aria-hidden', 'true');
+      $isModalOpen = false;
+
       $lastFocus.focus();
     }
-  }
+  };
 
 
-  // Restrict focus to the modal window when it's open.
-  // Tabbing will just loop through the whole modal.
-  // Shift + Tab will allow backup to the top of the modal,
-  // and then stop.
-  function focusRestrict ( e ) {
+  Modal.OverlayClose = function ( e ) {
+    if ( e.target === $modal.parent().get(0) ) {
+      Modal.Close( e );
+    }
+  };
+
+
+  Modal.Restrict = function ( e ) {
     if ( $html.hasClass('modal-is-open') && !$modal.get(0).contains( e.target ) ) {
       e.stopPropagation();
       $modal.focus();
     }
-  }
+  };
 
 
-  // Close modal window by clicking on the overlay
-  $m.on('click', function( e ) {
-    if ( e.target === $modal.parent().get(0) ) {
-      modalClose( e );
-    }
-  });
-
-
-  // open modal by btn click/hit
-  $mOpen.on('click', modalShow);
-
-  // close modal by btn click/hit
-  $mClose.on('click', modalClose);
-
-  // close modal by keydown, but only if modal is open
-  $(document).on('keydown', modalClose);
-
-  // restrict tab focus on elements only inside modal window
-  // for ( i = 0; i < allNodes.length; i++ ) {
-  //   allNodes.item(i).addEventListener('focus', focusRestrict);
-  // }
-
-  $allNodes.on('focus', focusRestrict );
+  Modal.Init();
 
 } )( jQuery, this, this.document );

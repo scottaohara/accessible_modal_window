@@ -10,7 +10,8 @@
     <div id="page">
 
       <div class="menu">
-        <button class="btn" type="button" id="modal_open">Open the Modal</button>
+        <button data-open="modal_default" class="btn js-open-modal" type="button">
+          Open the Modal</button>
       </div>
 
       <article class="content-area">
@@ -48,11 +49,23 @@
       </article> <!-- end .content-area -->
     </div> <!-- end #page -->
 
-    <div class="modal-overlay" id="modal_window">
 
-      <div class="modal-content" id="modal_holder">
+    <div aria-labelledby="modal_default_title" id="modal_default" class="modal-overlay">
 
-          <h1 id="modal_title">Modal Title</h1>
+      <div class="modal">
+
+        <div class="modal__intro">
+          <h3 id="modal_default_title" class="modal__intro__title">
+            Default Modal Window
+          </h3>
+          <p>
+            intro text
+          </p>
+        </div>
+
+
+        <!-- main modal content here -->
+        <div class="modal__content">
           <form>
             <label for="name">Name:</label>
             <input type="text" id="name" class="input" placeholder="Gimmie ur Name" />
@@ -62,14 +75,21 @@
 
             <input type="submit" class="btn" value="Submit Form" />
           </form>
+        </div>
 
-        <button class="btn-close" id="modal_close" type="button" aria-label="close">
-          &times;
-        </button>
 
-      </div> <!-- end .modal-content -->
+        <!-- Outro content here -->
+        <div class="modal__outro txt-center">
+          <a aria-label="Close" aria-controls="modal_default" class="modal__outro__close" href="#x">
+            <span aria-hidden="true">⨉</span>
+          </a>
+        </div>
 
-    </div> <!-- end .modal-overlay -->
+      </div> <!-- end .modal -->
+    </div>
+
+
+
       <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
       <script async src="assets/modal.jquery.js"></script>
   </body>
