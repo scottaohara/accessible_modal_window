@@ -10,7 +10,7 @@
   // Namespace
   Modal.NS = "Modal";
   Modal.AUTHOR = "Scott O'Hara";
-  Modal.VERSION = "0.0.4";
+  Modal.VERSION = "0.1.5";
   Modal.DOCUMENTATION = "http://www.smashingmagazine.com/2014/09/making-modals-better-for-everyone/";
   Modal.LICENSE = "https://github.com/scottaohara/accessible-components/blob/master/LICENSE.md";
 
