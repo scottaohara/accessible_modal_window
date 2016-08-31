@@ -1,0 +1,128 @@
+/** --------------------------------------------------------------------
+
+  Accessible Modal Dialog
+
+--------------------------------------------------------------------- */
+.modal-is-open,
+.modal-is-open body {
+  overflow: hidden;
+  height: 100%;
+  position: absolute;
+  width: 100%; }
+
+.js .a11y-modal {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  background: rgba(0, 0, 0, 0.666);
+  height: 100%;
+  left: 0;
+  opacity: 0;
+  overflow: auto;
+  padding: 1.5em;
+  position: fixed;
+  top: 0;
+  transition: opacity .2s ease-in-out;
+  visibility: hidden;
+  width: 100%;
+  z-index: -1; }
+  .js .a11y-modal[aria-hidden="false"] {
+    opacity: 1;
+    visibility: visible;
+    z-index: 99; }
+    .js .a11y-modal[aria-hidden="false"] .modal {
+      transform: scale(1) translateY(0px); }
+
+.modal {
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  margin: 20px auto;
+  max-height: 90%;
+  max-width: 800px;
+  min-width: 220px;
+  overflow: auto;
+  overflow-x: hidden;
+  padding: 32px;
+  position: relative;
+  transition: transform .3s ease-in-out;
+  width: 100%; }
+  .modal--sm {
+    max-width: 400px; }
+  .modal--full-width {
+    max-width: 100%; }
+  .modal--content-scroll {
+    overflow: hidden; }
+    .modal--content-scroll .modal__content {
+      border: 1px solid #ccc;
+      height: 300px;
+      overflow: auto;
+      transition: height .2s ease-in-out; }
+      @media screen and (min-height: 41.25em) {
+        .modal--content-scroll .modal__content {
+          height: 400px; } }
+      @media screen and (min-height: 47.9375em) {
+        .modal--content-scroll .modal__content {
+          height: 500px; } }
+      @media screen and (min-height: 53.75em) {
+        .modal--content-scroll .modal__content {
+          height: 600px; } }
+      @media screen and (min-height: 64em) {
+        .modal--content-scroll .modal__content {
+          height: 700px; } }
+  .modal__intro__title {
+    font-size: 32px;
+    margin-top: 0; }
+  .modal__intro > :not(.modal__intro__title) {
+    font-size: 0.825em; }
+  .modal__content {
+    margin-top: 20px; }
+  .modal__outro {
+    margin-top: 20px; }
+    .modal__outro__close {
+      background: transparent;
+      display: block;
+      height: 32px;
+      position: absolute;
+      right: 8px;
+      text-decoration: none;
+      top: 8px;
+      width: 32px; }
+      .modal__outro__close svg {
+        bottom: 0;
+        fill: #000;
+        height: 70%;
+        left: 0;
+        margin: auto;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 70%; }
+      .modal__outro__close:hover, .modal__outro__close:focus {
+        background: rgba(0, 0, 0, 0.9); }
+        .modal__outro__close:hover svg, .modal__outro__close:focus svg {
+          fill: #fff; }
+
+.js .modal {
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 0 12px rgba(0, 0, 0, 0.5);
+  margin: auto;
+  transform: scale(0.8) translateY(-30px); }
+
+.no-js .no-js-hide,
+.no-js button[data-action='modal-open'],
+.no-js .modal__outro__close {
+  display: none; }
+
+.no-js .no-js-hide:target {
+  display: block; }
+
+/**
+
+  Example Mark-up:
+  -----------------------------------------------------------
+
+
+
+*/
+
+/*# sourceMappingURL=app.css.map */

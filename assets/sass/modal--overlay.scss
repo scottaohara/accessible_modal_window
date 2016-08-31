@@ -1,0 +1,246 @@
+/** --------------------------------------------------------------------
+
+  Accessible Modal Dialog
+
+--------------------------------------------------------------------- */
+
+// FlexBox Mixin
+
+// This mixin is not required if you already use an autoprefixing task
+// as part or your build process.
+// If not required, simply remove the @include and replace with
+// display: flex;
+
+$flexbox:
+       -ms-flexbox,   // ie 10
+      -webkit-flex,   // chrome 21 - 28, safari 6.1+
+              flex;   // moz 22+, IE 11+, chrome 29+, Opera 17+
+
+@mixin flexbox( $display: flex ) {
+
+  @each $v in $flexbox {
+    display: $v;
+  }
+
+}
+
+// ---------------------------------------------------------------------
+
+
+// namespace the modal if needed
+$ns:                                '' !default;
+
+// preset breakpoints
+$bp-small:                          41.25em !default;     // 660px
+$bp-portrait:                       47.9375em !default;   // 767px
+$bp-medium:                         53.75em !default;     // 860px
+$bp-large:                          59.375em !default;    // 950px
+$bp-1024:                           64em !default;        // 1024px
+
+// Modal Styling
+$modal-overlay--bg:                 rgba(0, 0, 0, .666) !default;
+$modal-overlay--padding:            1.5em !default;
+
+$modal--bg:                         #fff !default;
+
+$modal--radius:                     4px !default;
+$modal--border:                     1px solid rgba(0, 0, 0, 0.5) !default;
+$modal--bs:                         0 1px 0 rgba(255, 255, 255, 0.2) inset,
+                                    0 0 12px rgba(0, 0, 0, 0.5) !default;
+$modal--max-width:                  800px !default;
+$modal--min-width:                  220px !default;
+$modal--padding:                    32px !default;
+
+$modal--base-border:                1px solid #ccc !default;
+$modal--base-margin:                20px !default;
+
+$modal--small--max-width:           400px !default;
+
+$modal--z-index:                    99 !default;
+
+$modal__intro__title--size:         32px !default;
+$modal__intro__text--size:          .825em !default;
+
+$modal__close--size:                32px !default;
+$modal__close--offset:              8px !default;
+$modal__close--background:          rgba(0,0,0,0) !default;
+$modal__close--color:               #000 !default;
+
+$modal__close--alt--background:     rgba(0,0,0,.9) !default;
+$modal__close--alt--color:          #fff;
+
+// ---------------------------------------------------------------------
+
+
+// to prevent the document from scrolling in the background,
+// we need these rules in place when a modal is open
+.#{$ns}modal-is-open,
+.#{$ns}modal-is-open body {
+  overflow: hidden;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+//
+.js .#{$ns}a11y-modal {
+  @include flexbox();
+  background: $modal-overlay--bg;
+  height: 100%;
+  left: 0;
+  opacity: 0;
+  overflow: auto;
+  padding: $modal-overlay--padding;
+  position: fixed;
+  top: 0;
+  transition: opacity .2s ease-in-out;
+  visibility: hidden;
+  width: 100%;
+  z-index: -1;
+
+  &[aria-hidden="false"] {
+    opacity: 1;
+    visibility: visible;
+    z-index: $modal--z-index;
+
+    .#{$ns}modal {
+      transform: scale(1) translateY(0px);
+    }
+  }
+}
+
+// the actual modal content block
+.#{$ns}modal {
+  background: $modal--bg;
+  border: $modal--border;
+  border-radius: $modal--radius;
+  margin: $modal--base-margin auto;
+  max-height: 90%;
+  max-width: $modal--max-width;
+  min-width: $modal--min-width;
+  overflow: auto;
+  overflow-x: hidden;
+  padding: $modal--padding;
+  position: relative;
+  transition: transform .3s ease-in-out;
+  width: 100%;
+
+  &--sm {
+    max-width: $modal--small--max-width;
+  }
+
+  &--full-width {
+    max-width: 100%;
+  }
+
+  &--content-scroll {
+    overflow: hidden;
+
+    .#{$ns}modal__content {
+      border: $modal--base-border;
+      height: 300px;
+      overflow: auto;
+      transition: height .2s ease-in-out;
+
+      @media screen and ( min-height: $bp-small ) {
+        height: 400px;
+      }
+
+      @media screen and ( min-height: $bp-portrait ) {
+        height: 500px;
+      }
+
+      @media screen and ( min-height: $bp-medium ) {
+        height: 600px;
+      }
+
+      @media screen and ( min-height: $bp-1024 ) {
+        height: 700px;
+      }
+    }
+  }
+
+  &__intro {
+
+    &__title {
+      font-size: $modal__intro__title--size;
+      margin-top: 0;
+    }
+
+    > :not(.#{$ns}modal__intro__title) {
+      font-size: $modal__intro__text--size;
+    }
+  }
+
+  &__content {
+    margin-top: $modal--base-margin;
+  }
+
+  &__outro {
+    margin-top: $modal--base-margin;
+
+    &__close {
+      background: $modal__close--background;
+      display: block;
+      height: $modal__close--size;
+      position: absolute;
+      right: $modal__close--offset;
+      text-decoration: none;
+      top: $modal__close--offset;
+      width: $modal__close--size;
+
+      svg {
+        bottom: 0;
+        fill: $modal__close--color;
+        height: 70%;
+        left: 0;
+        margin: auto;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 70%;
+      }
+
+      &:hover,
+      &:focus {
+        background: $modal__close--alt--background;
+
+        svg {
+          fill: $modal__close--alt--color;
+        }
+      }
+    }
+  }
+
+} //.#{$ns}modal
+
+// when JS is enabled, reset the margin to 0 and allow for
+// the transition of scale and translateY
+.js .#{$ns}modal {
+  box-shadow: $modal--bs;
+  margin: auto;
+  transform: scale(0.8) translateY(-30px);
+} // .js .#{$ns}modal
+
+
+
+// CSS for when there is no JavaScript
+.no-js .no-js-hide,
+.no-js button[data-action='modal-open'],
+.no-js .#{$ns}modal__outro__close {
+  display: none;
+}
+
+.no-js .no-js-hide:target {
+  display: block;
+}
+
+
+/**
+
+  Example Mark-up:
+  -----------------------------------------------------------
+
+
+
+*/
