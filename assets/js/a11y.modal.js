@@ -116,7 +116,6 @@
 
             } // if
 
-
           });
 
 
@@ -262,10 +261,6 @@
           // for all direct children of the BODY element, add a class
           // to target during open/close
           $body.find(' > *:not(.a11y-modal, script)').addClass(bodyElements);
-
-
-          // TODO: think about this more....
-          //$afterLast.addClass(bodyElements);
 
         },
 
