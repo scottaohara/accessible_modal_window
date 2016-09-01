@@ -6,7 +6,7 @@
 
   A11yModal.NS = "A11yModal";
   A11yModal.AUTHOR = "Scott O'Hara";
-  A11yModal.VERION = "2.0.0";
+  A11yModal.VERION = "2.0.1";
   A11yModal.DOCUMENTATION = 'coming soon, yo';
   A11yModal.LICENSE = "https://github.com/scottaohara/accessible-components/blob/master/LICENSE.md";
 
@@ -84,11 +84,11 @@
               // if the modal window has a child modalTitle set,
               // then add an aria-labelledby attribute to the dialog,
               // pointing to that element.
-              if ( $findTitle ) {
+              if ( $findTitle.length ) {
 
                 $thisLabel = $findTitle.attr('id');
 
-              } //if
+              } //if $findTitle
 
               // in the event that a modalTitle wasn't manually set,
               // then we should look to see if there's a heading element
@@ -102,11 +102,8 @@
 
                   $thisLabel = $findHeading.first().attr('id');
 
-                } //if
-
-                // if it doesn't, then generate one
+                } // if it doesn't, then generate one
                 else {
-
                   $thisLabel = $this.attr('id') + '_title';
 
                   $findHeading.first().attr('id', $thisLabel);
