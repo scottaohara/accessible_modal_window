@@ -20,7 +20,7 @@
       modalTitle        = '[data-modal-title]',
       modalClose        = '[data-modal-close]',
 
-      genModalClose     = '<button type="button" data-modal-close class="modal__outro__close"><span aria-hidden="true">⨉</span></button>',
+      genModalClose     = '<button type="button" data-modal-close class="modal__outro__close"><svg role="presentation" viewBox="0 0 20 20" height="20" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 10.5l8.646-8.646a.5.5 0 0 0-.707-.707L10 9.793 1.354 1.147a.5.5 0 0 0-.707.707L9.293 10.5.647 19.146a.5.5 0 0 0 .708.707l8.646-8.646 8.646 8.646a.498.498 0 0 0 .708 0 .5.5 0 0 0 0-.707L10.709 10.5z"/></svg></button>',
 
       $html             = $('html'),
 
@@ -94,7 +94,7 @@
               // then we should look to see if there's a heading element
               // present at all, and then make THAT the source for the
               // aria-labelledby
-              else if ( $findHeading ) {
+              else if ( $findHeading.length ) {
 
                 // does the heading we found have an id already?
                 // let's check
