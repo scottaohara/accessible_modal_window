@@ -20,6 +20,8 @@
       modalTitle        = '[data-modal-title]',
       modalClose        = '[data-modal-close]',
 
+      modalIsOpen       = 'modal-is-open',
+
       genModalClose     = '<button type="button" data-modal-close class="modal__outro__close"><svg role="presentation" viewBox="0 0 20 20" height="20" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 10.5l8.646-8.646a.5.5 0 0 0-.707-.707L10 9.793 1.354 1.147a.5.5 0 0 0-.707.707L9.293 10.5.647 19.146a.5.5 0 0 0 .708.707l8.646-8.646 8.646 8.646a.498.498 0 0 0 .708 0 .5.5 0 0 0 0-.707L10.709 10.5z"/></svg></button>',
 
       $html             = $('html'),
@@ -323,7 +325,7 @@
           // add a class to the HTML, to allow for a CSS hook
           // to help restrict document scroll while the modal
           // is open
-          $html.addClass('modal-is-open');
+          $html.addClass(modalIsOpen);
 
 
           // Hide main document content from screen readers by
@@ -346,7 +348,7 @@
 
           e.preventDefault();
 
-          $html.removeClass('modal-is-open');
+          $html.removeClass(modalIsOpen);
           $self.attr('aria-hidden', 'true');
 
           // remove the aria-hidden that was applied during modal open
@@ -391,7 +393,7 @@
 
           var keyCode = e.keyCode || e.which;
 
-          if ( $html.hasClass('modal-is-open') ) {
+          if ( $html.hasClass(modalIsOpen) ) {
 
             switch ( keyCode ) {
 
