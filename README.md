@@ -2,7 +2,7 @@ Accessible Modal Window (dialog)
 ================
 
 _Read all about it:_
-[Version 1 - Smashing Magazine Article](http://www.smashingmagazine.com/2014/09/making-modal-windows-better-for-everyone/)
+[Version 1 - Smashing Magazine Article](http://www.smashingmagazine.com/2014/09/making-modal-windows-better-for-everyone/)  
 [Version 2 - Coming Soon](#!)
 
 
@@ -12,6 +12,8 @@ _Read all about it:_
 
 
 ## Usage
+
+Simply include the _a11y.modal.js_ file at the bottom of your document, or concatenated into your primary .js file as part of your build process.
 
 Modals can be triggered by either a ```<button>``` or ```<a>```.
 
@@ -98,3 +100,15 @@ Note - the above attributes should be set to either the container or trigger ele
 * ```.modal__outro__close```<br>Class to be used on the close button for the modal.
 
 * ```.no-js-hide```<br>Helper class to hide elements when JavaScript is not available.
+
+
+
+### Additional Functionality
+
+Include [Matt Casserly's hash.click function](https://github.com/mattcass/hash.click) to auto open modal windows on page load, if their URI is part of the address bar.
+
+```html
+  <script src="assets/js/jquery-3.1.0.min.js"></script>
+  <script src="assets/js/a11y.modal.js"></script>
+  <script src="assets/js/hash.click.js"></script>
+```
