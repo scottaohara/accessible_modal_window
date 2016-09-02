@@ -61,6 +61,17 @@ The recommended default markup for the modal window component:
 </div> <!-- /.a11y-modal -->
 ```
 
+### Optional attributes 
+
+Optional attributes that can be set to the modal trigger or ```.a11y-modal``` container:
+
+* ```data-set-modal-title="Title Goes Here"```<br>Use this attribute to set an ```aria-label``` to a modal that doesn't already have a defined heading or ```aria-label```.
+
+* ```data-modal-alert="true"```<br>Set a modal to have a role of ```alertdialog```.
+
+
+Note - the above attributes should be set to either the container or trigger element. Not both.
+
 
 ## Classes & their uses
 
