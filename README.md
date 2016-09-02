@@ -59,6 +59,7 @@ The recommended default markup for the modal window component:
   </div> <!-- end .modal -->
 
 </div> <!-- /.a11y-modal -->
+```
 
 
 ## Classes & their uses
@@ -97,3 +98,4 @@ The recommended default markup for the modal window component:
   Class to be used on the close button for the modal.
 
 * ```.no-js-hide```
+  Helper class to hide elements when JavaScript is not available.
