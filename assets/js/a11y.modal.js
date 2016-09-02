@@ -6,7 +6,7 @@
 
   A11yModal.NS = "A11yModal";
   A11yModal.AUTHOR = "Scott O'Hara";
-  A11yModal.VERION = "2.1.0";
+  A11yModal.VERION = "2.2.0";
   A11yModal.DOCUMENTATION = 'https://github.com/scottaohara/accessible_modal_window';
   A11yModal.LICENSE = "https://github.com/scottaohara/accessible-components/blob/master/LICENSE.md";
 
@@ -16,9 +16,12 @@
 
       modal             = '.a11y-modal',
 
-      modalDoc          = '.modal',
+      modalClass        = 'modal',
+      modalDoc          = '.'+modalClass,
       modalTitle        = '[data-modal-title]',
       modalClose        = '[data-modal-close]',
+
+      modalAddStyle     = 'data-add-style',
 
       modalIsOpen       = 'modal-is-open',
 
@@ -287,6 +290,15 @@
           var $this = $(this),
               $modalTarget = $('#' + $this.attr('aria-controls') );
 
+
+          // if this trigger has a data attribute of 'data-add-style', take the value
+          // of this attribute and add it as a class to the target modal window
+          if ( $this[0].hasAttribute(modalAddStyle) ) {
+
+            var $grabClass = $(this).attr(modalAddStyle);
+
+            $modalTarget.find(modalDoc).attr('class', modalClass + ' ' + $grabClass);
+          }
 
           // Check to see if the modal has either an aria-label or labelledby attribute
           // if not, that means that the modal didn't have a manually set aria-label,
