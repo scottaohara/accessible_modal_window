@@ -6,8 +6,8 @@
 
   A11yModal.NS = "A11yModal";
   A11yModal.AUTHOR = "Scott O'Hara";
-  A11yModal.VERION = "2.0.1";
-  A11yModal.DOCUMENTATION = 'coming soon, yo';
+  A11yModal.VERION = "2.1.0";
+  A11yModal.DOCUMENTATION = 'https://github.com/scottaohara/accessible_modal_window';
   A11yModal.LICENSE = "https://github.com/scottaohara/accessible-components/blob/master/LICENSE.md";
 
 
@@ -24,7 +24,10 @@
 
       $html             = $('html'),
 
+      bodyWrapID        = 'a11y_body_wrap',
       bodyElements      = 'a11y-hide-if-modal-open',
+
+      bodyWrapInit      = 'default',
 
       safetyModalTitle  = "Dialog Window";
 
@@ -34,6 +37,10 @@
     a11yModal: function ( e ) {
 
       return this.each( function () {
+
+        if ( bodyWrapInit !== 'default') {
+          bodyWrapID = bodyWrapInit;
+        }
 
         var id = this.id,
             $self = $('#' + id),
@@ -241,13 +248,25 @@
         },
 
 
-        // Place modal window(s) as the first child(ren)
-        // of the body element so tabbing backwards can
-        // move focus into the browser's address bar
+        // When modal dialogs overlays, focus should not be able to escape them.
+        // To ensure this, we will reorder the DOM to move modal windows out of
+        // their original place in the document order, and while wrapping all
+        // normal content in a new wrapper div.
         organizeDOM = function () {
 
           var $body = $('body'),
-              $afterLast = $body.find('.a11y-modal').last().find('~ *:not(script)');
+              $bodyWrap = '<div id="'+bodyWrapID+'" />';
+
+
+          // Wrap all contents of the <body> in a new div.
+          // This div will be important in toggling screen reader's abilities
+          // to interact with this content, when a modal window is open.
+          // If this statement is not true, then it's because you already
+          // have a wrapper element you can use for this purpose, and you
+          // have passed in the ID.
+          if ( bodyWrapInit === 'default' ) {
+            $('body > *').wrapAll($bodyWrap);
+          }
 
 
           // place all the modal dialogs at the top of the DOM, as the
@@ -256,11 +275,6 @@
           // not located at the top of the DOM, keyboard focus would be
           // completely trapped within the modal window.
           $body.prepend($(modal));
-
-
-          // for all direct children of the BODY element, add a class
-          // to target during open/close
-          $body.find(' > *:not(.a11y-modal, script)').addClass(bodyElements);
 
         },
 
@@ -313,9 +327,9 @@
 
 
           // Hide main document content from screen readers by
-          // applying an aria-hidden attribute to all direct
-          // siblings of the modal windows. (var bodyElements)
-          $('.'+bodyElements).attr('aria-hidden', 'true');
+          // applying an aria-hidden attribute to the primary document content
+          // e.g. the wrapper around all things not modal windows
+          $('body').find('#'+bodyWrapID).attr('aria-hidden', 'true');
 
 
           // finally, apply focus to the newly opened modal window
@@ -336,7 +350,7 @@
           $self.attr('aria-hidden', 'true');
 
           // remove the aria-hidden that was applied during modal open
-          $('.'+bodyElements).removeAttr('aria-hidden');
+          $('body').find('#'+bodyWrapID).removeAttr('aria-hidden');
 
           returnFocus.focus();
 
