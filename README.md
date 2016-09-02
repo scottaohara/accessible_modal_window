@@ -64,38 +64,26 @@ The recommended default markup for the modal window component:
 
 ## Classes & their uses
 
-* ```.modal-is-open```  
-  Class that is toggled on the ```<html>```. It's primary function is to ensure that on desktop browsers, the content under the modal window is not scrollable while the modal is open.
+* ```.modal-is-open```<br>Class that is toggled on the ```<html>```. It's primary function is to ensure that on desktop browsers, the content under the modal window is not scrollable while the modal is open.
 
-* ```.a11y-modal```
-  Primary hook for the JavaScript, and the main parent class for the entire modal window component. This class specifically is used to style the overlay.
+* ```.a11y-modal```<br>Primary hook for the JavaScript, and the main parent class for the entire modal window component. This class specifically is used to style the overlay.
 
-* ```.modal```
-  Class used to style the visible content container of the modal window.
+* ```.modal```<br>Class used to style the visible content container of the modal window.
 
-* ```.modal--sm```
-  Helper class to make a smaller sized modal content container.
+* ```.modal--sm```<br>Helper class to make a smaller sized modal content container.
 
-* ```.modal--full-width```
-  Helper class to make a full width modal content container.
+* ```.modal--full-width```<br>Helper class to make a full width modal content container.
 
-* ```.modal--take-over```
-  Helper class to make the modal content container take up the full browser screen real estate.
+* ```.modal--take-over```<br>Helper class to make the modal content container take up the full browser screen real estate.
 
-* ```.modal__intro```
-  Class to style the intro (header) area of the modal content container.
+* ```.modal__intro```<br>Class to style the intro (header) area of the modal content container.
 
-* ```.modal__intro__title```
-  Class to be used on the primary heading (title) of the modal.
+* ```.modal__intro__title```<br>Class to be used on the primary heading (title) of the modal.
 
-* ```.modal__content```
-  Class to be used on the primary content area of the modal.
+* ```.modal__content```<br>Class to be used on the primary content area of the modal.
 
-* ```.modal__outro```
-  Class to be used on the call to action, or footer area of the content container
+* ```.modal__outro```<br>Class to be used on the call to action, or footer area of the content container
 
-* ```.modal__outro__close```
-  Class to be used on the close button for the modal.
+* ```.modal__outro__close```<br>Class to be used on the close button for the modal.
 
-* ```.no-js-hide```
-  Helper class to hide elements when JavaScript is not available.
+* ```.no-js-hide```<br>Helper class to hide elements when JavaScript is not available.
