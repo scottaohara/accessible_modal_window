@@ -76,8 +76,8 @@ $modal__close--alt--color:          #fff;
 // we need these rules in place when a modal is open
 .#{$ns}modal-is-open,
 .#{$ns}modal-is-open body {
-  overflow: hidden;
   height: 100%;
+  overflow: hidden;
   position: absolute;
   width: 100%;
 }
@@ -130,6 +130,12 @@ $modal__close--alt--color:          #fff;
   }
 
   &--full-width {
+    max-width: 100%;
+  }
+
+  &--take-over {
+    height: 100%;
+    max-height: 100%;
     max-width: 100%;
   }
 

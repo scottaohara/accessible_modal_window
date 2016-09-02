@@ -5,8 +5,8 @@
 --------------------------------------------------------------------- */
 .modal-is-open,
 .modal-is-open body {
-  overflow: hidden;
   height: 100%;
+  overflow: hidden;
   position: absolute;
   width: 100%; }
 
@@ -50,6 +50,10 @@
   .modal--sm {
     max-width: 400px; }
   .modal--full-width {
+    max-width: 100%; }
+  .modal--take-over {
+    height: 100%;
+    max-height: 100%;
     max-width: 100%; }
   .modal--content-scroll {
     overflow: hidden; }

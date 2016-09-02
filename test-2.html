@@ -23,63 +23,37 @@
     <div id="page" class="content-area mxw-600">
 
       <h1 id="normal_ex">
-        Test 1: Default
+        Test 2: Minimal Markup
       </h1>
       <p>
-        Example of a default modal window setup
+        Example of the minimal amount of markup required to get a modal up and running, to demonstrate what elements and attributes will be auto generated.
       </p>
 
-      <p class="no-js-hide">
-          <button type="button" class="btn"
-            data-action="modal-open"
-            data-modal-open="test_1">
-            Open Modal (true button)
-          </button>
+      <p>
+        <button type="button" class="btn"
+          data-action="modal-open"
+          data-modal-open="test_1">
+          Open Modal Button
+        </button>
 
-          or
+        or
 
-          <a href="#test_1"
-             data-action="modal-open"
-             class="btn">
-            Open Modal ("Button")
-          </a>
-        </p>
+        <a href="#test_1"
+           data-action="modal-open"
+           class="btn">
+          Open Modal Link "Button"
+        </a>
+      </p>
 
-        <div id="test_1" class="a11y-modal">
+      <div id="test_1" class="a11y-modal">
 
-          <div class="modal">
+        <div class="modal">
+          <p>
+            Example text with <a href="#!">focusable test link</a>.
+          </p>
+        </div> <!--/.modal -->
 
-            <div class="modal__intro">
-              <h3 class="modal__intro__title">
-                Modal Window
-              </h3>
-              <p>
-                intro text
-              </p>
-            </div>
-
-
-            <!-- main modal content here -->
-            <div class="modal__content">
-              <p>
-                Content goes here that talks about a thing that you couldn't do
-                in the <a href="#!">normal DOM flow</a> for some reason.
-              </p>
-            </div>
-
-
-            <!-- Outro content here -->
-            <div class="modal__outro txt-center">
-              <p>Outro message</p>
-              <a data-modal-close
-                 class="modal__outro__close"
-                 href="#x">
-                <svg role="presentation" viewBox="0 0 20 20" height="20" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 10.5l8.646-8.646a.5.5 0 0 0-.707-.707L10 9.793 1.354 1.147a.5.5 0 0 0-.707.707L9.293 10.5.647 19.146a.5.5 0 0 0 .708.707l8.646-8.646 8.646 8.646a.498.498 0 0 0 .708 0 .5.5 0 0 0 0-.707L10.709 10.5z"/></svg>
-              </a>
-            </div>
-
-          </div> <!-- end .modal -->
-        </div>
+      </div> <!-- /.a11y-modal -->
 
     </div> <!-- /#page -->
 
