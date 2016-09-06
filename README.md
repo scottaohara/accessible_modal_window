@@ -1,7 +1,7 @@
 Accessible Modal Window (dialog)
 ================
 
-_Read all about it:_
+_Read all about it:_  
 [Version 1 - Smashing Magazine Article](http://www.smashingmagazine.com/2014/09/making-modal-windows-better-for-everyone/)  
 [Version 2 - Release Article](http://www.scottohara.me/article/modal-window-revisited.html)
 
