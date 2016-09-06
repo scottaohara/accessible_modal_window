@@ -8,13 +8,12 @@
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <script>
-      // remove no-js and add 'js' & 'has-js' to the HTML
+      // remove no-js and add 'js' to the HTML
       document.documentElement.className = document.documentElement.className.replace('no-js', " ");
       document.documentElement.className += ' js ';
     </script>
     <style>
-      *,*:after,*:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:arial}*{margin-bottom:0}body,html{background:#fdf7f8;color:#450c13;font-size:20px;line-height:1.3;margin:0;padding:0;-moz-text-size-adjust:100%;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;text-rendering:optimizeLegibility}.content-area{padding:20px;margin:auto}.mxw-600{max-width:600px}a{color:#921c2b}a:hover,a:focus{color:#c12f48}.btn{background:#921c2b;border:1px solid #4d0912;color:#fff;cursor:pointer;font-size:1em;line-height:1;margin-bottom:12px;padding:16px 24px;position:relative;text-align:center;transition:transform .2s, background .2s}.btn:hover,.btn:focus{background:#c12f48;transform:scale(1.1);z-index:3}label{display:inline-block;font-size:.75em;font-weight:bold;margin-bottom:.5em}input[type="text"]{border:1px solid #333;display:block;font-size:1.4em;margin-bottom:1em;min-width:230px;padding:8px;width:100%}section{padding-bottom:32px;margin-bottom:32px;border-bottom:1px solid #aaa}label{margin-top:20px;}a.btn{text-decoration:none;}a.btn:hover, a.btn:focus{color:#fff;}p{margin:20px 0;}
-
+    *,*:after,*:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:arial}*{margin-bottom:0}body,html{background:#fafafa;color:#450c13;font-size:20px;line-height:1.3;margin:0;padding:0;-moz-text-size-adjust:100%;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;text-rendering:optimizeLegibility}.content-area{padding:20px;margin:auto}.mxw-600{max-width:600px}a{color:#921c2b}a:hover,a:focus{color:#c12f48}.btn{background:#921c2b;border:1px solid #4d0912;color:#fff;cursor:pointer;display:inline-block;font-size:1em;line-height:1;margin-bottom:12px;padding:16px 24px;position:relative;text-align:center;transition:transform .2s, background .2s}.btn:hover,.btn:focus{background:#c12f48;}label{display:inline-block;font-size:.75em;font-weight:bold;margin-bottom:.5em}input[type="text"]{border:1px solid #333;display:block;font-size:1.4em;margin-bottom:1em;min-width:230px;padding:8px;width:100%}section{padding-bottom:32px;margin-bottom:32px;border-bottom:1px solid #aaa}label{margin-top:20px;}button{border:none;}.txt-center{text-align:center;}a.btn{text-decoration:none;}a.btn:hover,a.btn:focus{color:#fff;}p{margin:20px 0;}
     </style>
     <link rel="stylesheet" href="assets/css/app.css" />
   </head>
@@ -22,43 +21,35 @@
 
     <div id="page" class="content-area mxw-600">
 
-      <header>
-        <h1>
-          Modal Window Examples
-        </h1>
-      </header>
-
-      <section aria-labelledby="normal_ex">
-        <h2 id="normal_ex">
-          Example of a normal sized modal
-        </h2>
+      <article aria-labelledby="normal_ex">
+        <header>
+          <h1>
+            Accessible Modal Window <abbr title="version 2">V2</abbr>
+          </h1>
+        </header>
         <p>
-          A standard use of the modal window. Without JavaScript, this modal will be presented in the normal document flow.
+          To find out more about the code and expected UX behind these modal windows, you can read the <a href="http://www.scottohara.me/article/modal-window-revisited.html">Version 2 release article</a>, or you can check out the <a href="https://github.com/scottaohara/accessible_modal_window">Version 2 GitHub repo &amp; ReadMe</a>.
         </p>
 
         <p>
           <button type="button"
-            class="btn--sm btn"
+            class="btn"
             data-action="modal-open"
-            data-modal-open="normal_modal"
-            data-set-modal-title="Test Title">
+            data-modal-open="modal_1">
             Launch Modal
           </button>
         </p>
 
-        <div id="normal_modal" class="a11y-modal">
+        <div id="modal_1" class="a11y-modal">
 
           <div class="modal">
 
             <div class="modal__intro">
-              <h3 id="normal_modal__title"
+              <h3 id="modal_1__title"
                   data-modal-title
                   class="modal__intro__title">
-                Normal Modal Window
+                Default Modal Window
               </h3>
-              <p>
-                intro text
-              </p>
             </div>
 
 
@@ -72,185 +63,102 @@
 
 
             <!-- Outro content here -->
-            <div class="modal__outro txt-center">
-              <p>Outro message</p>
-              <a data-modal-close
+            <div class="modal__outro">
+              <p>Outro message could go here</p>
+              <button data-modal-close
                  class="modal__outro__close"
-                 href="#x">
+                 type="button">
                 <svg role="presentation" viewBox="0 0 20 20" height="20" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 10.5l8.646-8.646a.5.5 0 0 0-.707-.707L10 9.793 1.354 1.147a.5.5 0 0 0-.707.707L9.293 10.5.647 19.146a.5.5 0 0 0 .708.707l8.646-8.646 8.646 8.646a.498.498 0 0 0 .708 0 .5.5 0 0 0 0-.707L10.709 10.5z"/></svg>
-              </a>
+              </button>
             </div>
 
           </div> <!-- end .modal -->
         </div>
-      </section>
-
-      <section aria-labelledby="small_ex">
-        <h2 id="small_ex">
-          Small Modal Window (alert)
-        </h2>
 
         <p>
-          This window will be announced as an Alert. Without JavaScript it will be present by default.
-
-          <a data-action="modal-open"
-             data-modal-open="small_modal"
-             data-set-modal-title="Test Title"
-             data-modal-alert="true"
-             class="no-js-hide"
-             href="#small_modal">
-            Open Small Alert Modal
+          <a href="#!"
+            class="btn no-js-hide"
+            data-action="modal-open"
+            data-modal-open="modal_2">
+            Launch Modal 2
           </a>
         </p>
 
-        <div id="small_modal" class="a11y-modal">
+        <div id="modal_2" class="a11y-modal">
 
-          <div class="modal modal--sm">
+          <div class="modal">
 
             <div class="modal__intro">
-              <h3 id="small_modal_title"
+              <h3 id="modal_2__title"
                   data-modal-title
                   class="modal__intro__title">
-                Small Modal Window (alert)
+                Another Modal Window
               </h3>
-              <p>
-                intro text <a href="#!">test</a>
-              </p>
             </div>
 
+
+            <!-- main modal content here -->
             <div class="modal__content">
               <p>
                 Content goes here that talks about a thing that you couldn't do
-                in the normal DOM flow for some reason. <a href="#!">test</a>
-              </p>
-              <p>
-                Content goes here that talks about a thing that you couldn't do
-                in the normal DOM flow for some reason. <a href="#!">test</a>
+                in the normal DOM flow for some reason.
               </p>
             </div>
 
-
-            <!-- Outro content here -->
-            <div class="modal__outro txt-center">
-              <p>Outro message</p>
-              <a data-modal-close
-                 class="modal__outro__close"
-                 href="#x">
-                <svg role="img" viewBox="0 0 20 20" height="20" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 10.5l8.646-8.646a.5.5 0 0 0-.707-.707L10 9.793 1.354 1.147a.5.5 0 0 0-.707.707L9.293 10.5.647 19.146a.5.5 0 0 0 .708.707l8.646-8.646 8.646 8.646a.498.498 0 0 0 .708 0 .5.5 0 0 0 0-.707L10.709 10.5z"/></svg>
-              </a>
+            <div class="txt-center no-js-hide">
+              <button data-modal-close type="button" class="btn">
+                Close
+              </button>
             </div>
 
           </div> <!-- end .modal -->
         </div>
 
-        <div class="form-row">
-          <label for="ex_txt">
-            Example Text Input
-          </label>
-          <input type="text" id="ex_txt" />
-        </div>
-      </section>
+        <hr />
 
-      <section aria-labelledby="small_ex_no_js">
-        <h2 id="small_ex_no_js">
-          Small Modal Window w/out JS
-        </h2>
-
+        <h3>
+          Additional Test Examples
+        </h3>
         <p>
-          Example paragraph goes here.
-          <a data-action="modal-open"
-             data-modal-open="small_modal_no_js"
-             href="#small_modal_no_js">
-            Open Small Modal
-          </a>
+          The following links
         </p>
 
-        <div id="small_modal_no_js" class="a11y-modal no-js-hide">
+        <ul>
+          <li>
+            <a href="tests/test-1.html">
+              Default Setup
+            </a>
+          </li>
+          <li>
+            <a href="tests/test-2.html">
+              Minimum Required Markup
+            </a>
+          </li>
+          <li>
+            <a href="tests/test-3.html">
+              Full Width
+            </a>
+          </li>
+          <li>
+            <a href="tests/test-4.html">
+              Dynamic Classes (small and take-over sizing)
+            </a>
+          </li>
+          <li>
+            <a href="tests/test-5.html">
+              Alert Dialog
+            </a>
+          </li>
+        </ul>
 
-          <div class="modal modal--sm">
 
-            <div class="modal__intro">
-              <h3 class="modal__intro__title">
-                Small Modal Window
-              </h3>
-              <p>
-                intro text <a href="#!">test</a>
-              </p>
-            </div>
+      </article>
 
-            <div class="modal__content">
-              <p>
-                This is a small modal, but it's different than the other small modal. <a href="#!">test</a>
-              </p>
-              <p>
-                Content goes here that talks about a thing that you couldn't do
-                in the normal DOM flow for some reason. <a href="#!">test</a>
-              </p>
-            </div>
-
-
-            <!-- Outro content here -->
-            <div class="modal__outro txt-center">
-              <p>Outro message</p>
-              <a data-modal-close
-                 class="modal__outro__close"
-                 href="#x">
-                <svg role="img" viewBox="0 0 20 20" height="20" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 10.5l8.646-8.646a.5.5 0 0 0-.707-.707L10 9.793 1.354 1.147a.5.5 0 0 0-.707.707L9.293 10.5.647 19.146a.5.5 0 0 0 .708.707l8.646-8.646 8.646 8.646a.498.498 0 0 0 .708 0 .5.5 0 0 0 0-.707L10.709 10.5z"/></svg>
-              </a>
-            </div>
-
-          </div> <!-- end .modal -->
-        </div>
-
-        <div class="form-row">
-          <label for="ex_txt">
-            Example Text Input
-          </label>
-          <input type="text" id="ex_txt" />
-        </div>
-      </section>
 
     </div> <!-- /.page -->
 
-    <div class="content-area mxw-600">
-      <h3>Additional Test Examples</h3>
-      <nav role="navigation" aria-label="Additional Examples">
-      <ul>
-        <li>
-          <a href="tests/test-1.html">
-            Default Setup
-          </a>
-        </li>
-        <li>
-          <a href="tests/test-2.html">
-            Minimum Required Markup
-          </a>
-        </li>
-        <li>
-          <a href="tests/test-3.html">
-            Full Width
-          </a>
-        </li>
-        <li>
-          <a href="tests/test-4.html">
-            Dynamic Classes
-          </a>
-        </li>
-        <li>
-          <a href="tests/test-5.html">
-            Alert Example
-          </a>
-        </li>
-      </ul>
-    </nav>
-    </div>
-
-
-
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="assets/js/a11y.modal.js"></script>
-
 
   </body>
 </html>

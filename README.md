@@ -3,7 +3,7 @@ Accessible Modal Window (dialog)
 
 _Read all about it:_
 [Version 1 - Smashing Magazine Article](http://www.smashingmagazine.com/2014/09/making-modal-windows-better-for-everyone/)  
-[Version 2 - Coming Soon](#!)
+[Version 2 - Release Article](http://www.scottohara.me/article/modal-window-revisited.html)
 
 
 ## Requirements
@@ -26,7 +26,8 @@ Modals can be triggered by either a ```<button>``` or ```<a>```.
 </button>
 
 <a data-action="modal-open"
-   href="#unique_ID_2">
+   href="#unique_ID_2"
+   id="unique_link_id">
   Open Small Alert Modal
 </a>
 ```
@@ -53,7 +54,7 @@ The recommended default markup for the modal window component:
 
       <a data-modal-close
          class="modal__outro__close"
-         href="#x">
+         href="#unique_link_id">
         <svg role="presentation" viewBox="0 0 20 20" height="20" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 10.5l8.646-8.646a.5.5 0 0 0-.707-.707L10 9.793 1.354 1.147a.5.5 0 0 0-.707.707L9.293 10.5.647 19.146a.5.5 0 0 0 .708.707l8.646-8.646 8.646 8.646a.498.498 0 0 0 .708 0 .5.5 0 0 0 0-.707L10.709 10.5z"/></svg>
       </a>
     </div> <!-- /.modal__outro -->
@@ -105,7 +106,7 @@ Note - the above attributes should be set to either the container or trigger ele
 
 ### Additional Functionality
 
-Include [Matt Casserly's hash.click function](https://github.com/mattcass/hash.click) to auto open modal windows on page load, if their URI is part of the address bar.
+Include [Matt Casserly's hash.click function](https://github.com/mattcass/hash.click) to auto open modal windows on page load, if their URI is part of the address bar. This will emulate a click of the modal trigger, so the standard modal open events will be performed.
 
 ```html
   <script src="assets/js/jquery-3.1.0.min.js"></script>

@@ -8,13 +8,12 @@
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <script>
-      // remove no-js and add 'js' & 'has-js' to the HTML
+      // remove no-js and add 'js' to the HTML
       document.documentElement.className = document.documentElement.className.replace('no-js', " ");
       document.documentElement.className += ' js ';
     </script>
     <style>
-      *,*:after,*:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:arial}*{margin-bottom:0}body,html{background:#fdf7f8;color:#450c13;font-size:20px;line-height:1.3;margin:0;padding:0;-moz-text-size-adjust:100%;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;text-rendering:optimizeLegibility}.content-area{padding:20px;margin:auto}.mxw-600{max-width:600px}a{color:#921c2b}a:hover,a:focus{color:#c12f48}.btn{background:#921c2b;border:1px solid #4d0912;color:#fff;cursor:pointer;font-size:1em;line-height:1;margin-bottom:12px;padding:16px 24px;position:relative;text-align:center;transition:transform .2s, background .2s}.btn:hover,.btn:focus{background:#c12f48;transform:scale(1.1);z-index:3}label{display:inline-block;font-size:1.5em;font-weight:bold;margin-bottom:.5em}input[type="text"]{border:1px solid #333;display:block;font-size:1.4em;margin-bottom:1em;min-width:230px;padding:8px;width:100%}section{padding-bottom:32px;margin-bottom:32px;border-bottom:1px solid #aaa}label{margin-top:20px;}a.btn{text-decoration:none;}a.btn:hover, a.btn:focus{color:#fff;}p{margin:20px 0;}
-
+    *,*:after,*:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:arial}*{margin-bottom:0}body,html{background:#fafafa;color:#450c13;font-size:20px;line-height:1.3;margin:0;padding:0;-moz-text-size-adjust:100%;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;text-rendering:optimizeLegibility}.content-area{padding:20px;margin:auto}.mxw-600{max-width:600px}a{color:#921c2b}a:hover,a:focus{color:#c12f48}.btn{background:#921c2b;border:1px solid #4d0912;color:#fff;cursor:pointer;display:inline-block;font-size:1em;line-height:1;margin-bottom:12px;padding:16px 24px;position:relative;text-align:center;transition:transform .2s, background .2s}.btn:hover,.btn:focus{background:#c12f48;}label{display:inline-block;font-size:.75em;font-weight:bold;margin-bottom:.5em}input[type="text"]{border:1px solid #333;display:block;font-size:1.4em;margin-bottom:1em;min-width:230px;padding:8px;width:100%}section{padding-bottom:32px;margin-bottom:32px;border-bottom:1px solid #aaa}label{margin-top:20px;}button{border:none;}.txt-center{text-align:center;}a.btn{text-decoration:none;}a.btn:hover,a.btn:focus{color:#fff;}p{margin:20px 0;}
     </style>
     <link rel="stylesheet" href="../assets/css/app.css" />
   </head>
@@ -22,7 +21,7 @@
 
     <div id="page" class="content-area mxw-600">
 
-      <h1 id="normal_ex">
+      <h1>
         Test 4: Dynamically change modal styling
       </h1>
       <p>
@@ -30,71 +29,71 @@
       </p>
 
       <p class="no-js-hide">
-          <button type="button" class="btn"
-            data-action="modal-open"
-            data-add-style="modal--sm"
-            data-modal-open="test_1">
-            Open Modal (true button)
-          </button>
+        <button type="button" class="btn"
+          data-action="modal-open"
+          data-add-style="modal--sm"
+          data-modal-open="test_1">
+          Open Modal (true button)
+        </button>
 
-          or
+        or
 
-          <a href="#test_1"
-             data-action="modal-open"
-             data-add-style="modal--take-over"
-             class="btn">
-            Open Modal ("Button")
-          </a>
-        </p>
+        <a href="#test_1"
+           data-action="modal-open"
+           data-add-style="modal--take-over"
+           class="btn">
+          Open Modal ("Button")
+        </a>
+      </p>
 
-        <div id="test_1" class="a11y-modal">
+      <div id="test_1" class="a11y-modal">
 
-          <div class="modal">
+        <div class="modal">
 
-            <div class="modal__intro">
-              <h3 class="modal__intro__title">
-                Modal Window
-              </h3>
-              <p>
-                intro text
-              </p>
-            </div>
-
-
-            <!-- main modal content here -->
-            <div class="modal__content">
-              <p>
-                Example text with <a href="#!">focusable test link</a>.
-              </p>
-              <p>
-                Example text with <a href="#!">focusable test link</a>.
-              </p>
-              <p>
-                Example text with <a href="#!">focusable test link</a>.
-              </p>
-              <p>
-                Example text with <a href="#!">focusable test link</a>.
-              </p>
-            </div>
+          <div class="modal__intro">
+            <h3 class="modal__intro__title">
+              Modal Window
+            </h3>
+            <p>
+              intro text
+            </p>
+          </div>
 
 
-            <!-- Outro content here -->
-            <div class="modal__outro txt-center">
-              <p>Outro message</p>
-              <a data-modal-close
-                 class="modal__outro__close"
-                 href="#x">
-                <svg role="presentation" viewBox="0 0 20 20" height="20" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 10.5l8.646-8.646a.5.5 0 0 0-.707-.707L10 9.793 1.354 1.147a.5.5 0 0 0-.707.707L9.293 10.5.647 19.146a.5.5 0 0 0 .708.707l8.646-8.646 8.646 8.646a.498.498 0 0 0 .708 0 .5.5 0 0 0 0-.707L10.709 10.5z"/></svg>
-              </a>
-            </div>
+          <!-- main modal content here -->
+          <div class="modal__content">
+            <p>
+              Example text with <a href="#!">focusable test link</a>.
+            </p>
+            <p>
+              Example text with <a href="#!">focusable test link</a>.
+            </p>
+            <p>
+              Example text with <a href="#!">focusable test link</a>.
+            </p>
+            <p>
+              Example text with <a href="#!">focusable test link</a>.
+            </p>
+          </div>
 
-          </div> <!-- end .modal -->
-        </div>
+
+          <!-- Outro content here -->
+          <div class="modal__outro txt-center">
+            <p>Outro message</p>
+            <a data-modal-close
+               class="modal__outro__close"
+               href="#x">
+              <svg role="presentation" viewBox="0 0 20 20" height="20" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 10.5l8.646-8.646a.5.5 0 0 0-.707-.707L10 9.793 1.354 1.147a.5.5 0 0 0-.707.707L9.293 10.5.647 19.146a.5.5 0 0 0 .708.707l8.646-8.646 8.646 8.646a.498.498 0 0 0 .708 0 .5.5 0 0 0 0-.707L10.709 10.5z"/></svg>
+            </a>
+          </div>
+
+        </div> <!-- end .modal -->
+      </div>
 
     </div> <!-- /#page -->
 
     <div class="content-area mxw-600">
-      <p>additional test area <a href="#!">test link</a></p>
+      <p>Additional test area <a href="../index.html">return to index</a></p>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
