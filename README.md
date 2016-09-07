@@ -22,13 +22,13 @@ Modals can be triggered by either a ```<button>``` or ```<a>```.
   class="__your_btn_classes_here__"
   data-action="modal-open"
   data-modal-open="unique_ID_1">
-  Launch Modal
+  Unique Button Text
 </button>
 
 <a data-action="modal-open"
    href="#unique_ID_2"
    id="unique_link_id">
-  Open Small Alert Modal
+  Unique Link Text
 </a>
 ```
 
