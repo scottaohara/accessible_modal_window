@@ -15,7 +15,7 @@ _Read all about it:_
 
 Simply include the _a11y.modal.js_ file at the bottom of your document, or concatenated into your primary .js file as part of your build process.
 
-Modals can be triggered by either a ```<button>``` or ```<a>```.
+Modals can be triggered by either a ```<button>``` or ```<a>```. If using an ```<a>```, the JavaScript will add a ```role="button"``` to the element, and will allow both <kbd>Space</kbd> and <kbd>Enter</kbd> to open a modal.
 
 ```html
 <button type="button"
@@ -64,6 +64,9 @@ The recommended default markup for the modal window component:
 </div> <!-- /.a11y-modal -->
 ```
 
+The ```data-modal-close``` attribute is what the script looks for in closing the modal window. So if you would like to change the class or the ```<svg>```, go right ahead.  Just make sure to add that attribute to whatever your close trigger ends up being.
+
+
 ### Optional attributes 
 
 Optional attributes that can be set to the modal trigger or ```.a11y-modal``` container:
@@ -102,6 +105,10 @@ Note - the above attributes should be set to either the container or trigger ele
 
 * ```.no-js-hide```<br>Helper class to hide elements when JavaScript is not available.
 
+
+### JavaScript breakdown
+
+For a high level breakdown, please review the [version 2 release article](http://www.scottohara.me/article/modal-window-revisited.html).  For an in depth break down of what each function is doing, you can review the [documented JavaScript file](https://github.com/scottaohara/accessible_modal_window/blob/master/assets/js/a11y.modal.js).
 
 
 ### Additional Functionality

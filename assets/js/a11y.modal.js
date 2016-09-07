@@ -6,9 +6,9 @@
 
   A11yModal.NS = "A11yModal";
   A11yModal.AUTHOR = "Scott O'Hara";
-  A11yModal.VERION = "2.2.0";
+  A11yModal.VERION = "2.2.1";
   A11yModal.DOCUMENTATION = 'https://github.com/scottaohara/accessible_modal_window';
-  A11yModal.LICENSE = "https://github.com/scottaohara/accessible-components/blob/master/LICENSE.md";
+  A11yModal.LICENSE = "https://github.com/scottaohara/accessible_modal_window/blob/master/LICENSE";
 
 
   // setup global class variables
@@ -91,7 +91,7 @@
 
             // check to see if an aria-label was set on the modal
             // if not, then start running checks to apply an aria-labelledby
-            if ( !$self.attr('aria-label') ) {
+            if ( !$self[0].hasAttribute('aria-label') ) {
 
               // if the modal window has a child modalTitle set,
               // then add an aria-labelledby attribute to the dialog,
@@ -150,12 +150,15 @@
             // If a modal doesn't have a close button, create it.
             if ( !$this.find(modalClose).length ) {
 
+              // the best place to add the close button would be
+              // in the outro area, so check to see if it exists
               if ( $this.find('.modal__outro').length ) {
 
                 $this.find('.modal__outro').append(genModalClose);
 
               } else {
-
+                // if the outro area doesn't exist, then just add
+                // the close button as the last element in the modal.
                 $this.append(genModalClose);
 
               } // if/else
@@ -304,12 +307,12 @@
           // if not, that means that the modal didn't have a manually set aria-label,
           // nor does the modal have any sort of heading element to draw a title from.
           // In this instance, pull the safetyModalTitle var in as an aria-label
-          if ( !$modalTarget.attr('aria-labelledby') && !$modalTarget.attr('aria-label') ) {
+          if ( !$modalTarget[0].hasAttribute('aria-labelledby') && !$modalTarget[0].hasAttribute('aria-label') ) {
 
             // Last ditch effort to allow control over what the aria-label will be.
             // If the data-set-modal-title attribute is set to the modal trigger,
             // its value will be set as the modal's aria-label
-            if ( $this.attr('data-set-modal-title') ) {
+            if ( $this[0].hasAttribute('data-set-modal-title') ) {
               safetyModalTitle = $this.attr('data-set-modal-title');
             }
 
