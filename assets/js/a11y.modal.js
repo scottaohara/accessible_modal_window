@@ -6,7 +6,7 @@
 
   A11yModal.NS = "A11yModal";
   A11yModal.AUTHOR = "Scott O'Hara";
-  A11yModal.VERION = "2.2.1";
+  A11yModal.VERION = "2.2.2";
   A11yModal.DOCUMENTATION = 'https://github.com/scottaohara/accessible_modal_window';
   A11yModal.LICENSE = "https://github.com/scottaohara/accessible_modal_window/blob/master/LICENSE";
 
@@ -165,11 +165,9 @@
 
             } // if
 
-            // Set aria-label and control attributes to the
-            // close trigger.
+            // Set aria-label to the close trigger.
             $this.find(modalClose).attr({
-              'aria-label': 'Close Modal',
-              'aria-controls': $this.parent().attr('id')
+              'aria-label': 'Close Modal'
             });
 
           }); // end modalDoc
