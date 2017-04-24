@@ -3,7 +3,7 @@ Accessible Modal Window (dialog)
 
 _Read all about it:_  
 [Version 1 - Smashing Magazine Article](http://www.smashingmagazine.com/2014/09/making-modal-windows-better-for-everyone/)  
-[Version 2 - Release Article](http://www.scottohara.me/article/modal-window-revisited.html)
+[Version 2 - Release Article](http://www.scottohara.me/blog/2016/09/07/revised-modal-window.html)  
 
 
 ## Requirements
@@ -108,7 +108,7 @@ Note - the above attributes should be set to either the container or trigger ele
 
 ### JavaScript breakdown
 
-For a high level breakdown, please review the [version 2 release article](http://www.scottohara.me/article/modal-window-revisited.html).  For an in depth break down of what each function is doing, you can review the [documented JavaScript file](https://github.com/scottaohara/accessible_modal_window/blob/master/assets/js/a11y.modal.js).
+For a high level breakdown, please review the [version 2 release article](http://www.scottohara.me/blog/2016/09/07/revised-modal-window.html).  For an break down of what each function is doing, you can review the [documented JavaScript file](https://github.com/scottaohara/accessible_modal_window/blob/master/assets/js/a11y.modal.js).
 
 
 ### Additional Functionality
