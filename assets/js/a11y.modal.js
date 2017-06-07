@@ -12,29 +12,31 @@
 
 
   // setup global class variables
-  var modalTrigger      = '[data-action="modal-open"]',
+  var modalTrigger      = '[data-action="modal-open"]';
 
-      modal             = '.a11y-modal',
+  var modal             = '.a11y-modal';
 
-      modalClass        = 'modal',
-      modalDoc          = '.'+modalClass,
-      modalTitle        = '[data-modal-title]',
-      modalClose        = '[data-modal-close]',
+  var modalClass        = 'modal';
+  var modalDoc          = '.'+modalClass;
+  var modalTitle        = '[data-modal-title]';
+  var modalClose        = '[data-modal-close]';
 
-      modalAddStyle     = 'data-add-style',
+  var modalAddStyle     = 'data-add-style';
 
-      modalIsOpen       = 'modal-is-open',
+  var modalIsOpen       = 'modal-is-open';
 
-      genModalClose     = '<button type="button" data-modal-close class="modal__outro__close"><svg role="presentation" viewBox="0 0 20 20" height="20" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 10.5l8.646-8.646a.5.5 0 0 0-.707-.707L10 9.793 1.354 1.147a.5.5 0 0 0-.707.707L9.293 10.5.647 19.146a.5.5 0 0 0 .708.707l8.646-8.646 8.646 8.646a.498.498 0 0 0 .708 0 .5.5 0 0 0 0-.707L10.709 10.5z"/></svg></button>',
+  var genModalClose     = '<button type="button" data-modal-close class="modal__outro__close"><svg role="presentation" viewBox="0 0 20 20" height="20" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 10.5l8.646-8.646a.5.5 0 0 0-.707-.707L10 9.793 1.354 1.147a.5.5 0 0 0-.707.707L9.293 10.5.647 19.146a.5.5 0 0 0 .708.707l8.646-8.646 8.646 8.646a.498.498 0 0 0 .708 0 .5.5 0 0 0 0-.707L10.709 10.5z"/></svg></button>';
 
-      $html             = $('html'),
+  var $html             = $('html');
 
-      bodyWrapID        = 'a11y_body_wrap',
-      bodyElements      = 'a11y-hide-if-modal-open',
+  var bodyWrapID        = 'a11y_body_wrap';
+  var bodyElements      = 'a11y-hide-if-modal-open';
 
-      bodyWrapInit      = 'default',
+  var bodyWrapInit      = 'default';
 
-      safetyModalTitle  = "Dialog Window";
+  var safetyModalTitle  = "Dialog Window";
+
+  var $openedModals     = 0;
 
 
   $.fn.extend({
@@ -47,23 +49,20 @@
           bodyWrapID = bodyWrapInit;
         }
 
-        var id = this.id,
-            $self = $('#' + id),
+        var id = this.id;
+        var $self = $('#' + id),
 
         // setup modals properly
         setupA11yModal = function () {
-
           // setup each modal instance to have the
           // appropriate attributes. These attributes
           // are applied to what would be considered the
           // modal container, or 'overlay'
           $self.each( function () {
-
-            var $this = $(this),
-                $findTitle = $this.find(modalTitle),
-                $findHeading = $this.find(':header'),
-                $thisLabel;
-
+            var $this = $(this);
+            var $findTitle = $this.find(modalTitle);
+            var $findHeading = $this.find(':header');
+            var $thisLabel;
 
             // first check to see what sort of dialog this should be
             // if a data-modal-alert attribute is set to true, then
@@ -81,13 +80,11 @@
               });
             }
 
-
             // we will need to set focus to the modal content
             // container for focus trapping reasons, so we
             // need this to have a tabindex
             $this.attr('tabindex', '-1');
             $this.find(modalDoc).attr('tabindex', '-1');
-
 
             // check to see if an aria-label was set on the modal
             // if not, then start running checks to apply an aria-labelledby
@@ -97,9 +94,7 @@
               // then add an aria-labelledby attribute to the dialog,
               // pointing to that element.
               if ( $findTitle.length ) {
-
                 $thisLabel = $findTitle.attr('id');
-
               } //if $findTitle
 
               // in the event that a modalTitle wasn't manually set,
@@ -107,27 +102,20 @@
               // present at all, and then make THAT the source for the
               // aria-labelledby
               else if ( $findHeading.length ) {
-
                 // does the heading we found have an id already?
                 // let's check
                 if ( $findHeading.first().attr('id') ) {
-
                   $thisLabel = $findHeading.first().attr('id');
-
                 } // if it doesn't, then generate one
                 else {
                   $thisLabel = $this.attr('id') + '_title';
 
                   $findHeading.first().attr('id', $thisLabel);
-
                 } //else
-
               } // else/if
 
               $this.attr( 'aria-labelledby', $thisLabel );
-
             } // if
-
           });
 
 
@@ -136,13 +124,11 @@
           $self.find(modalDoc).each( function () {
             var $this = $(this);
 
-
             // important for older versions of NVDA to accurately
             // understand a modal's content
             $this.attr({
               'role': 'document' // *
             });
-
 
             // Modals need a close button, and it should be the last
             // element in the modal.
@@ -153,14 +139,12 @@
               // the best place to add the close button would be
               // in the outro area, so check to see if it exists
               if ( $this.find('.modal__outro').length ) {
-
                 $this.find('.modal__outro').append(genModalClose);
-
-              } else {
+              }
+              else {
                 // if the outro area doesn't exist, then just add
                 // the close button as the last element in the modal.
                 $this.append(genModalClose);
-
               } // if/else
 
             } // if
@@ -169,9 +153,7 @@
             $this.find(modalClose).attr({
               'aria-label': 'Close Modal'
             });
-
           }); // end modalDoc
-
         },
 
 
@@ -181,21 +163,16 @@
         // final check to ensure that the modal window
         // has appropriate labeling
         setupA11yModalTriggers = function () {
-
           $(modalTrigger).each( function () {
-
-            var $this = $(this),
-                $grabTarget,
-                $modalTarget;
+            var $this = $(this);
+            var $grabTarget;
+            var $modalTarget;
 
             // if the trigger is a link, we need to give it a
             // button role.
             if ( $this.attr('href') ) {
-
               $this.attr('role', 'button');
-
             }
-
 
             // The triggers need to point to the modals they control via
             // the aria-controls attribute. So run a check to see if the
@@ -208,23 +185,18 @@
             // create confusion for ATs that would expect certain
             // functionality that wouldn't be available due to lack of JS.
             if ( !$this.attr('aria-controls') ) {
-
               // make sure that the trigger actually triggers something.
               // if it there's no data-modal-open attribute set, then
               // pull the target from the href
               if ( $this.attr('data-modal-open') ) {
-
                 $grabTarget = $this.attr('data-modal-open');
                 $this.attr('aria-controls', $grabTarget );
-
               }
               // if there's no data-modal-open, pull the target from
               // from the href
               else if ( $this.attr('href') ) {
-
                 $grabTarget = $this.attr('href').split('#')[1];
                 $this.attr('aria-controls', $grabTarget );
-
               }
               // if neither of the above are set, then this just
               // won't work and you're clearly expecting this to
@@ -240,7 +212,6 @@
             // so we can run the next if
             $modalTarget = $('#'+$this.attr('aria-controls') )
 
-
             // finally a last check to see if the trigger is meant to launch
             // an alert dialog modal. If the alertdialog role wasn't set during
             // the initial setup function, then look to see if the 'data-modal-alert'
@@ -249,7 +220,6 @@
             if ( $this.attr('data-modal-alert') === 'true' && $modalTarget.attr('role') !== 'alertdialog' ) {
               $modalTarget.attr('role', 'alertdialog');
             }
-
           });
         },
 
@@ -259,10 +229,8 @@
         // their original place in the document order, and while wrapping all
         // normal content in a new wrapper div.
         organizeDOM = function () {
-
-          var $body = $('body'),
-              $bodyWrap = '<div id="'+bodyWrapID+'" />';
-
+          var $body = $('body');
+          var $bodyWrap = '<div id="'+bodyWrapID+'" />';
 
           // Wrap all contents of the <body> in a new div.
           // This div will be important in toggling screen reader's abilities
@@ -274,28 +242,28 @@
             $('body > *').wrapAll($bodyWrap);
           }
 
-
           // place all the modal dialogs at the top of the DOM, as the
           // first children of BODY. This will allow for backwards tabbing
           // into the browser's address bar, where as if the modals were
           // not located at the top of the DOM, keyboard focus would be
           // completely trapped within the modal window.
           $body.prepend($(modal));
-
         },
 
 
         openA11yModal = function ( e ) {
-
           // setup vars
-          var $this = $(this),
-              $modalTarget = $('#' + $this.attr('aria-controls') );
+          var $this = $(this);
+          var $modalTarget = $('#' + $this.attr('aria-controls') );
 
+          // if modal trigger is an <a>, make sure that URI isn't
+          // updated and more importantly that the document doesn't
+          // auto-jump to the DOM location of the modal window.
+          e.preventDefault();
 
           // if this trigger has a data attribute of 'data-add-style', take the value
           // of this attribute and add it as a class to the target modal window
           if ( $this[0].hasAttribute(modalAddStyle) ) {
-
             var $grabClass = $(this).attr(modalAddStyle);
 
             $modalTarget.find(modalDoc).attr('class', modalClass + ' ' + $grabClass);
@@ -316,28 +284,15 @@
 
             // set an aria-label to the modal
             $modalTarget.attr('aria-label', safetyModalTitle );
-
           } // if
 
-
-          // traps focus while the modal is open
-          trapFocus();
-
-          // if modal trigger is an <a>, make sure that URI isn't
-          // updated and more importantly that the document doesn't
-          // auto-jump to the DOM location of the modal window.
-          e.preventDefault();
-
-
-          // set that modal be visible, controlled by the
-          // aria-hidden attribute and CSS
+          // make the modal visible, by updating the aria-hidden
+          // attribute and it's corresponding CSS,
           // then shift focus to it
           $modalTarget.attr('aria-hidden', 'false');
 
-
-          // add a class to the HTML, to allow for a CSS hook
-          // to help restrict document scroll while the modal
-          // is open
+          // add a class to the HTML, to allow for a CSS hook to help
+          // restrict document scroll while the modal is open
           $html.addClass(modalIsOpen);
 
 
@@ -347,7 +302,7 @@
           $('body').find('#'+bodyWrapID).attr('aria-hidden', 'true');
 
 
-          // finally, apply focus to the newly opened modal window
+          // apply focus to the newly opened modal window
           $modalTarget.find(modalDoc).focus();
 
         },
@@ -368,23 +323,19 @@
           $('body').find('#'+bodyWrapID).removeAttr('aria-hidden');
 
           returnFocus.focus();
-
         },
 
 
         // on click of the modal overlay, close the modal
         overlayA11yModal = function ( e ) {
-
           if ( e.target === $self.find(modalDoc).parent().get(0) ) {
             closeA11yModal( e );
           }
-
         },
 
 
         // keyboard controls specific to the modal dialog windows
         keytrollsA11yModalTrigger = function ( e ) {
-
           var keyCode = e.keyCode || e.which;
 
           switch ( keyCode ) {
@@ -403,7 +354,6 @@
 
         // keyboard controls for opened modals
         keytrollsA11yModal = function ( e ) {
-
           var keyCode = e.keyCode || e.which;
 
           if ( $html.hasClass(modalIsOpen) ) {
@@ -432,9 +382,7 @@
                 break;
 
             } // switch
-
           }
-
         },
 
 
@@ -452,7 +400,6 @@
             }
 
           });
-
         }; // trap focus
 
 
