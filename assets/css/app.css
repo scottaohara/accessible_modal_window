@@ -10,11 +10,19 @@
   position: absolute;
   width: 100%; }
 
+.modal-is-open #a11y_body_wrap:after {
+  background: rgba(0, 0, 0, 0.4);
+  content: '';
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%; }
+
 .js .a11y-modal {
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
-  background: rgba(0, 0, 0, 0.666);
   height: 100%;
   left: 0;
   opacity: 0;

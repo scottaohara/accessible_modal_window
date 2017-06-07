@@ -38,7 +38,7 @@ $bp-large:                          59.375em !default;    // 950px
 $bp-1024:                           64em !default;        // 1024px
 
 // Modal Styling
-$modal-overlay--bg:                 rgba(0, 0, 0, .666) !default;
+$modal-overlay--bg:                 rgba(0, 0, 0, .4) !default;
 $modal-overlay--padding:            1.5em !default;
 
 $modal--bg:                         #fff !default;
@@ -82,10 +82,22 @@ $modal__close--alt--color:          #fff;
   width: 100%;
 }
 
+.modal-is-open #a11y_body_wrap {
+
+  &:after {
+    background: $modal-overlay--bg;
+    content: '';
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+}
+
 //
 .js .#{$ns}a11y-modal {
   @include flexbox();
-  background: $modal-overlay--bg;
   height: 100%;
   left: 0;
   opacity: 0;
