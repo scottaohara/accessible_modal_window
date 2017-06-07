@@ -80,6 +80,8 @@
               });
             }
 
+            $this.attr('aria-modal', 'true');
+
             // we will need to set focus to the modal content
             // container for focus trapping reasons, so we
             // need this to have a tabindex
