@@ -6,7 +6,7 @@
 
   A11yModal.NS = "A11yModal";
   A11yModal.AUTHOR = "Scott O'Hara";
-  A11yModal.VERION = "2.2.2";
+  A11yModal.VERION = "2.3.0";
   A11yModal.DOCUMENTATION = 'https://github.com/scottaohara/accessible_modal_window';
   A11yModal.LICENSE = "https://github.com/scottaohara/accessible_modal_window/blob/master/LICENSE";
 
@@ -36,7 +36,7 @@
 
   var safetyModalTitle  = "Dialog Window";
 
-  var $openedModals     = 0;
+  var $previousModal    = null;
 
 
   $.fn.extend({
@@ -83,7 +83,6 @@
             // we will need to set focus to the modal content
             // container for focus trapping reasons, so we
             // need this to have a tabindex
-            $this.attr('tabindex', '-1');
             $this.find(modalDoc).attr('tabindex', '-1');
 
             // check to see if an aria-label was set on the modal
@@ -269,6 +268,14 @@
             $modalTarget.find(modalDoc).attr('class', modalClass + ' ' + $grabClass);
           }
 
+          // if a modal is opened from within another modal, close the first
+          // modal so we can open the new one.
+          if ( $this.parents('.' + modalClass).length ) {
+            $this.closest(modal).attr('aria-hidden', 'true');
+            // keep track of the previous modal
+            $previousModal = $this.closest(modal).attr('id');
+          }
+
           // Check to see if the modal has either an aria-label or labelledby attribute
           // if not, that means that the modal didn't have a manually set aria-label,
           // nor does the modal have any sort of heading element to draw a title from.
@@ -295,34 +302,50 @@
           // restrict document scroll while the modal is open
           $html.addClass(modalIsOpen);
 
+          // traps focus while the modal is open
+          trapFocus( $modalTarget );
 
           // Hide main document content from screen readers by
           // applying an aria-hidden attribute to the primary document content
           // e.g. the wrapper around all things not modal windows
-          $('body').find('#'+bodyWrapID).attr('aria-hidden', 'true');
-
+          //
+          // Only do this if the wrapper was not already hidden, due to
+          // a previously opened modal window.
+          if ( !$('#' + bodyWrapID)[0].hasAttribute('aria-hidden') ) {
+            $('#' + bodyWrapID).attr('aria-hidden', 'true');
+          }
 
           // apply focus to the newly opened modal window
           $modalTarget.find(modalDoc).focus();
 
+          return $previousModal;
         },
+
 
 
         // Bind to both the button click and the escape key to
         // close the modal window  but only if isModalOpen is set to true
         closeA11yModal = function ( e ) {
-
           var returnFocus = $('[aria-controls="'+$self.attr('id')+'"]');
 
           e.preventDefault();
 
-          $html.removeClass(modalIsOpen);
           $self.attr('aria-hidden', 'true');
 
-          // remove the aria-hidden that was applied during modal open
-          $('body').find('#'+bodyWrapID).removeAttr('aria-hidden');
+          if ( $previousModal !== null ) {
+            $('#' + $previousModal).attr('aria-hidden', 'false');
+            $('#' + $previousModal).find(modalDoc).focus();
 
-          returnFocus.focus();
+            $previousModal = null;
+          }
+          else {
+            $html.removeClass(modalIsOpen);
+
+            // remove the aria-hidden that was applied during modal open
+            $('body').find('#'+bodyWrapID).removeAttr('aria-hidden');
+
+            returnFocus.focus();
+          }
         },
 
 
@@ -339,7 +362,6 @@
           var keyCode = e.keyCode || e.which;
 
           switch ( keyCode ) {
-
             // space & enter
             case 32:
             case 13:
@@ -349,7 +371,6 @@
 
             default:
               break;
-
           } // switch
         },
 
@@ -361,7 +382,6 @@
           if ( $html.hasClass(modalIsOpen) ) {
 
             switch ( keyCode ) {
-
               // tab
               case 9:
                 if ( !e.shiftKey && $self.find(modalClose).is(':focus') ) {
@@ -393,16 +413,17 @@
         // trap focus within the modal window, because otherwise
         // users can tab to obscured elements, and that's just
         // bad UX.
-        trapFocus = function () {
-          var $trapArea = $self.find(modalDoc),
-              $trapAreaClose = $self.find(modalClose);
+        trapFocus = function ( $thisModal ) {
+          var $thisModal = $thisModal;
 
-          $(document).on('focusin.' + $self, function ( e ) {
+          var $trapArea = $thisModal.find(modalDoc);
+          var $trapAreaClose = $thisModal.find(modalClose);
+
+          $(document).on('focusin.' + $thisModal, function ( e ) {
 
             if ( $trapArea[0] !== e.target && !$trapArea.has(e.target).length) {
               $trapAreaClose.focus();
             }
-
           });
         }; // trap focus
 
@@ -422,11 +443,8 @@
         // open Modals aren't inside the modal component, hence the $(document)
         $(document).on('click', modalTrigger, openA11yModal );
         $(document).on('keydown', modalTrigger, keytrollsA11yModalTrigger );
-
       }); // end: return this.each()
-
     } // end: a11yModal: function
-
   }); // end: $.fn.extend
 
   $(modal).a11yModal();
