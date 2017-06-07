@@ -347,8 +347,10 @@
               $(this).trigger('click');
               break;
 
-          } // switch
+            default:
+              break;
 
+          } // switch
         },
 
 
@@ -381,6 +383,8 @@
                 }
                 break;
 
+              default:
+                break;
             } // switch
           }
         },
