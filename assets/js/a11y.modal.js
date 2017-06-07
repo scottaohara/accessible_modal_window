@@ -6,7 +6,7 @@
 
   A11yModal.NS = "A11yModal";
   A11yModal.AUTHOR = "Scott O'Hara";
-  A11yModal.VERION = "2.3.0";
+  A11yModal.VERION = "2.3.1";
   A11yModal.DOCUMENTATION = 'https://github.com/scottaohara/accessible_modal_window';
   A11yModal.LICENSE = "https://github.com/scottaohara/accessible_modal_window/blob/master/LICENSE";
 
@@ -211,7 +211,7 @@
 
             // now that the aria-controls is set, point to the modal's target
             // so we can run the next if
-            $modalTarget = $('#'+$this.attr('aria-controls') )
+            $modalTarget = $('#'+$this.attr('aria-controls') );
 
             // finally a last check to see if the trigger is meant to launch
             // an alert dialog modal. If the alertdialog role wasn't set during
@@ -416,8 +416,6 @@
         // users can tab to obscured elements, and that's just
         // bad UX.
         trapFocus = function ( $thisModal ) {
-          var $thisModal = $thisModal;
-
           var $trapArea = $thisModal.find(modalDoc);
           var $trapAreaClose = $thisModal.find(modalClose);
 
