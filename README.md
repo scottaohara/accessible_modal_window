@@ -55,7 +55,7 @@ The recommended default markup for the modal window component:
       <a data-modal-close
          class="modal__outro__close"
          href="#unique_link_id">
-        <svg role="presentation" viewBox="0 0 20 20" height="20" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 10.5l8.646-8.646a.5.5 0 0 0-.707-.707L10 9.793 1.354 1.147a.5.5 0 0 0-.707.707L9.293 10.5.647 19.146a.5.5 0 0 0 .708.707l8.646-8.646 8.646 8.646a.498.498 0 0 0 .708 0 .5.5 0 0 0 0-.707L10.709 10.5z"/></svg>
+         Close <!-- or add your close icon here -->
       </a>
     </div> <!-- /.modal__outro -->
 
