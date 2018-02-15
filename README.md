@@ -12,7 +12,7 @@ _Read all about it:_
 ## Usage  
 Simply include the _a11y.modal.js_ file at the bottom of your document, or concatenated into your primary .js file as part of your build process.
 
-Modals can be triggered by either a ```<button>``` or ```<a>```. If using an ```<a>```, the JavaScript will add a ```role="button"``` to the element, and will allow both <kbd>Space</kbd> and <kbd>Enter</kbd> to open a modal.
+Modals can be triggered by either a `<button>` or `<a>`. If using an `<a>`, the JavaScript will add a `role="button"` to the element, and will allow both <kbd>Space</kbd> and <kbd>Enter</kbd> to open a modal.
 
 ```html
 <button type="button"
@@ -23,8 +23,8 @@ Modals can be triggered by either a ```<button>``` or ```<a>```. If using an ```
 </button>
 
 <a data-action="modal-open"
-   href="#unique_ID_2"
-   id="unique_link_id">
+  href="#unique_ID_2"
+  id="unique_link_id">
   Unique Link Text
 </a>
 ```
@@ -50,8 +50,8 @@ The recommended default markup for the modal window component:
       ...
 
       <a data-modal-close
-         class="modal__outro__close"
-         href="#unique_link_id">
+        href="#unique_link_id"
+        class="modal__outro__close">
          Close <!-- or add your close icon here -->
       </a>
     </div> <!-- /.modal__outro -->
@@ -61,31 +61,31 @@ The recommended default markup for the modal window component:
 </div> <!-- /.a11y-modal -->
 ```
 
-The ```data-modal-close``` attribute is what the script looks for in closing the modal window. So if you would like to change the class or the ```<svg>```, go right ahead.  Just make sure to add that attribute to whatever your close trigger ends up being.  
+The `data-modal-close` attribute is what the script looks for in closing the modal window. So if you would like to change the class or the `<svg>`, go right ahead.  Just make sure to add that attribute to whatever your close trigger ends up being.  
 
 
 ### Optional attributes  
-Optional attributes that can be set to the modal trigger or ```.a11y-modal``` container:
+Optional attributes that can be set to the modal trigger or `.a11y-modal` container:
 
-* ```data-set-modal-title="Title Goes Here"```<br>Use this attribute to set an ```aria-label``` to a modal that doesn't already have a defined heading or ```aria-label```.  
-* ```data-modal-alert="true"```<br>Set a modal to have a role of ```alertdialog```.  
+* `data-set-modal-title="Title Goes Here"`<br>Use this attribute to set an `aria-label` to a modal that doesn't already have a defined heading or `aria-label`.  
+* `data-modal-alert="true"`<br>Set a modal to have a role of `alertdialog`.  
 
 Note - the above attributes should be set to either the container or trigger element. Not both.
 
 
 ## Classes & their uses  
-* ```.modal-is-open```<br>Class that is toggled on the ```<html>```. It's primary function is to ensure that on desktop browsers, the content under the modal window is not scrollable while the modal is open.  
-* ```.a11y-modal```<br>Primary hook for the JavaScript, and the main parent class for the entire modal window component. This class specifically is used to style the overlay.  
-* ```.modal```<br>Class used to style the visible content container of the modal window.  
-* ```.modal--sm```<br>Helper class to make a smaller sized modal content container.  
-* ```.modal--full-width```<br>Helper class to make a full width modal content container.  
-* ```.modal--take-over```<br>Helper class to make the modal content container take up the full browser screen real estate.  
-* ```.modal__intro```<br>Class to style the intro (header) area of the modal content container.  
-* ```.modal__intro__title```<br>Class to be used on the primary heading (title) of the modal.  
-* ```.modal__content```<br>Class to be used on the primary content area of the modal.  
-* ```.modal__outro```<br>Class to be used on the call to action, or footer area of the content container.  
-* ```.modal__outro__close```<br>Class to be used on the close button for the modal.  
-* ```.no-js-hide```<br>Helper class to hide elements when JavaScript is not available.  
+* `.modal-is-open`<br>Class that is toggled on the `<html>`. It's primary function is to ensure that on desktop browsers, the content under the modal window is not scrollable while the modal is open.  
+* `.a11y-modal`<br>Primary hook for the JavaScript, and the main parent class for the entire modal window component. This class specifically is used to style the overlay.  
+* `.modal`<br>Class used to style the visible content container of the modal window.  
+* `.modal--sm`<br>Helper class to make a smaller sized modal content container.  
+* `.modal--full-width`<br>Helper class to make a full width modal content container.  
+* `.modal--take-over`<br>Helper class to make the modal content container take up the full browser screen real estate.  
+* `.modal__intro`<br>Class to style the intro (header) area of the modal content container.  
+* `.modal__intro__title`<br>Class to be used on the primary heading (title) of the modal.  
+* `.modal__content`<br>Class to be used on the primary content area of the modal.  
+* `.modal__outro`<br>Class to be used on the call to action, or footer area of the content container.  
+* `.modal__outro__close`<br>Class to be used on the close button for the modal.  
+* `.no-js-hide`<br>Helper class to hide elements when JavaScript is not available.  
 
 
 ## JavaScript Breakdown  
