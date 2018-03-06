@@ -40,11 +40,6 @@
 	 */
 	ARIAmodal.organizeDOM = function () {
 		var i;
-		// var e;
-
-		// for ( e = 0; e < children.length; e++ ) {
-		// 	children[e].classList.add('not-modal');
-		// }
 
 		for ( i = 0; i < modal.length; i++ ) {
 			body.insertBefore( modal[i], body.firstChild );
