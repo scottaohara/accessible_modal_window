@@ -1,0 +1,37 @@
+.js [data-modal] {
+  background: #fff;
+  border: 2px solid;
+  bottom: .25em;
+  box-shadow: 0 0 1800px 400px rgba(0,0,0,.4);
+  display: block;
+  left: .25em;
+  margin: auto;
+  max-width: 660px;
+  opacity: 1;
+  overflow: auto;
+  padding: 1.125em 1.25em;
+  position: fixed;
+  right: .25em;
+  top: .25em;
+  transform: translateY(0%);
+  visibility: visible;
+  width: calc(100% - .5em);
+  z-index: 2;
+}
+
+@media screen and ( min-height: 440px ) and ( min-width: 500px ) {
+  .js [data-modal] {
+    bottom: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    transition:
+      opacity .2s ease-in-out,
+      transform .2s ease-in-out;
+  }
+}
+
+.js [data-modal][hidden] {
+  opacity: 0;
+  transform: translateY(20vh);
+  visibility: hidden;
+}

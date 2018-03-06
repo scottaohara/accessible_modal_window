@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en-us" class="no-js">
   <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta charset="utf-8">
     <title>
-      Modal Dialogs
+      Vanilla Modal Dialogs
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <script>
@@ -12,188 +11,206 @@
       document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
     </script>
     <style>
-    *,*:after,*:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:arial}*{margin-bottom:0}body,html{background:#fafafa;color:#450c13;font-size:20px;line-height:1.3;margin:0;padding:0;-moz-text-size-adjust:100%;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;text-rendering:optimizeLegibility}.content-area{padding:20px;margin:auto}.mxw-600{max-width:600px}a{color:#921c2b}a:hover,a:focus{color:#c12f48}.btn{background:#921c2b;border:1px solid #4d0912;color:#fff;cursor:pointer;display:inline-block;font-size:1em;line-height:1;margin-bottom:12px;padding:16px 24px;position:relative;text-align:center;transition:transform .2s, background .2s}.btn:hover,.btn:focus{background:#c12f48;}label{display:inline-block;font-size:.75em;font-weight:bold;margin-bottom:.5em}input[type="text"]{border:1px solid #333;display:block;font-size:1.4em;margin-bottom:1em;min-width:230px;padding:8px;width:100%}section{padding-bottom:32px;margin-bottom:32px;border-bottom:1px solid #aaa}label{margin-top:20px;}button{border:none;}.txt-center{text-align:center;}a.btn{text-decoration:none;}a.btn:hover,a.btn:focus{color:#fff;}p{margin:20px 0;}
+      *,*:after,*:before{box-sizing:border-box;font-family:arial}
+      *{margin-bottom:0}
+      *:focus{outline: 2px solid #921c2b; outline-offset: 2px; text-decoration: none;}
+      body,html{background:#fafafa;color:#450c13;font-size:20px;line-height:1.3;margin:0;padding:0;}
+      .content-area{padding:20px;margin:auto; max-width:640px;}
+      a{color:#921c2b}
+      .btn, [role="button"]{background:#921c2b;border:1px solid #4d0912;color:#fff;cursor:pointer;display:inline-block;font-size:1em;line-height:1;margin-bottom:12px;padding:16px 24px;position:relative;text-align:center;transition:transform .2s, background .2s}
+      .btn:hover,.btn:focus, [role="button"]:hover, [role="button"]:focus{background:#c12f48;}
+      label{display:inline-block;font-size:.75em;font-weight:bold;margin-bottom:.5em}
+      input[type="text"]{border:1px solid #333;display:block;font-size:1.4em;margin-bottom:1em;min-width:230px;padding:8px;width:100%}
+      label{margin-top:20px;}
+      button{border:none;}
+      .sr-only:not(:focus):not(:active) {
+          clip: rect(0 0 0 0);
+          clip-path: inset(100%);
+          height: 1px;
+          overflow: hidden;
+          position: absolute;
+          white-space: nowrap;
+          width: 1px;
+        }
     </style>
-    <link rel="stylesheet" href="assets/css/app.css" />
+    <link rel="stylesheet" href="assets/css/aria.modal.css">
   </head>
-  <body id="body">
+  <body>
+    <a href="#main" class="sr-only">
+      Skip link
+    </a>
 
-    <div id="page" class="content-area mxw-600">
+      <header class="content-area">
+        <h1>
+          Accessible Modal Dialogs
+          <span>Vanilla <abbr title="JavaScript">JS</abbr></span>
+        </h1>
+      </header>
 
-      <article aria-labelledby="normal_ex">
-        <header>
-          <h1>
-            Accessible Modal Window <abbr title="version 2">V2</abbr>
-          </h1>
-        </header>
+      <main id="main" class="content-area" aria-label="content">
+        <h2>
+          Demos
+        </h2>
         <p>
-          To find out more about the code and expected UX behind these modal windows, you can read the <a href="http://www.scottohara.me/article/modal-window-revisited.html">Version 2 release article</a>, or you can check out the <a href="https://github.com/scottaohara/accessible_modal_window">Version 2 GitHub repo &amp; ReadMe</a>.
+          Here's an intro to this page.
+          It <a href="#!">has a test link</a> for confirming focus
+          only goes where it should.
         </p>
+
+
+
+
+
+        <p>
+          <a type="button"
+            class="btn"
+            data-modal-open="modal_1"
+            disabled>
+            Launch Modal 1
+          </a>
+        </p>
+
+        <section id="modal_1"
+          data-modal
+          data-modal-label="testing"
+          data-modal-class="test"
+          data-modal-close>
+          <h2>
+            Announcement
+          </h2>
+
+          <div>
+            <p>Content goes here</p>
+          </div>
+        </section>
 
         <p>
           <button type="button"
             class="btn"
-            data-action="modal-open"
-            data-modal-open="modal_1">
-            Launch Modal
+            data-modal-open="modal_2"
+            disabled>
+            Launch Modal 2
           </button>
         </p>
 
-        <div id="modal_1" class="a11y-modal">
+        <div id="modal_2"
+          hidden
+          data-modal
+          data-modal-close="Close"
+          data-modal-hidden-title>
+          <h2>
+           Another Announcement
+          </h2>
 
-          <div class="modal">
+          <div>
+            <p>Content goes here again</p>
+            <label for="name">
+              <span style="display: block;">
+                Name:
+              </span>
+              <input type="text" id="name" autofocus="">
+            </label>
+          </div>
 
-            <div class="modal__intro">
-              <h3 id="modal_1__title"
-                  data-modal-title
-                  class="modal__intro__title">
-                Default Modal Window
-              </h3>
-            </div>
-
-
-            <!-- main modal content here -->
-            <div class="modal__content">
-              <p>
-                Content goes here that talks about a thing that you couldn't do
-                in the normal DOM flow for some reason.
-              </p>
-            </div>
-
-
-            <!-- Outro content here -->
-            <div class="modal__outro">
-              <p>Outro message could go here</p>
-              <button data-modal-close
-                 class="modal__outro__close"
-                 type="button">
-                <svg role="presentation" viewBox="0 0 20 20" height="20" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 10.5l8.646-8.646a.5.5 0 0 0-.707-.707L10 9.793 1.354 1.147a.5.5 0 0 0-.707.707L9.293 10.5.647 19.146a.5.5 0 0 0 .708.707l8.646-8.646 8.646 8.646a.498.498 0 0 0 .708 0 .5.5 0 0 0 0-.707L10.709 10.5z"/></svg>
-              </button>
-            </div>
-
-          </div> <!-- end .modal -->
+          <p>
+            <a type="button"
+              class="btn"
+              data-modal-open="modal_4"
+              disabled>
+              Launch Modal 4
+            </a>
+          </p>
         </div>
 
         <p>
-          <a href="#!"
-            class="btn no-js-hide"
-            data-action="modal-open"
-            data-modal-open="modal_2">
-            Launch Modal 2
+          <a type="button"
+            class="btn"
+            data-modal-open="modal_3"
+            disabled>
+            Launch Modal 3
           </a>
         </p>
 
-        <div id="modal_2" class="a11y-modal">
+        <div id="modal_3" hidden data-modal aria-describedby="desc">
+          <h1>Example with Autofocus radio</h1>
+          <p id="desc">
+            Select the recording you want to cancel.
+          </p>
+          <div>
+            <form>
 
-          <div class="modal">
+              <fieldset>
+                <legend>
+                  <h2>
+                    Tomorrow, Month DD at HH:MM AM/PM
+                  </h2>
+                </legend>
 
-            <div class="modal__intro">
-              <h3 id="modal_2__title"
-                  data-modal-title
-                  class="modal__intro__title">
-                Another Modal Window
-              </h3>
-            </div>
+                <!--
+                  All contents are wrapped within a label to ensure all
+                  visible elements associated with the radio are in the
+                  radio's hit area.
 
+                  Set all visible text to aria-hidden="true" and instead utilize
+                  the aria-label, on each radio input, to announce the content
+                  in a friendly manner.
+                -->
+                <div>
+                  <label>
+                    <input type="radio"
+                      autofocus=""
+                      name="text_radios">
+                    Option 1
+                  </label>
+                </div>
 
-            <!-- main modal content here -->
-            <div class="modal__content">
-              <p>
-                Content goes here that talks about a thing that you couldn't do
-                in the normal DOM flow for some reason.
-              </p>
-              <button type="button"
-                class="btn"
-                data-action="modal-open"
-                data-modal-open="modal_3">
-                Launch Modal
-              </button>
-            </div>
+                <div>
+                  <label>
+                    <input type="radio"
+                      name="text_radios">
+                    Option 2
+                  </label>
+                </div>
 
-            <div class="txt-center no-js-hide">
-              <button data-modal-close type="button" class="btn">
-                Close
-              </button>
-            </div>
+                <!-- ... -->
+              </fieldset>
 
-          </div> <!-- end .modal -->
+              <div>
+                <button type="submit">
+                  Confirm
+                </button>
+              </div>
+
+            </form>
+
+          </div>
         </div>
 
-        <div id="modal_3" class="a11y-modal">
 
-          <div class="modal">
+        <div id="modal_4"
+          hidden
+          data-modal
+          data-modal-close="Close"
+          data-modal-hidden-title>
+          <h2>
+           Why am I nested?
+          </h2>
 
-            <div class="modal__intro">
-              <h3 id="modal_3__title"
-                  data-modal-title
-                  class="modal__intro__title">
-                Inception Modal Window
-              </h3>
-            </div>
-
-
-            <!-- main modal content here -->
-            <div class="modal__content">
-              <p>
-                Content goes here that talks about a thing that you couldn't do
-                in the normal DOM flow for some reason.
-              </p>
-            </div>
-
-            <div class="txt-center no-js-hide">
-              <button data-modal-close type="button" class="btn">
-                Close
-              </button>
-            </div>
-
-          </div> <!-- end .modal -->
+          <div>
+            <p>Content goes here, yet again</p>
+            <label for="name2">
+              <span style="display: block;">
+                Name:
+              </span>
+              <input type="text" id="name2">
+            </label>
+          </div>
         </div>
 
-        <hr />
+      </main>
+    </div>
 
-        <h3>
-          Additional Test Examples
-        </h3>
-        <p>
-          The following links
-        </p>
-
-        <ul>
-          <li>
-            <a href="tests/test-1.html">
-              Default Setup
-            </a>
-          </li>
-          <li>
-            <a href="tests/test-2.html">
-              Minimum Required Markup
-            </a>
-          </li>
-          <li>
-            <a href="tests/test-3.html">
-              Full Width
-            </a>
-          </li>
-          <li>
-            <a href="tests/test-4.html">
-              Dynamic Classes (small and take-over sizing)
-            </a>
-          </li>
-          <li>
-            <a href="tests/test-5.html">
-              Alert Dialog
-            </a>
-          </li>
-        </ul>
-
-
-      </article>
-
-
-    </div> <!-- /.page -->
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="assets/js/a11y.modal.js"></script>
-
+    <script src="assets/js/aria.modal.js"></script>
+    <script src="https://cdn.rawgit.com/GoogleChrome/inert-polyfill/v0.1.0/inert-polyfill.min.js"></script>
   </body>
 </html>
