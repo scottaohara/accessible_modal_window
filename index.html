@@ -11,8 +11,8 @@
       document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
     </script>
     <style>
-      *,*:after,*:before{box-sizing:border-box;font-family:arial}
-      *{margin-bottom:0}
+      *,*:after,*:before{box-sizing:border-box;font-family:arial;}
+      *{margin-top: 0;}
       *:focus{outline: 2px solid #921c2b; outline-offset: 2px; text-decoration: none;}
       body,html{background:#fafafa;color:#450c13;font-size:20px;line-height:1.3;margin:0;padding:0;}
       .content-area{padding:20px;margin:auto; max-width:640px;}
@@ -20,18 +20,18 @@
       .btn, [role="button"]{background:#921c2b;border:1px solid #4d0912;color:#fff;cursor:pointer;display:inline-block;font-size:1em;line-height:1;margin-bottom:12px;padding:16px 24px;position:relative;text-align:center;transition:transform .2s, background .2s}
       .btn:hover,.btn:focus, [role="button"]:hover, [role="button"]:focus{background:#c12f48;}
       label{display:inline-block;font-size:.75em;font-weight:bold;margin-bottom:.5em}
-      input[type="text"]{border:1px solid #333;display:block;font-size:1.4em;margin-bottom:1em;min-width:230px;padding:8px;width:100%}
-      label{margin-top:20px;}
+      input[type="text"]{border:1px solid #333;display:block;font-size:1.4em;margin-bottom:1em;min-width:230px;padding:.5em;width:100%}
+      label{margin-top:1.125em}
       button{border:none;}
       .sr-only:not(:focus):not(:active) {
-          clip: rect(0 0 0 0);
-          clip-path: inset(100%);
-          height: 1px;
-          overflow: hidden;
-          position: absolute;
-          white-space: nowrap;
-          width: 1px;
-        }
+        clip: rect(0 0 0 0);
+        clip-path: inset(100%);
+        height: 1px;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
+      }
     </style>
     <link rel="stylesheet" href="assets/css/aria.modal.css">
   </head>
@@ -62,10 +62,7 @@
 
 
         <p>
-          <a type="button"
-            class="btn"
-            data-modal-open="modal_1"
-            disabled>
+          <a class="btn" data-modal-open href="#modal_1">
             Launch Modal 1
           </a>
         </p>
@@ -123,10 +120,7 @@
         </div>
 
         <p>
-          <a type="button"
-            class="btn"
-            data-modal-open="modal_3"
-            disabled>
+          <a class="btn" data-modal-open="modal_3">
             Launch Modal 3
           </a>
         </p>
