@@ -79,6 +79,10 @@
 				if ( !self.hasAttribute('href') || !self.hasAttribute('tabindex') ) {
 					self.tabIndex = 0;
 				}
+
+				if ( self.getAttribute('data-modal-open') === '' && self.getAttribute('href') ) {
+					self.setAttribute('data-modal-open', self.getAttribute('href').split('#')[1] );
+				}
 			}
 
 			/**
