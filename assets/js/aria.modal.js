@@ -125,7 +125,7 @@
 
 			}
 			else {
-				console.warn('Missing data-modal-open');
+				console.warn('Missing target modal reference - [data-modal-open="IDREF"]');
 			}
 
 			self.addEventListener('keypress', ARIAmodal.keytrolls, false);
