@@ -11,7 +11,7 @@
 	ARIAmodal.NS      = 'ARIAmodal';
 	ARIAmodal.AUTHOR  = 'Scott O\'Hara';
 	ARIAmodal.VERSION = '3.0.0';
-	ARIAmodal.LICENSE = 'https://github.com/scottaohara/accessible-components/blob/master/LICENSE.md';
+	ARIAmodal.LICENSE = 'https://github.com/scottaohara/accessible_modal_window/blob/master/LICENSE';
 
 	var pageWrapper = '';
 	var escKey = 27;
@@ -85,7 +85,7 @@
 			 * a button. If not, then the button targets nothing
 			 * and there's not much that can be done with that.
 			 */
-			if ( self.hasAttribute('data-modal-open') ) {
+			if ( self.getAttribute('data-modal-open') ) {
 				/**
 				 * A button should have an aria-haspopup="dialog" to
 				 * convey to users that *this* button will launch a
