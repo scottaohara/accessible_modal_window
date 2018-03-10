@@ -92,17 +92,23 @@
 				 * modal dialog.
 				 *
 				 * Presently, the "dialog" value is not fully supported
-				 * and when not, it defaults back to announcing a "menu"
-				 * will open.  Use with caution.
+				 * and in unsupported instances, it defaults back to
+				 * announcing that a "menu" will open.
+				 * Use this attribute with caution until this value
+				 * has wider support.
 				 */
 				// self.setAttribute('aria-haspopup', 'dialog');
 
 				/**
-				 * Remove the disabled attribute, as JavaScript
-				 * is enabled and thus the button should function.
+				 * Remove the disabled attribute, as if this script is
+				 * running, JavaScript must be enabled and thus the
+				 * button should function.
 				 *
-				 * A button may require being disabled though, so if
-				 * it has a data-modal-disabled attribute, keep it disabled.
+				 * But wait...there may be value in having a disabled
+				 * button that can be enabled via other user actions...
+				 * So, in that scenario look for a
+				 * data-modal-disabled attribute, to keep
+				 * the button disabled.
 				 */
 				if ( self.hasAttribute('disabled')
 						 && !self.hasAttribute('data-modal-disabled') ) {
