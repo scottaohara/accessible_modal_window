@@ -67,6 +67,13 @@
           </a>
         </p>
 
+        <p>
+          <span class="btn"
+            data-modal-open="modal_1">
+            Launch Modal 1 (span)
+          </span>
+        </p>
+
         <section id="modal_1"
           data-modal
           data-modal-label="testing"
@@ -108,15 +115,6 @@
               <input type="text" id="name" autofocus="">
             </label>
           </div>
-
-          <p>
-            <a type="button"
-              class="btn"
-              data-modal-open="modal_4"
-              disabled>
-              Launch Modal 4
-            </a>
-          </p>
         </div>
 
         <p>
@@ -181,7 +179,7 @@
         </div>
 
 
-        <div id="modal_4"
+<!--         <div id="modal_4"
           hidden
           data-modal
           data-modal-close="Close"
@@ -200,11 +198,22 @@
             </label>
           </div>
         </div>
-
+ -->
       </main>
     </div>
 
     <script src="assets/js/aria.modal.js"></script>
+    <script>
+      window.addEventListener( "hashchange", function( e ) {
+          var el = document.getElementById( location.hash.substring( 1 ) );
+          if ( el ) {
+            if ( !/^(?:a|select|input|button|textarea)$/i.test( el.tagName ) ) {
+              el.tabIndex = -1;
+            }
+            el.focus();
+          }
+        }, false );
+    </script>
     <script src="https://cdn.rawgit.com/GoogleChrome/inert-polyfill/v0.1.0/inert-polyfill.min.js"></script>
   </body>
 </html>
