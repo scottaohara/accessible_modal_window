@@ -24,7 +24,7 @@
 
 	var modal = doc.querySelectorAll( '[data-modal]' );
 	var children = html.querySelectorAll( 'body > *:not([data-modal])' );
-	var previousModal = null;
+	var initialTrigger;
 
 	var closeIcon = '<svg role="presentation" viewBox="0 0 20 20" height="20" width="20"><path d="M10.707 10.5l8.646-8.646a.5.5 0 0 0-.707-.707L10 9.793 1.354 1.147a.5.5 0 0 0-.707.707L9.293 10.5.647 19.146a.5.5 0 0 0 .708.707l8.646-8.646 8.646 8.646a.498.498 0 0 0 .708 0 .5.5 0 0 0 0-.707L10.709 10.5z"/></svg>';
 
@@ -56,10 +56,9 @@
 	 * will be generated via this function.
 	 */
 	ARIAmodal.setupTrigger = function () {
+		var trigger = doc.querySelectorAll('[data-modal-open]');
 		var self;
 		var i;
-
-		var trigger = doc.querySelectorAll('[data-modal-open]');
 
 		for ( i = 0; i < trigger.length; i++ ) {
 			self = trigger[i];
@@ -132,19 +131,19 @@
 				 * to, once the modal dialog is closed.
 				 */
 				var target = self.getAttribute('data-modal-open');
-				self.id = target + '__trigger';
+				self.id = target + '__trigger-' + self.nodeName;
 
 				/**
 				 * Events
 				 */
 				self.addEventListener('click', ARIAmodal.openModal);
-
+				self.addEventListener('keypress', ARIAmodal.keytrolls, false);
 			}
 			else {
-				console.warn('Missing target modal reference - [data-modal-open="IDREF"]');
+				console.warn('Missing target modal dialog - [data-modal-open="IDREF"]');
 			}
 
-			self.addEventListener('keypress', ARIAmodal.keytrolls, false);
+
 
 		} // for(widget.length)
 	}; // ARIAmodal.setupTrigger()
@@ -284,6 +283,18 @@
 		var focusTarget = target;
 
 		/**
+		 * In case these are links, negate default behavior
+		 * and just do what this script tells these triggers
+		 * to do.
+		 */
+		e.preventDefault();
+
+		/**
+		 * Keep track of the trigger that opened the initial dialog.
+		 */
+		initialTrigger = this.id;
+
+		/**
 		 * If a modal dialog contains a form control that is set to
 		 * autofocus, then focus should be placed on that form control,
 		 * instead of the wrapping dialog container.
@@ -293,68 +304,47 @@
 		}
 
 		/**
-		 * Do a quick check to see if a modal is already open.
+		 * Do a check to see if a modal is already open.
+		 * If not, then add a class to the body as a check
+		 * for other functions and set contents other than
+		 * the opened dialog to be hidden from screen readers
+		 * and to not accept tab focus, nor for their child elements.
 		 */
 		if ( !body.classList.contains(activeClass) ) {
 			body.classList.add(activeClass);
+
 			for ( i = 0; i < children.length; i++ ) {
 				children[i].setAttribute('aria-hidden', 'true');
 				children[i].setAttribute('inert', '');
 			}
 		}
 		else {
-			/**
-			 * Find the modal this trigger is contained within,
-			 * and set that modal to hidden so the new modal can
-			 * load in its place.
-			 *
-			 * Keep track of the previous modal's ID.
-			 */
-			previousModal = doc.querySelector('[data-modal]:not([hidden])').id;
-			doc.getElementById(previousModal).setAttribute('hidden', '');
+			console.warn('It is not advised to open modal dialogs from within other dialogs. Instead consider replacing the contents of this dialog with new content. Or providing a stepped, or tabbed interface within this dialog. Chaining dialogs should be considered a UX bug, not a feature.');
 		}
+
 
 		target.removeAttribute('hidden');
 		focusTarget.focus();
 
-		activeModal = target;
-
-		if ( previousModal !== null ) {
-			return [activeModal, previousModal];
-		}
-		else {
-			return activeModal;
-		}
-
+		return initialTrigger;
 	};
 
 
 	ARIAmodal.closeModal = function ( e ) {
-		var getTarget = activeModal.id;
-		var trigger = doc.getElementById(getTarget + '__trigger') || null;
+		var trigger = doc.getElementById(initialTrigger) || null;
 		var i;
 
-		if ( previousModal === null ) {
-			/**
-			 * Loop through all the elements that were hidden to
-			 * screen readers, and had inert to negate their
-			 * children from being focusable.
-			 */
-			for ( i = 0; i < children.length; i++ ) {
-				children[i].removeAttribute('aria-hidden');
-				children[i].removeAttribute('inert');
-				body.classList.remove('modal-open');
-			}
+		/**
+		 * Loop through all the elements that were hidden to
+		 * screen readers, and had inert to negate their
+		 * children from being focusable.
+		 */
+		for ( i = 0; i < children.length; i++ ) {
+			children[i].removeAttribute('aria-hidden');
+			children[i].removeAttribute('inert');
+			body.classList.remove('modal-open');
 		}
-		else {
-			/**
-			 * If there was a previous modal open
-			 */
-			doc.getElementById(previousModal).removeAttribute('hidden');
-			trigger = doc.getElementById(previousModal + '__trigger');
 
-			activeModal = doc.getElementById(previousModal);
-		}
 
 		/**
 		 * When a modal closes:
@@ -363,24 +353,12 @@
 		 * Keyboard focus must be appropriately managed...
 		 */
 		body.classList.remove('modal-open');
-		doc.getElementById(getTarget).setAttribute('hidden', '');
+		doc.querySelector('[data-modal]:not([hidden])').setAttribute('hidden', '');
 
-
-		// if ( previousModal !== null ) {
-		// 	activeModal.focus();
-		// }
-		 if ( trigger !== null ) {
-			trigger.focus();
-		}
-
-
-		/*
-			if a modal was opened on page load, then focus should not
-			be returned to its trigger on close (it may not even have
-			a trigger.) Return it to the top of the document instead.
-		*/
-		previousModal = null;
-		return [previousModal, activeModal];
+		/**
+		 * Return focus to the trigger that opened the modal dialog.
+		 */
+		trigger.focus();
 	};
 
 
