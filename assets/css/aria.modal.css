@@ -1,3 +1,7 @@
+[data-modal-open][hidden] {
+  display: none;
+}
+
 .js [data-modal] {
   background: #fff;
   border: 2px solid;

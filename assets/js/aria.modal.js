@@ -116,6 +116,17 @@
 				}
 
 				/**
+				 * In instances where a disabled button is not desired,
+				 * when JavaScript is unavailable, a hidden attribute
+				 * can be used to completely hide the button.
+				 *
+				 * Remove this hidden attribute to reveal the button
+				 */
+				if ( self.hasAttribute('hidden') ) {
+					self.removeAttribute('hidden');
+				}
+
+				/**
 				 * Get modal target and supply the button with a
 				 * unique ID to easily reference for returning focus
 				 * to, once the modal dialog is closed.
