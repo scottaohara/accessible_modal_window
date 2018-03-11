@@ -15,15 +15,15 @@
       *{margin-top: 0;}
       *:focus{outline: 2px solid #921c2b; outline-offset: 2px; text-decoration: none;}
       body,html{background:#fafafa;color:#450c13;font-size:20px;line-height:1.3;margin:0;padding:0;}
-      .content-area{padding:20px;margin:auto; max-width:640px;}
+      .content-area{padding:20px;margin:auto; max-width:680px;}
       a{color:#921c2b}
-      .btn, [role="button"]{background:#921c2b;border:1px solid #4d0912;color:#fff;cursor:pointer;display:inline-block;font-size:1em;line-height:1;margin-bottom:12px;padding:16px 24px;position:relative;text-align:center;transition:transform .2s, background .2s}
+      .btn, [role="button"]{background:#921c2b;border:1px solid #4d0912;color:#fff;cursor:default;display:inline-block;font-size:.825em;line-height:1;margin-bottom:12px;padding:16px 24px;position:relative;text-align:center;transition:transform .2s, background .2s; text-decoration: none}
       .btn:hover,.btn:focus, [role="button"]:hover, [role="button"]:focus{background:#c12f48;}
       label{display:inline-block;font-size:.75em;font-weight:bold;margin-bottom:.5em}
       input[type="text"]{border:1px solid #333;display:block;font-size:1.4em;margin-bottom:1em;min-width:230px;padding:.5em;width:100%}
       label{margin-top:1.125em}
       button{border:none;}
-      .sr-only:not(:focus):not(:active) {
+      .at-only:not(:focus):not(:active) {
         clip: rect(0 0 0 0);
         clip-path: inset(100%);
         height: 1px;
@@ -32,27 +32,48 @@
         white-space: nowrap;
         width: 1px;
       }
-      a.sr-only:focus {
+      a.at-only:focus {
         background: white;
         padding: 8px;
         position: fixed;
       }
       /* was causing a weird page jump. just hide it */
-      body > .sr-only[inert] {
+      body > .at-only[inert] {
         display: none;
       }
+      details {
+        margin: 1.25em 0;
+      }
+      summary {
+        cursor: default;
+        margin-bottom: .825em;
+      }
+      details p,
+      details div {
+        font-size: .825em;
+      }
+      details code {
+        font-family: monospace;
+        display: inline-block;
+        padding: 2px 4px;
+        color: #000;
+        background: #efefef;
+        line-height: 1;
+        border: 1px solid #ddd;
+      }
+
     </style>
     <link rel="stylesheet" href="assets/css/aria.modal.css">
   </head>
   <body>
-    <a href="#main" class="sr-only">
+    <a href="#main" class="at-only">
       Skip to main content
     </a>
 
       <header class="content-area">
         <h1>
           Accessible Modal Dialogs
-          <span>Vanilla <abbr title="JavaScript">JS</abbr></span>
+          with <span>Vanilla <abbr title="JavaScript">JS</abbr></span>
         </h1>
       </header>
 
@@ -68,24 +89,48 @@
 
 
 
-
+        <h3>
+          Modal Test 1<br>
+          A single modal dialog launched from different triggers
+        </h3>
+        <details>
+          <summary>
+            Modal Test 1 details
+          </summary>
+          <p>
+            Each of the following elements are progressively enhanced (as needed)
+            into button elements, and all open the same modal dialog. They each
+            are assigned their own unique ID that will be used to refocus the
+            correct element upon closing of the dialog.
+          </p>
+          <p>
+            The dialog utilizes <code>data-modal-label</code> to set its
+            accessible name; <code>data-modal-class</code> to apply a specific class
+            to itself, when JavaScript is available; <code>data-modal-compact</code>
+            to keep the dialog from going full screen on small screen devices,
+            and <code>data-modal-close</code> to auto-generate a close icon button.
+          </p>
+        </details>
 
         <p>
-          <a class="btn" data-modal-open href="#modal_1">
-            Launch Modal 1
+          <a href="#modal_1"
+            data-modal-open
+            class="btn">
+            Launch Modal (link)
           </a>
-        </p>
-
-        <p>
           <span class="btn"
             data-modal-open="modal_1">
-            Launch Modal 1 (span)
+            Launch Modal (span)
           </span>
+          <button type="button" class="btn"
+            data-modal-open="modal_1">
+            Launch Modal (button)
+          </button>
         </p>
 
-        <section id="modal_1"
+        <div id="modal_1"
           data-modal
-          data-modal-label="testing"
+          data-modal-label="A test title"
           data-modal-class="test"
           data-modal-compact
           data-modal-close>
@@ -96,7 +141,20 @@
           <div>
             <p>Content goes here</p>
           </div>
-        </section>
+        </div>
+
+
+
+        <h3>
+          Modal Test 2<br>
+          A dialog containing an autofocused input.
+        </h3>
+        <details>
+          <summary>
+            Modal Test 2 details
+          </summary>
+
+        </details>
 
         <p>
           <button type="button"
@@ -111,13 +169,15 @@
           hidden
           data-modal
           data-modal-close="Cancel"
-          data-modal-hidden-title>
+          data-modal-close-class="btn">
           <h2>
            Another Announcement
           </h2>
 
           <div>
-            <p>Content goes here again</p>
+            <p data-modal-description>
+              Content goes here again
+            </p>
             <label for="name">
               <span style="display: block;">
                 Name:
