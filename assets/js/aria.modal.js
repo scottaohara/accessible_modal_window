@@ -13,7 +13,6 @@
 	ARIAmodal.VERSION = '3.0.0';
 	ARIAmodal.LICENSE = 'https://github.com/scottaohara/accessible_modal_window/blob/master/LICENSE';
 
-	var pageWrapper = '';
 	var escKey = 27;
 	var enterKey = 13;
 	var spaceKey = 32;
@@ -40,9 +39,10 @@
 	 */
 	ARIAmodal.organizeDOM = function () {
 		var i;
+		var refEl = body.firstChild || null;
 
 		for ( i = 0; i < modal.length; i++ ) {
-			body.insertBefore( modal[i], body.firstChild );
+			body.insertBefore( modal[i], refEl );
 		}
 	}
 
@@ -404,6 +404,5 @@
 	 * Go go JavaScript!
 	 */
 	ARIAmodal.init();
-
 
 })( window, document );
