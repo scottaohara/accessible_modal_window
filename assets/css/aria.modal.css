@@ -1,7 +1,13 @@
+/**
+ * Trigger styling
+ */
 [data-modal-open][hidden] {
   display: none;
 }
 
+/**
+ * Modal Dialog base styling
+ */
 .js [data-modal] {
   background: #fff;
   border: 2px solid;
@@ -20,7 +26,7 @@
   transform: translateY(0%);
   visibility: visible;
   width: calc(100% - .5em);
-  z-index: 2;
+  z-index: 10; /* this should be more than enough... */
 }
 
 @media screen and ( min-height: 440px ) and ( min-width: 500px ) {
@@ -34,8 +40,28 @@
   }
 }
 
+/**
+ * Continue to center dialog in viewport at with
+ * determined by content, rather than stretching
+ * out to take over whole screen.
+ */
+.js [data-modal][data-modal-compact] {
+  bottom: auto;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+
+/**
+ * To allow for CSS animations, hidden modal dialogs are
+ * not set to display: none, but rather the following
+ * rule set, in combination with the dialog's default
+ * position: fixed, will keep dialogs hidden from all users
+ * until opened.
+ */
 .js [data-modal][hidden] {
   opacity: 0;
+  pointer-events: none;
   transform: translateY(20vh);
   visibility: hidden;
 }
