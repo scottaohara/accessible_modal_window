@@ -32,12 +32,21 @@
         white-space: nowrap;
         width: 1px;
       }
+      a.sr-only:focus {
+        background: white;
+        padding: 8px;
+        position: fixed;
+      }
+      /* was causing a weird page jump. just hide it */
+      body > .sr-only[inert] {
+        display: none;
+      }
     </style>
     <link rel="stylesheet" href="assets/css/aria.modal.css">
   </head>
   <body>
     <a href="#main" class="sr-only">
-      Skip link
+      Skip to main content
     </a>
 
       <header class="content-area">
