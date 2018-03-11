@@ -217,10 +217,15 @@
 
 
 			/**
-			 * If there is content to describe the modal dialog
-			 * then there needs to be a flag/setup process here
+			 * Do a check to see if there is an element flagged to be the
+			 * description of the modal dialog.
 			 */
+			if ( self.querySelector('[data-modal-description]') ) {
+				var getDesc = self.querySelector('[data-modal-description]');
+				getDesc.id = 'md_desc_' + Math.floor(Math.random() * 999) + 1;
 
+				self.setAttribute('aria-describedby', getDesc.id);
+			}
 
 
 			/**
