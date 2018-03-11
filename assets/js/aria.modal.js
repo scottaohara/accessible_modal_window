@@ -25,7 +25,7 @@
 	var children = html.querySelectorAll( 'body > *:not([data-modal])' );
 	var initialTrigger;
 
-	var closeIcon = '<svg role="presentation" viewBox="0 0 20 20" height="20" width="20"><path d="M10.707 10.5l8.646-8.646a.5.5 0 0 0-.707-.707L10 9.793 1.354 1.147a.5.5 0 0 0-.707.707L9.293 10.5.647 19.146a.5.5 0 0 0 .708.707l8.646-8.646 8.646 8.646a.498.498 0 0 0 .708 0 .5.5 0 0 0 0-.707L10.709 10.5z"/></svg>';
+	var closeIcon = '<svg role="img" focusable="false" aria-hidden="true" viewBox="0 0 20 20" height="20" width="20"><path d="M10.707 10.5l8.646-8.646a.5.5 0 0 0-.707-.707L10 9.793 1.354 1.147a.5.5 0 0 0-.707.707L9.293 10.5.647 19.146a.5.5 0 0 0 .708.707l8.646-8.646 8.646 8.646a.498.498 0 0 0 .708 0 .5.5 0 0 0 0-.707L10.709 10.5z"/></svg><span class="sr-only">Close Dialog</span>';
 
 
 	/**
@@ -199,8 +199,13 @@
 			ARIAmodal.setupModalCloseBtn( self, getClass );
 
 			/**
-			 * This attribute currently screws stuff up with
-			 * VoiceOver.  Leaving off for now.
+			 * This attribute currently makes it difficult to navigate
+			 * through the contents of a modal dialog with VoiceOver.
+			 *
+			 * Up/down arrows do not have access to all content, and
+			 * using VO + left/right also do not have access to all
+			 * content, but do have access to different content then
+			 * up/down arrows alone.
 			 */
 			// self.setAttribute('aria-modal', 'true');
 
@@ -245,12 +250,9 @@
 
 
 	ARIAmodal.setupModalCloseBtn = function ( self, getClass ) {
+		var btnClass;
 		var closeBtn = doc.createElement('button');
 		closeBtn.setAttribute('type', 'button');
-		closeBtn.setAttribute('aria-label', 'Close dialog');
-		closeBtn.innerHTML = closeIcon;
-
-		self.append(closeBtn);
 
 		/**
 		 * If a custom class is set, set that class
@@ -259,13 +261,36 @@
 		 * If no custom class set, then use default "a11y-modal" class.
 		 */
 		if ( getClass ) {
-			self.classList.add(getClass);
-			closeBtn.classList.add(getClass + '__close-btn');
+			btnClass = getClass;
 		}
 		else {
-			self.classList.add('a11y-modal');
-			closeBtn.classList.add('a11y-modal__close-btn');
+			btnClass = 'a11y-modal';
 		}
+
+		self.classList.add(btnClass);
+		closeBtn.classList.add(btnClass + '__close-btn');
+
+
+		/**
+		 * If there is no data-modal-close attribute, or it has no set value, then inject
+		 * the close button icon and text into the generated button.
+		 *
+		 * If the data-modal-close attribute has a set value, then use that as the
+		 * visible text of the close button, and do not position it in the upper right
+		 * of the modal dialog.
+		 */
+		if ( self.getAttribute('data-modal-close') === '' || !self.hasAttribute('data-modal-close') ) {
+			closeBtn.innerHTML = closeIcon;
+			// add a helper class for close icon buttons.
+			closeBtn.classList.add(getClass + '__close-btn--x');
+		}
+		else {
+			closeBtn.innerHTML = self.getAttribute('data-modal-close');
+		}
+
+
+		self.append(closeBtn);
+
 
 		closeBtn.addEventListener('click', ARIAmodal.closeModal);
 		doc.addEventListener('keydown', ARIAmodal.keytrolls);
