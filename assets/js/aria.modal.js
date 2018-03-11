@@ -242,7 +242,7 @@
 					self.setAttribute('aria-labelledby', makeHeading);
 				}
 				else {
-					console.warn('Your modal should have its purpose conveyed via a h1.')
+					console.warn('Dialogs should have their purpose conveyed by a heading element (h1).');
 				}
 			}
 		}
@@ -286,6 +286,12 @@
 		}
 		else {
 			closeBtn.innerHTML = self.getAttribute('data-modal-close');
+			/**
+			 * If a specific class or classes
+			 */
+			if ( self.getAttribute('data-modal-close-class') ) {
+				closeBtn.classList.add(self.getAttribute('data-modal-close-class'));
+			}
 		}
 
 
@@ -295,7 +301,6 @@
 		closeBtn.addEventListener('click', ARIAmodal.closeModal);
 		doc.addEventListener('keydown', ARIAmodal.keytrolls);
 	}; // ARIAmodal.setupModalCloseBtn
-
 
 
 	/**
