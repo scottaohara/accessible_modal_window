@@ -332,8 +332,11 @@
 		 * autofocus, then focus should be placed on that form control,
 		 * instead of the wrapping dialog container.
 		 */
-		if ( target.querySelector('[autofocus]') ) {
-			focusTarget = target.querySelector('[autofocus]');
+		if ( target.querySelector('[autofocus]') || target.querySelector('[data-autofocus]') ) {
+			focusTarget = target.querySelector('[autofocus]') || target.querySelector('[data-autofocus]');
+		}
+		else if ( target.hasAttribute('data-modal-focus-close') ) {
+			focusTarget = target.querySelector('[class*="close-btn"]');
 		}
 
 		/**
