@@ -6,6 +6,16 @@
 }
 
 /**
+ * When a modal dialog is open, don't allow scrolling
+ * of content beneath (on desktop). Also useful in negating
+ * instances of double scroll bars
+ * (browser window + dialog if long enough content)
+ */
+.js body.modal-open {
+  overflow: hidden;
+}
+
+/**
  * Modal Dialog base styling
  */
 .js [data-modal] {
