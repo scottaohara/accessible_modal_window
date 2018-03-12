@@ -13,6 +13,7 @@
     <style>
       *,*:after,*:before{box-sizing:border-box;font-family:arial;}
       *{margin-top: 0;}
+      header,main {display: block; /* IE */}
       *:focus{outline: 2px solid #921c2b; outline-offset: 2px; text-decoration: none;}
       body,html{background:#fafafa;color:#450c13;font-size:20px;line-height:1.3;margin:0;padding:0;}
       .content-area{padding:20px;margin:auto; max-width:680px;}
@@ -36,6 +37,17 @@
         background: white;
         padding: 8px;
         position: fixed;
+      }
+      fieldset {
+        margin: 1.25em 0;
+      }
+      legend {
+        margin: 0;
+        padding: 0;
+      }
+      legend h2 {
+        margin: 0;
+        font-size: 1em;
       }
       /* was causing a weird page jump. just hide it */
       body > .at-only[inert] {
@@ -130,10 +142,36 @@
 
         <div id="modal_1"
           data-modal
-          data-modal-label="A test title"
           data-modal-class="test"
           data-modal-compact
           data-modal-close>
+          <h2>
+            Announcement
+          </h2>
+
+          <div>
+            <p>Content goes here</p>
+          </div>
+        </div>
+
+
+        <h3>Modal Test 1b</h3>
+
+
+        <p>
+          <button type="button" class="btn"
+            data-modal-open="modal_1b">
+            Launch Modal with close focused
+          </button>
+        </p>
+
+        <div id="modal_1b"
+          data-modal
+          data-modal-label="Autofocus modal"
+          data-modal-class="test"
+          data-modal-compact
+          data-modal-close
+          data-modal-focus-close>
           <h2>
             Announcement
           </h2>
@@ -153,7 +191,9 @@
           <summary>
             Modal Test 2 details
           </summary>
-
+          <p>
+            ...
+          </p>
         </details>
 
         <p>
@@ -182,7 +222,7 @@
               <span style="display: block;">
                 Name:
               </span>
-              <input type="text" id="name" autofocus="">
+              <input type="text" id="name" data-autofocus>
             </label>
           </div>
         </div>
@@ -193,10 +233,16 @@
           </a>
         </p>
 
-        <div id="modal_3" hidden data-modal aria-describedby="desc">
-          <h1>Example with Autofocus radio</h1>
+        <!--
+          manually setup aria-describedby
+        -->
+        <div id="modal_3"
+          hidden
+          data-modal
+          aria-describedby="desc">
+          <h1>Example with autofocus</h1>
           <p id="desc">
-            Select the recording you want to cancel.
+            Select the item you want to cancel.
           </p>
           <div>
             <form>
@@ -204,19 +250,10 @@
               <fieldset>
                 <legend>
                   <h2>
-                    Tomorrow, Month DD at HH:MM AM/PM
+                    You have options
                   </h2>
                 </legend>
 
-                <!--
-                  All contents are wrapped within a label to ensure all
-                  visible elements associated with the radio are in the
-                  radio's hit area.
-
-                  Set all visible text to aria-hidden="true" and instead utilize
-                  the aria-label, on each radio input, to announce the content
-                  in a friendly manner.
-                -->
                 <div>
                   <label>
                     <input type="radio"
@@ -233,12 +270,12 @@
                     Option 2
                   </label>
                 </div>
-
-                <!-- ... -->
               </fieldset>
 
               <div>
-                <button type="submit">
+                <button type="submit"
+                  class="btn"
+                  data-modal-close-btn>
                   Confirm
                 </button>
               </div>
@@ -249,28 +286,37 @@
         </div>
 
 
-<!--         <div id="modal_4"
+        <p>
+          <a class="btn" data-modal-open="modal_4">
+            Launch Alert Modal
+          </a>
+        </p>
+
+
+        <div id="modal_4"
           hidden
           data-modal
-          data-modal-close="Close"
-          data-modal-hidden-title>
+          data-modal-alert>
           <h2>
-           Why am I nested?
+           An important message
           </h2>
 
           <div>
-            <p>Content goes here, yet again</p>
-            <label for="name2">
-              <span style="display: block;">
-                Name:
-              </span>
-              <input type="text" id="name2">
-            </label>
+            <p data-modal-description>
+              This is a short description of this alert.
+            </p>
+
+            <button type="button"
+              class="btn"
+              data-autofocus
+              data-modal-close-btn>
+              Confirm
+            </button>
           </div>
         </div>
- -->
+
       </main>
-    </div>
+
 
     <script src="assets/js/aria.modal.js"></script>
     <script>
