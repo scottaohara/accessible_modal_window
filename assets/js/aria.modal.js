@@ -25,7 +25,7 @@
 	var children = html.querySelectorAll( 'body > *:not([data-modal])' );
 	var initialTrigger;
 
-	var closeIcon = '<svg role="img" focusable="false" aria-hidden="true" viewBox="0 0 20 20" height="20" width="20"><path d="M10.707 10.5l8.646-8.646a.5.5 0 0 0-.707-.707L10 9.793 1.354 1.147a.5.5 0 0 0-.707.707L9.293 10.5.647 19.146a.5.5 0 0 0 .708.707l8.646-8.646 8.646 8.646a.498.498 0 0 0 .708 0 .5.5 0 0 0 0-.707L10.709 10.5z"/></svg><span class="at-only">Close</span>';
+	var closeIcon = '<svg role="img" focusable="false" aria-hidden="true" viewBox="0 0 20 20" height="20" width="20"><path d="M10.707 10.5l8.646-8.646a.5.5 0 0 0-.707-.707L10 9.793 1.354 1.147a.5.5 0 0 0-.707.707L9.293 10.5.647 19.146a.5.5 0 0 0 .708.707l8.646-8.646 8.646 8.646a.498.498 0 0 0 .708 0 .5.5 0 0 0 0-.707L10.709 10.5z"/></svg>';
 
 
 	/**
@@ -143,8 +143,6 @@
 				console.warn('Missing target modal dialog - [data-modal-open="IDREF"]');
 			}
 
-
-
 		} // for(widget.length)
 	}; // ARIAmodal.setupTrigger()
 
@@ -154,7 +152,7 @@
 		var i;
 
 		/**
-		 * There may be modals that exist on screen, but
+		 * There may be dialogs that exist on screen, but
 		 * buttons that haven't yet been created to launch them.
 		 */
 		for ( i = 0; i < modal.length; i++ ) {
@@ -181,7 +179,7 @@
 			 * Modal dialogs need to be hidden by default.
 			 * To ensure they stay hidden, even if CSS is
 			 * disabled, or purposefully turned off, apply
-			 * a [hidden] attribute to modals.
+			 * a [hidden] attribute to the dialogs.
 			 */
 			self.setAttribute('hidden', '');
 
