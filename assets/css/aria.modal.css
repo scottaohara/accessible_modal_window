@@ -75,3 +75,11 @@
   transform: translateY(20vh);
   visibility: hidden;
 }
+
+
+.is-icon-btn {
+  background: none;
+  position: absolute;
+  top: .75em;
+  right: .5em;
+}
