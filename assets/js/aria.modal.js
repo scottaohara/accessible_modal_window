@@ -348,13 +348,12 @@
 
 			for ( i = 0; i < children.length; i++ ) {
 				children[i].setAttribute('aria-hidden', 'true');
-				children[i].setAttribute('inert', '');
+				children[i].setAttribute('inert', 'true');
 			}
 		}
 		else {
 			console.warn('It is not advised to open modal dialogs from within other dialogs. Instead consider replacing the contents of this dialog with new content. Or providing a stepped, or tabbed interface within this dialog. Chaining dialogs should be considered a UX bug, not a feature.');
 		}
-
 
 		target.removeAttribute('hidden');
 		focusTarget.focus();
@@ -377,7 +376,6 @@
 			children[i].removeAttribute('inert');
 			body.classList.remove('modal-open');
 		}
-
 
 		/**
 		 * When a modal closes:
