@@ -25,7 +25,7 @@
 	var children = html.querySelectorAll( 'body > *:not([data-modal])' );
 	var initialTrigger;
 
-	var closeIcon = '<svg role="img" focusable="false" aria-hidden="true" viewBox="0 0 20 20" height="20" width="20"><path d="M10.707 10.5l8.646-8.646a.5.5 0 0 0-.707-.707L10 9.793 1.354 1.147a.5.5 0 0 0-.707.707L9.293 10.5.647 19.146a.5.5 0 0 0 .708.707l8.646-8.646 8.646 8.646a.498.498 0 0 0 .708 0 .5.5 0 0 0 0-.707L10.709 10.5z"/></svg><span class="sr-only">Close Dialog</span>';
+	var closeIcon = '<svg role="img" focusable="false" aria-hidden="true" viewBox="0 0 20 20" height="20" width="20"><path d="M10.707 10.5l8.646-8.646a.5.5 0 0 0-.707-.707L10 9.793 1.354 1.147a.5.5 0 0 0-.707.707L9.293 10.5.647 19.146a.5.5 0 0 0 .708.707l8.646-8.646 8.646 8.646a.498.498 0 0 0 .708 0 .5.5 0 0 0 0-.707L10.709 10.5z"/></svg><span class="at-only">Close</span>';
 
 
 	/**
@@ -287,7 +287,7 @@
 		if ( self.getAttribute('data-modal-close') === '' || !self.hasAttribute('data-modal-close') ) {
 			closeBtn.innerHTML = closeIcon;
 			// add a helper class for close icon buttons.
-			closeBtn.classList.add(getClass + '__close-btn--x');
+			closeBtn.classList.add('is-icon-btn');
 		}
 		else {
 			closeBtn.innerHTML = self.getAttribute('data-modal-close');
