@@ -157,13 +157,16 @@
 		 */
 		for ( i = 0; i < modal.length; i++ ) {
 			var self = modal[i];
-			var getClass = self.getAttribute('data-modal-class');
-			var heading  = self.querySelector('h1') ||
-										 self.querySelector('h2') ||
-										 self.querySelector('h1') ||
-										 self.querySelector('h4');
-			var modalType = self.getAttribute('data-modal-alert');
-			var modalLabel = self.hasAttribute('data-modal-label');
+			var getClass     = self.getAttribute('data-modal-class');
+			var heading      = self.querySelector('h1') ||
+                         self.querySelector('h2') ||
+                         self.querySelector('h1') ||
+                         self.querySelector('h4');
+			var modalType    = self.hasAttribute('data-modal-alert');
+			var modalLabel   = self.hasAttribute('data-modal-label');
+			var aFocusCheck  = false;
+			var descCheck    = false;
+
 			/**
 			 * Determine the type of modal this is, and then
 			 * set the appropriate role.
@@ -209,12 +212,6 @@
 
 
 			/**
-			 * If this is an alertdialog, special setup
-			 * goes here
-			 */
-
-
-			/**
 			 * Do a check to see if there is an element flagged to be the
 			 * description of the modal dialog.
 			 */
@@ -223,12 +220,26 @@
 				getDesc.id = 'md_desc_' + Math.floor(Math.random() * 999) + 1;
 
 				self.setAttribute('aria-describedby', getDesc.id);
+
+				descCheck = true;
+			}
+			else if ( self.hasAttribute('aria-describedby') ) {
+				descCheck = true;
 			}
 
 
 			/**
-			 * Check for a heading to set the accessible name of the modal,
-			 * or if an aria-label should be set to the modal dialog instead.
+			 * Do a check to see if there is an element that should
+			 * receive autofocus within the dialog.
+			 */
+			// if ( !self.querySelector('[autofocus') && modalType ) {
+			// 	console.warn('')
+			// }
+
+
+			/**
+			 * Check for a heading to set the accessible name of the dialog,
+			 * or if an aria-label should be set to the dialog instead.
 			 */
 			if ( modalLabel ) {
 				self.setAttribute('aria-label', self.getAttribute('data-modal-label'));
@@ -253,56 +264,63 @@
 
 
 	ARIAmodal.setupModalCloseBtn = function ( self, getClass ) {
+		var manualClose = self.querySelector('[data-modal-close-btn]');
 		var btnClass;
-		var closeBtn = doc.createElement('button');
-		closeBtn.setAttribute('type', 'button');
 
-		/**
-		 * If a custom class is set, set that class
-		 * and create BEM classes for direct child elements.
-		 *
-		 * If no custom class set, then use default "a11y-modal" class.
-		 */
-		if ( getClass ) {
-			btnClass = getClass;
-		}
-		else {
-			btnClass = 'a11y-modal';
-		}
+		if ( manualClose === null ) {
+			var closeBtn = doc.createElement('button');
+			closeBtn.setAttribute('type', 'button');
 
-		self.classList.add(btnClass);
-		closeBtn.classList.add(btnClass + '__close-btn');
-
-
-		/**
-		 * If there is no data-modal-close attribute, or it has no set value, then inject
-		 * the close button icon and text into the generated button.
-		 *
-		 * If the data-modal-close attribute has a set value, then use that as the
-		 * visible text of the close button, and do not position it in the upper right
-		 * of the modal dialog.
-		 */
-		if ( self.getAttribute('data-modal-close') === '' || !self.hasAttribute('data-modal-close') ) {
-			closeBtn.innerHTML = closeIcon;
-			// add a helper class for close icon buttons.
-			closeBtn.classList.add('is-icon-btn');
-		}
-		else {
-			closeBtn.innerHTML = self.getAttribute('data-modal-close');
 			/**
-			 * If a specific class or classes
+			 * If a custom class is set, set that class
+			 * and create BEM classes for direct child elements.
+			 *
+			 * If no custom class set, then use default "a11y-modal" class.
 			 */
-			if ( self.getAttribute('data-modal-close-class') ) {
-				closeBtn.classList.add(self.getAttribute('data-modal-close-class'));
+			if ( getClass ) {
+				btnClass = getClass;
 			}
+			else {
+				btnClass = 'a11y-modal';
+			}
+
+			self.classList.add(btnClass);
+			closeBtn.classList.add(btnClass + '__close-btn');
+
+			/**
+			 * If there is no data-modal-close attribute, or it has no set value, then inject
+			 * the close button icon and text into the generated button.
+			 *
+			 * If the data-modal-close attribute has a set value, then use that as the
+			 * visible text of the close button, and do not position it in the upper right
+			 * of the modal dialog.
+			 */
+			if ( self.getAttribute('data-modal-close') === '' ) {
+				closeBtn.innerHTML = closeIcon;
+				closeBtn.setAttribute('aria-label', 'Close');
+				// add a helper class for close icon buttons.
+				closeBtn.classList.add('is-icon-btn');
+			}
+			else {
+				closeBtn.innerHTML = self.getAttribute('data-modal-close');
+				/**
+				 * If a specific class or classes
+				 */
+				if ( self.getAttribute('data-modal-close-class') ) {
+					closeBtn.classList.add(self.getAttribute('data-modal-close-class'));
+				}
+			}
+
+			self.appendChild(closeBtn);
+
+			closeBtn.addEventListener('click', ARIAmodal.closeModal);
+		}
+		else {
+			manualClose.addEventListener('click', ARIAmodal.closeModal);
 		}
 
 
-		self.append(closeBtn);
-
-
-		closeBtn.addEventListener('click', ARIAmodal.closeModal);
-		doc.addEventListener('keydown', ARIAmodal.keytrolls);
+		doc.addEventListener('keydown', ARIAmodal.keytrolls, false);
 	}; // ARIAmodal.setupModalCloseBtn
 
 
