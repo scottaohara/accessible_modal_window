@@ -409,7 +409,7 @@
 	};
 
 
-	ARIAmodal.keytrolls = function ( e, activeModal ) {
+	ARIAmodal.keytrolls = function ( e ) {
 		var keyCode = e.keyCode || e.which;
 
 
@@ -426,7 +426,7 @@
 		if ( body.classList.contains('modal-open') ) {
 			switch ( keyCode ) {
 				case escKey:
-					ARIAmodal.closeModal( activeModal );
+					ARIAmodal.closeModal();
 					break;
 
 				default:
