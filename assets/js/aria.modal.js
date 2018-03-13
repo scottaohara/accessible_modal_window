@@ -16,6 +16,7 @@
 	var escKey = 27;
 	var enterKey = 13;
 	var spaceKey = 32;
+
 	var activeClass = 'modal-open';
 	var html = doc.getElementsByTagName('html')[0];
 	var body = doc.body;
@@ -51,9 +52,10 @@
 	 *
 	 * This function validates that the minimum required markup
 	 * is present to create the ARIA widget(s).
+	 *
 	 * Any additional markup elements or attributes that
 	 * do not exist in the found required markup patterns
-	 * will be generated via this function.
+	 * will be generated setup functions.
 	 */
 	ARIAmodal.setupTrigger = function () {
 		var trigger = doc.querySelectorAll('[data-modal-open]');
@@ -64,8 +66,10 @@
 			self = trigger[i];
 
 			/**
-			 * If a link is being progressively enhanced into a button,
-			 * then the link should have a role="button"
+			 * If not a button, update the semantics to make it announce as a button.
+			 * Provide it with a tabindex if it's not a button or link with href.
+			 * If no data-modal-open value was set, and it's a link, then get the
+			 * target ID from the href value.
 			 */
 			if ( self.nodeName !== 'BUTTON' ) {
 				self.setAttribute('role', 'button');
@@ -86,28 +90,22 @@
 			 */
 			if ( self.getAttribute('data-modal-open') ) {
 				/**
-				 * A button should have an aria-haspopup="dialog" to
-				 * convey to users that *this* button will launch a
-				 * modal dialog.
+				 * A button should have an aria-haspopup="dialog" to convey to users that
+				 * *this* button will launch a modal dialog.
 				 *
-				 * Presently, the "dialog" value is not fully supported
-				 * and in unsupported instances, it defaults back to
-				 * announcing that a "menu" will open.
-				 * Use this attribute with caution until this value
-				 * has wider support.
+				 * Presently, the "dialog" value is not fully supported and in unsupported
+				 * instances, it defaults back to announcing that a "menu" will open.
+				 * Use this attribute with caution until this value has wider support.
 				 */
 				// self.setAttribute('aria-haspopup', 'dialog');
 
 				/**
-				 * Remove the disabled attribute, as if this script is
-				 * running, JavaScript must be enabled and thus the
-				 * button should function.
+				 * Remove the disabled attribute, as if this script is running, JavaScript
+				 * must be enabled and thus the button should function.
 				 *
-				 * But wait...there may be value in having a disabled
-				 * button that can be enabled via other user actions...
-				 * So, in that scenario look for a
-				 * data-modal-disabled attribute, to keep
-				 * the button disabled.
+				 * But wait...there may be value in having a disabled button that can be
+				 * enabled via other user actions. So, in that scenario look for a
+				 * data-modal-disabled attribute, to keep the button disabled.
 				 */
 				if ( self.hasAttribute('disabled')
 						 && !self.hasAttribute('data-modal-disabled') ) {
@@ -115,20 +113,18 @@
 				}
 
 				/**
-				 * In instances where a disabled button is not desired,
-				 * when JavaScript is unavailable, a hidden attribute
-				 * can be used to completely hide the button.
+				 * In instances when JavaScript is unavailable and a disabled button is
+				 * not desired, a hidden attribute can be used to completely hide the button.
 				 *
-				 * Remove this hidden attribute to reveal the button
+				 * Remove this hidden attribute to reveal the button.
 				 */
 				if ( self.hasAttribute('hidden') ) {
 					self.removeAttribute('hidden');
 				}
 
 				/**
-				 * Get modal target and supply the button with a
-				 * unique ID to easily reference for returning focus
-				 * to, once the modal dialog is closed.
+				 * Get modal target and supply the button with a unique ID to easily
+				 * reference for returning focus to, once the modal dialog is closed.
 				 */
 				var target = self.getAttribute('data-modal-open');
 				self.id = target + '__trigger-' + self.nodeName;
@@ -147,31 +143,31 @@
 	}; // ARIAmodal.setupTrigger()
 
 
+	/**
+	 * Setup the necessary attributes and child elements for the
+	 * modal dialogs.
+	 */
 	ARIAmodal.setupModal = function () {
 		var self;
 		var i;
 
-		/**
-		 * There may be dialogs that exist on screen, but
-		 * buttons that haven't yet been created to launch them.
-		 */
 		for ( i = 0; i < modal.length; i++ ) {
 			var self = modal[i];
-			var getClass     = self.getAttribute('data-modal-class');
-			var heading      = self.querySelector('h1') ||
+			var getClass      = self.getAttribute('data-modal-class');
+			var heading       = self.querySelector('h1') ||
                          self.querySelector('h2') ||
                          self.querySelector('h1') ||
                          self.querySelector('h4');
-			var modalType    = self.hasAttribute('data-modal-alert');
-			var modalLabel   = self.hasAttribute('data-modal-label');
-			var aFocusCheck  = false;
-			var descCheck    = false;
+			var isAlertDialog = self.hasAttribute('data-modal-alert');
+			var modalLabel    = self.hasAttribute('data-modal-label');
+			var aFocusCheck   = false;
+			var descCheck     = false;
 
 			/**
-			 * Determine the type of modal this is, and then
-			 * set the appropriate role.
+			 * Check to see if this is meant to be an alert or normal dialog.
+			 * Supply the appropriate role.
 			 */
-			if ( modalType ) {
+			if ( isAlertDialog ) {
 				self.setAttribute('role', 'alertdialog');
 			}
 			else {
@@ -180,9 +176,9 @@
 
 			/**
 			 * Modal dialogs need to be hidden by default.
-			 * To ensure they stay hidden, even if CSS is
-			 * disabled, or purposefully turned off, apply
-			 * a [hidden] attribute to the dialogs.
+			 *
+			 * To ensure they stay hidden, even if CSS is disabled, or purposefully
+			 * turned off, apply a [hidden] attribute to the dialogs.
 			 */
 			self.setAttribute('hidden', '');
 
@@ -232,7 +228,7 @@
 			 * Do a check to see if there is an element that should
 			 * receive autofocus within the dialog.
 			 */
-			// if ( !self.querySelector('[autofocus') && modalType ) {
+			// if ( !self.querySelector('[autofocus') && isAlertDialog ) {
 			// 	console.warn('')
 			// }
 
@@ -318,7 +314,6 @@
 		else {
 			manualClose.addEventListener('click', ARIAmodal.closeModal);
 		}
-
 
 		doc.addEventListener('keydown', ARIAmodal.keytrolls, false);
 	}; // ARIAmodal.setupModalCloseBtn
@@ -417,6 +412,7 @@
 	ARIAmodal.keytrolls = function ( e, activeModal ) {
 		var keyCode = e.keyCode || e.which;
 
+
 		if ( e.target.hasAttribute( 'data-modal-open' ) ) {
 			switch ( keyCode ) {
 				case enterKey:
@@ -437,6 +433,7 @@
 					break;
 			}
 		}
+
 	}; // ARIAmodal.keytrolls()
 
 
