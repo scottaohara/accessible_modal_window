@@ -81,6 +81,11 @@ The `data-modal-close` attribute is what the script looks for in closing the mod
 
 
 
+#### Dialog Children Attributes
+- `autofocus`: If a dialog has this attribute on a child element, move focus to this element instead of the dialog container.
+- `data-autofocus`: Since it is invalid to have multiple `autofocus` attributes in a single document, but there may be multiple dialog instances, use this attribute to simulate an automatic focus with JavaScript.
+- `data-modal-description`: This attribute will be used to auto-generate a unique ID, and become the pointer for the generated `aria-describedby` that is added to the dialog container.
+- `data-modal-close-btn`: Add this attribute to `button` elements within the dialog that should be allowed to close the dialog.
 
 ### Additional Functionality  
 Include [Matt Casserly's hash.click function](https://github.com/mattcass/hash.click) to auto open modal windows on page load, if their URI is part of the address bar. This will emulate a click of the modal trigger, so the standard modal open events will be performed.
