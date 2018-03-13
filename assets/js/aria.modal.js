@@ -48,7 +48,7 @@
 		for ( i = 0; i < modal.length; i++ ) {
 			body.insertBefore( modal[i], refEl );
 		}
-	}
+	};
 
 	/**
 	 * Global Create
@@ -259,6 +259,10 @@
 				}
 			}
 
+			/**
+			 * Get all focusable elements from within a dialog and set the
+			 * first and last elements to have respective classes for later looping.
+			 */
 			var focusable = self.querySelectorAll('button:not([hidden]), [href]:not([hidden]), input:not([hidden]), select:not([hidden]), textarea:not([hidden]), [tabindex]:not([tabindex="-1"]):not([hidden]), summary, [contenteditable]:not([hidden])');
 			focusable[0].classList.add(firstClass);
 			focusable[focusable.length - 1].classList.add(lastClass);
@@ -267,6 +271,10 @@
 	}; // ARIAmodal.setupModal
 
 
+	/**
+	 * Setup any necessary close buttons, and add appropriate
+	 * listeners so that they will close their parent modal dialog.
+	 */
 	ARIAmodal.setupModalCloseBtn = function ( self, getClass ) {
 		var manualClose = self.querySelector('[data-modal-close-btn]');
 		var btnClass;
@@ -420,7 +428,6 @@
 	ARIAmodal.keytrolls = function ( e ) {
 		var keyCode = e.keyCode || e.which;
 
-
 		if ( e.target.hasAttribute( 'data-modal-open' ) ) {
 			switch ( keyCode ) {
 				case enterKey:
@@ -441,7 +448,6 @@
 					break;
 			}
 
-
 			var firstFocus = doc.querySelector('[data-modal]:not([hidden]) .' + firstClass);
 			var lastFocus = doc.querySelector('[data-modal]:not([hidden]) .' + lastClass);
 
@@ -459,7 +465,6 @@
 				}
 			}
 		}
-
 	}; // ARIAmodal.keytrolls()
 
 
