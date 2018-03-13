@@ -28,6 +28,9 @@
 
 	var closeIcon = '<svg role="img" focusable="false" aria-hidden="true" viewBox="0 0 20 20" height="20" width="20"><path d="M10.707 10.5l8.646-8.646a.5.5 0 0 0-.707-.707L10 9.793 1.354 1.147a.5.5 0 0 0-.707.707L9.293 10.5.647 19.146a.5.5 0 0 0 .708.707l8.646-8.646 8.646 8.646a.498.498 0 0 0 .708 0 .5.5 0 0 0 0-.707L10.709 10.5z"/></svg>';
 
+	var firstClass = 'js-first-focus';
+	var lastClass = 'js-last-focus';
+
 
 	/**
 	 * Function to place the modal dialog(s) as the first child(ren)
@@ -133,7 +136,7 @@
 				 * Events
 				 */
 				self.addEventListener('click', ARIAmodal.openModal);
-				self.addEventListener('keypress', ARIAmodal.keytrolls, false);
+				self.addEventListener('keydown', ARIAmodal.keytrolls, false);
 			}
 			else {
 				console.warn('Missing target modal dialog - [data-modal-open="IDREF"]');
@@ -255,6 +258,11 @@
 					console.warn('Dialogs should have their purpose conveyed by a heading element (h1).');
 				}
 			}
+
+			var focusable = self.querySelectorAll('button:not([hidden]), [href]:not([hidden]), input:not([hidden]), select:not([hidden]), textarea:not([hidden]), [tabindex]:not([tabindex="-1"]):not([hidden]), summary, [contenteditable]:not([hidden])');
+			focusable[0].classList.add(firstClass);
+			focusable[focusable.length - 1].classList.add(lastClass);
+
 		}
 	}; // ARIAmodal.setupModal
 
@@ -431,6 +439,24 @@
 
 				default:
 					break;
+			}
+
+
+			var firstFocus = doc.querySelector('[data-modal]:not([hidden]) .' + firstClass);
+			var lastFocus = doc.querySelector('[data-modal]:not([hidden]) .' + lastClass);
+
+			if ( doc.activeElement.classList.contains(lastClass) ) {
+				if ( keyCode === 9 && !e.shiftKey ) {
+					e.preventDefault();
+					firstFocus.focus();
+				}
+			}
+
+			if ( doc.activeElement.classList.contains(firstClass) ) {
+				if ( keyCode === 9 && e.shiftKey ) {
+					e.preventDefault();
+					lastFocus.focus();
+				}
 			}
 		}
 
