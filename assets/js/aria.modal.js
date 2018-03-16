@@ -393,7 +393,11 @@
 		 * Keyboard focus must be appropriately managed...
 		 */
 		body.classList.remove('modal-open');
-		doc.querySelector('[data-modal]:not([hidden])').setAttribute('hidden', '');
+		for ( var i = 0; i < modal.length; i++ ) {
+			if ( !modal[i].hasAttribute('hidden') ) {
+				modal[i].setAttribute('hidden', '');
+			}
+		}
 
 		/**
 		 * Return focus to the trigger that opened the modal dialog.
