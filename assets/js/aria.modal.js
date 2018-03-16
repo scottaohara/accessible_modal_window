@@ -369,6 +369,8 @@
 		target.removeAttribute('hidden');
 		focusTarget.focus();
 
+		doc.addEventListener('click', ARIAmodal.clickOutside, false);
+
 		return initialTrigger;
 	};
 
@@ -449,6 +451,17 @@
 		}
 	}; // ARIAmodal.keytrolls()
 
+
+	ARIAmodal.clickOutside = function ( e ) {
+		if ( body.classList.contains(activeClass) && !e.target.hasAttribute('data-modal-open') ) {
+			var specifiedElement = doc.querySelector('[data-modal]:not([hidden])');
+			var isClickInside = specifiedElement.contains(e.target);
+
+			if ( !isClickInside && specifiedElement.getAttribute('role') !== 'alertdialog') {
+				ARIAmodal.closeModal();
+			}
+		}
+	};
 
 	/**
 	 * Initialize modal Functions
