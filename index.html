@@ -73,10 +73,26 @@
         line-height: 1;
         border: 1px solid #ddd;
       }
-      main > h3 {
+      main > section {
         margin-top: 2em;
         padding-top: 1.5em;
         border-top: 1px solid;
+      }
+      h3 span {
+        font-size: .75em;
+        display: inline-block;
+        width: 100%;
+      }
+
+      .callout-test {
+        margin-left: -1.25em;
+        width: calc(100% + 2.5em);
+        padding: 1.25em;
+        background: #eee;
+      }
+
+      .callout-test > *:last-child {
+        margin-bottom: 0;
       }
     </style>
     <link rel="stylesheet" href="assets/css/aria.modal.css">
