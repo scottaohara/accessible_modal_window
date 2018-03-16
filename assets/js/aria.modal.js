@@ -257,10 +257,11 @@
 	 * listeners so that they will close their parent modal dialog.
 	 */
 	ARIAmodal.setupModalCloseBtn = function ( self, getClass ) {
-		var manualClose = self.querySelector('[data-modal-close-btn]');
-		var btnClass;
+		var manualClose = self.querySelectorAll('[data-modal-close-btn]');
+		var btnClass = 'a11y-modal';
+		var i;
 
-		if ( manualClose === null ) {
+		if ( manualClose.length < 2 ) {
 			var closeBtn = doc.createElement('button');
 			closeBtn.setAttribute('type', 'button');
 
@@ -272,9 +273,6 @@
 			 */
 			if ( getClass ) {
 				btnClass = getClass;
-			}
-			else {
-				btnClass = 'a11y-modal';
 			}
 
 			self.classList.add(btnClass);
@@ -288,7 +286,7 @@
 			 * visible text of the close button, and do not position it in the upper right
 			 * of the modal dialog.
 			 */
-			if ( self.getAttribute('data-modal-close') === '' ) {
+			if ( !self.getAttribute('data-modal-close') && self.getAttribute('data-modal') !== 'alert' ) {
 				closeBtn.innerHTML = closeIcon;
 				closeBtn.setAttribute('aria-label', 'Close');
 				// add a helper class for close icon buttons.
@@ -304,12 +302,16 @@
 				}
 			}
 
-			self.appendChild(closeBtn);
+			if ( self.getAttribute('data-modal') !== 'alert' ) {
+				self.appendChild(closeBtn);
+			}
+
 
 			closeBtn.addEventListener('click', ARIAmodal.closeModal);
 		}
-		else {
-			manualClose.addEventListener('click', ARIAmodal.closeModal);
+
+		for ( i = 0; i < manualClose.length; i++ ) {
+			manualClose[i].addEventListener('click', ARIAmodal.closeModal);
 		}
 
 		doc.addEventListener('keydown', ARIAmodal.keytrolls, false);
