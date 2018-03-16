@@ -26,6 +26,8 @@
 	var firstClass = 'js-first-focus';
 	var lastClass = 'js-last-focus';
 
+	var focusableElements = 'button:not([hidden]), [href]:not([hidden]), input:not([hidden]), select:not([hidden]), textarea:not([hidden]), [tabindex]:not([tabindex="-1"]):not([hidden]), summary, [contenteditable]:not([hidden])';
+
 
 	/**
 	 * Function to place the modal dialog(s) as the first child(ren)
@@ -242,7 +244,7 @@
 			 * Get all focusable elements from within a dialog and set the
 			 * first and last elements to have respective classes for later looping.
 			 */
-			var focusable = self.querySelectorAll('button:not([hidden]), [href]:not([hidden]), input:not([hidden]), select:not([hidden]), textarea:not([hidden]), [tabindex]:not([tabindex="-1"]):not([hidden]), summary, [contenteditable]:not([hidden])');
+			var focusable = self.querySelectorAll(focusableElements);
 			focusable[0].classList.add(firstClass);
 			focusable[focusable.length - 1].classList.add(lastClass);
 
