@@ -188,7 +188,8 @@
         <div id="modal_2"
           data-modal
           data-modal-compact
-          data-modal-close
+          data-modal-close="Close Me!"
+          data-modal-close-class="btn"
           data-modal-focus-close>
 
           <h2>
@@ -208,10 +209,10 @@
             Modal Test 2 details
           </summary>
           <p>
-            Here the modal dialog has a generated close button, which is auto focused when the dialog is opened.
+            Here the modal dialog has a generated close button, which is auto focused when the dialog is opened. The text of the close button and a class are passed to the generated close button via the <code>data-modal-close</code> and <code>data-modal-close-class</code> attributes respectively.
           </p>
           <p>
-            A <code>data-modal-description</code> is used so that when the close button is focused, the accessible name of the dialog, its description, and the close button are all announced by screen readers.
+            A <code>data-modal-description</code> is added to the primary descriptor child element (in this case a <code>p</code> element) of the dialog so that when the close button is focused, the accessible name of the dialog, its description, and the close button are all announced by screen readers.
           </p>
         </details>
       </section>
@@ -232,9 +233,7 @@
           </button>
         </p>
 
-        <div id="modal_3"
-          hidden
-          data-modal>
+        <div id="modal_3" hidden data-modal>
           <h2>
            Another Announcement
           </h2>
