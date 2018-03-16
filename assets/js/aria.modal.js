@@ -153,19 +153,16 @@
 			var self = modal[i];
 			var getClass      = self.getAttribute('data-modal-class');
 			var heading       = self.querySelector('h1') ||
-                         self.querySelector('h2') ||
-                         self.querySelector('h1') ||
-                         self.querySelector('h4');
-			var isAlertDialog = self.hasAttribute('data-modal-alert');
+                          self.querySelector('h2') ||
+                          self.querySelector('h1') ||
+                          self.querySelector('h4');
 			var modalLabel    = self.hasAttribute('data-modal-label');
-			var aFocusCheck   = false;
-			var descCheck     = false;
 
 			/**
 			 * Check to see if this is meant to be an alert or normal dialog.
 			 * Supply the appropriate role.
 			 */
-			if ( isAlertDialog ) {
+			if ( self.getAttribute('data-modal') === 'alert' ) {
 				self.setAttribute('role', 'alertdialog');
 			}
 			else {
