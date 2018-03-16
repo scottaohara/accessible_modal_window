@@ -398,7 +398,16 @@
             Modal Test 5 details
           </summary>
           <p>
-            ...
+            An alert dialog should be used when a response is required from a user. Where standard dialogs may allow for multiple passive ways to exit them, such as mouse clicking outside the dialog, or using a close button that provides no concrete commitment from a user that they actually engaged with the dialog's contents; an alert dialog should only be closed via purposeful button activations by a user.
+          </p>
+          <p>
+            For instance, an alert dialog may have a single "OK" button to indicate that the user is compliant with the message the dialog presents to them. Or a specific choice of "deny" or "confirm" buttons, to indicate that a user agrees or disagrees with the dialog's primary message.
+          </p>
+          <p>
+            With this in mind, it should be noted that an alert dialog will not auto generate close buttons. Authors should enter the specific actionable elements to dismiss the dialog. Alert dialogs also do not allow for a mouse click outside of the dialog to close them.
+          </p>
+          <p>
+            If an alert dialog contains a short message and a single actionable item, then that item may be autofocused, and the dialog may utilize <code>aria-describedby</code> to read out the contents of the dialog to the user, to decrease a user having to navigate the dialog themselves.  If an alert dialog contains more than a confirmation button to dismiss it, e.g. there is a confirm, deny, or other choices to dismiss the dialog, then autofocusing a choice may lead some users to believe that is their only choice.
           </p>
         </details>
       </section>
