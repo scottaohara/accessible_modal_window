@@ -14,17 +14,16 @@
 	ARIAmodal.LICENSE = 'https://github.com/scottaohara/accessible_modal_window/blob/master/LICENSE';
 
 	var activeClass = 'modal-open';
-	var html = doc.getElementsByTagName('html')[0];
 	var body = doc.body;
 
-	var modal = doc.querySelectorAll( '[data-modal]' );
-	var children = html.querySelectorAll( 'body > *:not([data-modal])' );
+	var modal = doc.querySelectorAll('[data-modal]');
+	var children = doc.querySelectorAll('body > *:not([data-modal])');
 	var initialTrigger;
-
-	var closeIcon = '<svg role="img" focusable="false" aria-hidden="true" viewBox="0 0 20 20" height="20" width="20"><path d="M10.707 10.5l8.646-8.646a.5.5 0 0 0-.707-.707L10 9.793 1.354 1.147a.5.5 0 0 0-.707.707L9.293 10.5.647 19.146a.5.5 0 0 0 .708.707l8.646-8.646 8.646 8.646a.498.498 0 0 0 .708 0 .5.5 0 0 0 0-.707L10.709 10.5z"/></svg>';
 
 	var firstClass = 'js-first-focus';
 	var lastClass = 'js-last-focus';
+
+	var closeIcon = '<svg role="img" focusable="false" aria-hidden="true" viewBox="0 0 20 20" height="20" width="20"><path d="M2,2 L18,18 M18,2 L2,18" stroke="#000" stroke-width="1"></path></svg>';
 
 	var focusableElements = 'button:not([hidden]), [href]:not([hidden]), input:not([hidden]), select:not([hidden]), textarea:not([hidden]), [tabindex]:not([tabindex="-1"]):not([hidden]), summary, [contenteditable]:not([hidden])';
 
