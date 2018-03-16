@@ -74,7 +74,7 @@
 			if ( self.nodeName !== 'BUTTON' ) {
 				self.setAttribute('role', 'button');
 
-				if ( !self.hasAttribute('href') || !self.hasAttribute('tabindex') ) {
+				if ( !self.hasAttribute('href') || self.getAttribute('tabindex') !== 0 ) {
 					self.tabIndex = 0;
 				}
 
@@ -302,7 +302,6 @@
 			if ( self.getAttribute('data-modal') !== 'alert' ) {
 				self.appendChild(closeBtn);
 			}
-
 
 			closeBtn.addEventListener('click', ARIAmodal.closeModal);
 		}
