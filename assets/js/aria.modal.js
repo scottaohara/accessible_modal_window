@@ -135,7 +135,6 @@
 			else {
 				console.warn('Missing target modal dialog - [data-modal-open="IDREF"]');
 			}
-
 		} // for(widget.length)
 	}; // ARIAmodal.setupTrigger()
 
@@ -150,12 +149,12 @@
 
 		for ( i = 0; i < modal.length; i++ ) {
 			var self = modal[i];
-			var getClass      = self.getAttribute('data-modal-class');
-			var heading       = self.querySelector('h1') ||
-                          self.querySelector('h2') ||
-                          self.querySelector('h1') ||
-                          self.querySelector('h4');
-			var modalLabel    = self.hasAttribute('data-modal-label');
+			var getClass   = self.getAttribute('data-modal-class');
+			var heading    = self.querySelector('h1') ||
+                       self.querySelector('h2') ||
+                       self.querySelector('h3') ||
+                       self.querySelector('h4');
+			var modalLabel = self.hasAttribute('data-modal-label');
 
 			/**
 			 * Check to see if this is meant to be an alert or normal dialog.
