@@ -6,9 +6,9 @@
 }
 
 /**
- * When a modal dialog is open, don't allow scrolling
- * of content beneath (on desktop). Also useful in negating
- * instances of double scroll bars
+ * When a modal dialog is open, don't allow scrolling of content
+ * beneath (on desktop). Also useful in negating instances of
+ * double scroll bars.
  * (browser window + dialog if long enough content)
  */
 .js body.modal-open {
@@ -19,23 +19,25 @@
  * Modal Dialog base styling
  */
 .js [data-modal] {
+  -webkit-overflow-scrolling: touch;
   background: #fff;
   border: 2px solid;
-  bottom: .25em;
+  bottom: 0;
   box-shadow: 0 0 1800px 400px rgba(0,0,0,.4);
   display: block;
-  left: .25em;
+  left: 0;
   margin: auto;
+  max-height: 100%;
   max-width: 660px;
   opacity: 1;
   overflow: auto;
-  padding: 1.125em 1.25em;
+  padding: 1.25em;
   position: fixed;
-  right: .25em;
-  top: .25em;
+  right: 0;
+  top: 0;
   transform: translateY(0%);
   visibility: visible;
-  width: calc(100% - .5em);
+  width: 100%;
   z-index: 10; /* this should be more than enough... */
 }
 
@@ -44,30 +46,17 @@
     bottom: auto;
     top: 50%;
     transform: translateY(-50%);
-    transition:
-      opacity .2s ease-in-out,
-      transform .2s ease-in-out;
+    transition: opacity .2s ease-in-out, transform .2s ease-in-out;
   }
-}
-
-/**
- * Continue to center dialog in viewport at with
- * determined by content, rather than stretching
- * out to take over whole screen.
- */
-.js [data-modal][data-modal-compact] {
-  bottom: auto;
-  top: 50%;
-  transform: translateY(-50%);
 }
 
 
 /**
  * To allow for CSS animations, hidden modal dialogs are
- * not set to display: none, but rather the following
- * rule set, in combination with the dialog's default
- * position: fixed, will keep dialogs hidden from all users
- * until opened.
+ * not set to display: none, but rather the following rule
+ * set, in combination with the dialog's default
+ * position: fixed, will keep dialogs hidden from
+ * all users until opened.
  */
 .js [data-modal][hidden] {
   opacity: 0;
@@ -80,6 +69,6 @@
 .is-icon-btn {
   background: none;
   position: absolute;
-  top: .75em;
   right: .5em;
+  top: .75em;
 }
