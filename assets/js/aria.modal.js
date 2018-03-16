@@ -452,7 +452,10 @@
 	}; // ARIAmodal.keytrolls()
 
 
-	ARIAmodal.clickOutside = function ( e ) {
+	/**
+	 * desc
+	 */
+	ARIAmodal.outsideClose = function ( e ) {
 		if ( body.classList.contains(activeClass) && !e.target.hasAttribute('data-modal-open') ) {
 			var specifiedElement = doc.querySelector('[data-modal]:not([hidden])');
 			var isClickInside = specifiedElement.contains(e.target);
