@@ -46,6 +46,7 @@
 		}
 	};
 
+
 	/**
 	 * Global Create
 	 *
@@ -112,8 +113,9 @@
 				}
 
 				/**
-				 * In instances when JavaScript is unavailable and a disabled button is
-				 * not desired, a hidden attribute can be used to completely hide the button.
+				 * In instances when JavaScript is unavailable and a disabled
+				 * button is not desired, a hidden attribute can be used to
+				 * completely hide the button.
 				 *
 				 * Remove this hidden attribute to reveal the button.
 				 */
@@ -242,7 +244,6 @@
 			var focusable = self.querySelectorAll(focusableElements);
 			focusable[0].classList.add(firstClass);
 			focusable[focusable.length - 1].classList.add(lastClass);
-
 		}
 	}; // ARIAmodal.setupModal
 
@@ -274,8 +275,8 @@
 			closeBtn.classList.add(btnClass + '__close-btn');
 
 			/**
-			 * If there is no data-modal-close attribute, or it has no set value, then inject
-			 * the close button icon and text into the generated button.
+			 * If there is no data-modal-close attribute, or it has no set value,
+			 * then inject the close button icon and text into the generated button.
 			 *
 			 * If the data-modal-close attribute has a set value, then use that as the
 			 * visible text of the close button, and do not position it in the upper right
@@ -284,14 +285,11 @@
 			if ( !self.getAttribute('data-modal-close') && self.getAttribute('data-modal') !== 'alert' ) {
 				closeBtn.innerHTML = closeIcon;
 				closeBtn.setAttribute('aria-label', 'Close');
-				// add a helper class for close icon buttons.
 				closeBtn.classList.add('is-icon-btn');
 			}
 			else {
 				closeBtn.innerHTML = self.getAttribute('data-modal-close');
-				/**
-				 * If a specific class or classes
-				 */
+
 				if ( self.getAttribute('data-modal-close-class') ) {
 					closeBtn.classList.add(self.getAttribute('data-modal-close-class'));
 				}
@@ -322,9 +320,8 @@
 		var focusTarget = target;
 
 		/**
-		 * In case these are links, negate default behavior
-		 * and just do what this script tells these triggers
-		 * to do.
+		 * In case these are links, negate default behavior and just
+		 * do what this script tells these triggers to do.
 		 */
 		e.preventDefault();
 
@@ -367,7 +364,8 @@
 		target.removeAttribute('hidden');
 		focusTarget.focus();
 
-		doc.addEventListener('click', ARIAmodal.clickOutside, false);
+		doc.addEventListener('click', ARIAmodal.outsideClose, false);
+		doc.addEventListener('touchend', ARIAmodal.outsideClose, false);
 
 		return initialTrigger;
 	};
