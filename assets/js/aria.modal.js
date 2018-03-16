@@ -13,14 +13,9 @@
 	ARIAmodal.VERSION = '3.0.0';
 	ARIAmodal.LICENSE = 'https://github.com/scottaohara/accessible_modal_window/blob/master/LICENSE';
 
-	var escKey = 27;
-	var enterKey = 13;
-	var spaceKey = 32;
-
 	var activeClass = 'modal-open';
 	var html = doc.getElementsByTagName('html')[0];
 	var body = doc.body;
-	var activeModal;
 
 	var modal = doc.querySelectorAll( '[data-modal]' );
 	var children = html.querySelectorAll( 'body > *:not([data-modal])' );
@@ -121,9 +116,7 @@
 				 *
 				 * Remove this hidden attribute to reveal the button.
 				 */
-				if ( self.hasAttribute('hidden') ) {
-					self.removeAttribute('hidden');
-				}
+				self.removeAttribute('hidden');
 
 				/**
 				 * Get modal target and supply the button with a unique ID to easily
@@ -219,21 +212,7 @@
 				getDesc.id = 'md_desc_' + Math.floor(Math.random() * 999) + 1;
 
 				self.setAttribute('aria-describedby', getDesc.id);
-
-				descCheck = true;
 			}
-			else if ( self.hasAttribute('aria-describedby') ) {
-				descCheck = true;
-			}
-
-
-			/**
-			 * Do a check to see if there is an element that should
-			 * receive autofocus within the dialog.
-			 */
-			// if ( !self.querySelector('[autofocus') && isAlertDialog ) {
-			// 	console.warn('')
-			// }
 
 
 			/**
@@ -427,6 +406,9 @@
 
 	ARIAmodal.keytrolls = function ( e ) {
 		var keyCode = e.keyCode || e.which;
+		var escKey = 27;
+		var enterKey = 13;
+		var spaceKey = 32;
 
 		if ( e.target.hasAttribute( 'data-modal-open' ) ) {
 			switch ( keyCode ) {
