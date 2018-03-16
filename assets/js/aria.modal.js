@@ -40,7 +40,7 @@
 	 */
 	ARIAmodal.organizeDOM = function () {
 		var i;
-		var refEl = body.firstChild || null;
+		var refEl = body.firstElementChild || null;
 
 		for ( i = 0; i < modal.length; i++ ) {
 			body.insertBefore( modal[i], refEl );
