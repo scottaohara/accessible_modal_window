@@ -206,7 +206,7 @@
 			 */
 			if ( self.querySelector('[data-modal-description]') ) {
 				var getDesc = self.querySelector('[data-modal-description]');
-				getDesc.id = 'md_desc_' + Math.floor(Math.random() * 999) + 1;
+				getDesc.id = getDesc.id || 'md_desc_' + Math.floor(Math.random() * 999) + 1;
 
 				self.setAttribute('aria-describedby', getDesc.id);
 			}
