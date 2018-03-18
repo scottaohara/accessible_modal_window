@@ -23,7 +23,7 @@
 	var firstClass = 'js-first-focus';
 	var lastClass = 'js-last-focus';
 
-	var closeIcon = '<svg role="img" focusable="false" aria-hidden="true" viewBox="0 0 20 20" height="20" width="20"><path d="M2,2 L18,18 M18,2 L2,18" stroke="#000" stroke-width="1"></path></svg>';
+	var closeIcon = '<span data-modal-x></span>';
 
 	var focusableElements = 'button:not([hidden]), [href]:not([hidden]), input:not([hidden]), select:not([hidden]), textarea:not([hidden]), [tabindex]:not([tabindex="-1"]):not([hidden]), summary, [contenteditable]:not([hidden])';
 

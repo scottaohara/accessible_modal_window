@@ -68,7 +68,43 @@
 
 .is-icon-btn {
   background: none;
+  height: 2em;
+  padding: 0;
   position: absolute;
-  right: .5em;
+  right: .75em;
   top: .75em;
+  width: 2em;
+}
+
+.is-icon-btn:hover [data-modal-x],
+.is-icon-btn:focus [data-modal-x] {
+  color: #600;
+  transform: scale(1.3) rotate(45deg);
+  transition: transform .2s ease-in-out;
+}
+
+[data-modal-x] {
+  border-right: 2px solid;
+  bottom: 0;
+  display: block;
+  height: 2em;
+  left: 0;
+  margin: auto;
+  pointer-events: none;
+  position: relative;
+  right: 0;
+  top: 0;
+  transform: rotate(45deg);
+  width: 2px;
+}
+
+[data-modal-x]:after {
+  border-right: 2px solid;
+  content: "";
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transform: rotate(-90deg);
+  width: 100%;
 }
