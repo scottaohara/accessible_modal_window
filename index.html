@@ -198,8 +198,8 @@
 
           <div>
             <p data-modal-description>
-              Content goes here, and here's
-              <a href="#!">dummy link</a>.
+              Content goes here, to talk about this topic. It's very
+              important, because why else would a modal dialog be used?
             </p>
           </div>
         </div>
@@ -238,7 +238,7 @@
            Another Announcement
           </h2>
 
-          <div class="callout-test">
+          <div class="callout-test" data-modal-description>
             <p>
               Please provide us your name.
             </p>
@@ -247,11 +247,11 @@
             </p>
           </div>
 
-          <label for="name">
+          <label for="c_name">
             <span style="display: block;">
               Name:
             </span>
-            <input type="text" id="name" data-autofocus>
+            <input type="text" id="c_name" data-autofocus>
           </label>
 
           <div>
@@ -314,17 +314,15 @@
               </legend>
 
               <div>
-                <label>
-                  <input type="radio"
-                    name="text_radios">
+                <label for="opt_1">
+                  <input type="radio" id="opt_1" name="text_radios">
                   Option 1
                 </label>
               </div>
 
               <div>
-                <label>
-                  <input type="radio"
-                    name="text_radios">
+                <label for="opt_2">
+                  <input type="radio" id="opt_2" name="text_radios">
                   Option 2
                 </label>
               </div>
@@ -370,9 +368,9 @@
         <div id="modal_5"
           hidden
           data-modal="alert">
-          <h2>
+          <h1>
            An important message
-          </h2>
+          </h1>
 
           <div>
             <p data-modal-description>
