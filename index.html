@@ -104,12 +104,13 @@
             Each of the trigger elements are progressively enhanced (as needed) into buttons. They all open the same modal dialog.
           </p>
           <p>
-            Each "button" is assigned their own unique ID which will be stored in a <code>var</code> when a dialog is opened, and referred to again when the dialog is closed and focus needs to return to the element that opened it.
+            Each "button" is assigned their own unique ID, when activated the ID of the specific button used will be stored in a <code>var</code>. The ID will be referred to again when the dialog is closed and focus needs to return to the specific element that opened it.
           </p>
           <p>
-            The dialog utilizes <code>data-modal-class</code> to take a set value and add it as a class to itself, when JavaScript is available. The <code></code> attribute
-            to keep the dialog from going full screen on small screen devices,
-            and <code>data-modal-close</code> to auto-generate a close icon button.
+            The dialog utilizes the value of <code>data-modal-class</code> to add the value as a class to itself, when JavaScript is available.
+          </p>
+          <p>
+            A close <code>button</code> is auto-generated from the script, as there are no manually set close buttons within the dialog.
           </p>
         </details>
       </section>
