@@ -24,76 +24,22 @@
       input[type="text"]{border:1px solid #333;display:block;font-size:1.4em;margin-bottom:1em;min-width:230px;padding:.5em;width:100%}
       label{margin-top:1.125em}
       button{border:none;}
-      .at-only:not(:focus):not(:active) {
-        clip: rect(0 0 0 0);
-        clip-path: inset(100%);
-        height: 1px;
-        overflow: hidden;
-        position: absolute;
-        white-space: nowrap;
-        width: 1px;
-      }
-      a.at-only:focus {
-        background: white;
-        padding: 8px;
-        position: fixed;
-      }
-      fieldset {
-        margin: 1.25em 0;
-      }
-      legend {
-        margin: 0;
-        padding: 0;
-      }
-      legend h2 {
-        margin: 0;
-        font-size: 1em;
-      }
+      /** demo styles */
+      .at-only:not(:focus):not(:active) { clip: rect(0 0 0 0); clip-path: inset(100%);height: 1px; overflow: hidden;position: absolute;white-space: nowrap; width: 1px; }
+      a.at-only:focus { background: white; padding: 8px;position: fixed; }
+      fieldset { margin: 1.25em 0; }
+      legend { margin: 0; padding: 0; }
+      legend h2 { font-size: 1em; margin: 0; }
       /* was causing a weird page jump. just hide it */
-      body > .at-only[inert] {
-        display: none;
-      }
-      details {
-        margin: 1.25em 0;
-      }
-      summary {
-        cursor: default;
-        margin-bottom: .825em;
-      }
-      details p,
-      details div {
-        font-size: .825em;
-      }
-      details code {
-        font-family: monospace;
-        display: inline-block;
-        padding: 2px 4px;
-        color: #000;
-        background: #efefef;
-        line-height: 1;
-        border: 1px solid #ddd;
-      }
-      main > section {
-        margin-top: 2em;
-        padding-top: 1.5em;
-        border-top: 1px solid;
-      }
-      h3 span {
-        font-size: .75em;
-        display: inline-block;
-        width: 100%;
-      }
-
-      .callout-test {
-        margin-left: -1.25em;
-        width: calc(100% + 2.5em);
-        padding: 1.25em;
-        background: #eee;
-      }
-
-      .callout-test > *:last-child {
-        margin-bottom: 0;
-      }
+      body > .at-only[inert] { display: none; }
+      details { margin: 1.25em 0; }
+      summary { cursor: default; margin-bottom: .825em; }
+      details p, details div { font-size: .825em; }
+      details code { background: #efefef; border: 1px solid #ddd;color: #000;display: inline-block;font-family: monospace;line-height: 1;padding: 2px 4px; }
+      main > section { border-top: 1px solid;margin-top: 2em;padding-top: 1.5em;}
+      h3 span {display: inline-block;font-size: .75em;width: 100%;}
+      .callout-test {background: #eee;margin-left: -1.25em;padding: 1.25em;width: calc(100% + 2.5em);}
+      .callout-test > *:last-child { margin-bottom: 0; }
     </style>
     <link rel="stylesheet" href="assets/css/aria.modal.css">
   </head>
