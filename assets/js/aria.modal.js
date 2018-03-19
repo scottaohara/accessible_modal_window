@@ -239,6 +239,10 @@
 					 * Set an aria-labelledby to the modal dialog container.
 					 */
 					self.setAttribute('aria-labelledby', makeHeading);
+
+					if ( heading.hasAttribute('data-autofocus') ) {
+						heading.setAttribute('tabindex', '-1');
+					}
 				}
 				else {
 					console.warn('Dialogs should have their purpose conveyed by a heading element (h1).');
