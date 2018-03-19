@@ -55,6 +55,14 @@ The bare minimum default markup for the modal dialog would be the following:
 ```
 
 
+## Lack of features are not bugs
+This script does *not* presently utilize the `aria-haspopup="dialog"` on the dialog triggers. Nor does it `aria-modal` on the dialog element. These attributes are currently in the dialog script, but commented out until they receive wider browser + screen reader support.  
+
+For example, with screen readers that do not yet understand the `aria-haspopup="dialog"`, they treat it as if the trigger opens a `role="menu"`, and the announcements for that are *not* what someone would expect for a dialog.  Additionally, VoiceOver on macOS High Sierra will flat out not recognize some child elements of a dialog, if navigating by <kbd>up</kbd> or <kbd>down</kbd> arrow keys, or if navigating by <kbd>VO</kbd> + <kbd>left</kbd> or <kbd>right</kbd> arrow keys. The content missed is not the same between navigation controls, and with the use of the `inert` polyfill and `aria-hidden`, there is currently nothing missed from not using `aria-modal` on the dialog.  
+
+## Inert Polyfill
+For this script to provide peak accessibility, it must also utilize the [`inert` polyfill from Google](https://github.com/GoogleChrome/inert-polyfill). While the dialogs have a function to keep focus within the dialog, looping through any focusable elements within itself, the inert polyfill will help prevent a user from accessing the browser's chrome (e.g. the address bar) and then being able to navigate back into the obscured document. The dialog script doubles down on the elements with `inert="true"` and also add an `aria-hidden="true"` as well. This ensures that not only can users not access elements within the obscured document by keyboard navigation, but that these elements will not be revealed in screen reader listings of elements within a document (e.g. listings of regions, headings or form controls with NVDA and JAWS, or be revealed in VoiceOver's rotor menus.)
+
 
 ### Configuration attributes  
 The following attributes are used to setup instances of the dialog triggers (buttons), the dialog container, and any necessary child elements of the dialogs.  
