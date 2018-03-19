@@ -1,7 +1,6 @@
 # Accessible Modal Dialog  
 A vanilla (aka plain old JavaScript), accessible modal dialog script, written in ES5 with no need for a build process.
 
-
 ## Usage  
 Include the _a11y.modal.js_ file at the bottom of your document, or concatenated into your primary .js file, as part of your build process.
 
@@ -26,9 +25,7 @@ If JavaScript is unavailable and the contents of a dialog will still make sense 
   Launch My Modal
 </a>
 ```
-The `href` attribute can act as the identifier for the target dialog, if the `data-modal-open` attribute value is not set. However, if you would like this link to go to another location if JavaScript is disabled, then set the `href` to the appropriate URL, and set the `data-modal-open` to the `IDREF` of the dialog within the document.
-
-*Note:* It is not recommended to use an `a` element to point to the contents of a would-be dialog, if that  dialog's contents are useless without JavaScript enabled. Nor is it useful to have an `a` element point to content that immediately follows it in the DOM order.
+The `href` attribute can act as the identifier for the target dialog, if the `data-modal-open` attribute value is not set. However, if you would like this link to go to another location, if JavaScript is disabled, then set the `href` to the appropriate URL, and set the `data-modal-open` to the `IDREF` of the dialog within the document.
 
 If a dialog's content would be completely useless without JavaScript enabled, and you do *not* want to have a disabled `button` in the UI, then instead use the following markup pattern:
 ```html
@@ -41,44 +38,23 @@ If a dialog's content would be completely useless without JavaScript enabled, an
 ```
 The `hidden` attribute will be removed when JavaScript is enabled, but will ensure the `button` is completely hidden if JavaScript is not available.
 
-
-The recommended default markup for the modal window component:  
+The bare minimum default markup for the modal dialog would be the following:  
 
 ```html
-<div id="unique_ID_1" class="a11y-modal">
-
-  <div class="modal">
-
-    <header class="modal__intro">
-      <h3 class="modal__intro__title">
-        Modal Window
-      </h3>
-    </header>
-
-    <div class="modal__content">
-      ...
-    </div> <!-- /.modal__content -->
-
-    <div class="modal__outro">
-      ...
-
-      <a data-modal-close
-        href="#unique_link_id"
-        class="modal__outro__close">
-         Close <!-- or add your close icon here -->
-      </a>
-    </div> <!-- /.modal__outro -->
-
-  </div> <!-- end .modal -->
-
-</div> <!-- /.a11y-modal -->
+<div id="unique_ID_1" data-modal>
+  <h1>
+    A descriptive title for the dialog
+  </h1>
+  <div>
+    <!-- primary content of the dialog here -->
+  </div>
+</div>
 ```
 
-The `data-modal-close` attribute is what the script looks for in closing the modal window. So if you would like to change the class or the `<svg>`, go right ahead.  Just make sure to add that attribute to whatever your close trigger ends up being.  
 
 
-### Optional attributes  
-
+### Configuration attributes  
+The following attributes are used to setup instances of the dialog triggers (buttons), the dialog container, and any necessary child elements of the dialogs.  
 
 
 #### Dialog Children Attributes
