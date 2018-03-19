@@ -18,6 +18,7 @@
 
 	var modal = doc.querySelectorAll('[data-modal]');
 	var children = doc.querySelectorAll('body > *:not([data-modal])');
+
 	var initialTrigger;
 
 	var firstClass = 'js-first-focus';
@@ -38,8 +39,8 @@
 	 * content from assistive technology, when modals are open.
 	 */
 	ARIAmodal.organizeDOM = function () {
-		var i;
 		var refEl = body.firstElementChild || null;
+		var i;
 
 		for ( i = 0; i < modal.length; i++ ) {
 			body.insertBefore( modal[i], refEl );
@@ -201,7 +202,6 @@
 			 */
 			// self.setAttribute('aria-modal', 'true');
 
-
 			/**
 			 * Do a check to see if there is an element flagged to be the
 			 * description of the modal dialog.
@@ -212,7 +212,6 @@
 
 				self.setAttribute('aria-describedby', getDesc.id);
 			}
-
 
 			/**
 			 * Check for a heading to set the accessible name of the dialog,
@@ -406,13 +405,17 @@
 	};
 
 
+	/**
+	 * Keyboard controls for when the modal dialog is open.
+	 * ESC should close the dialog (when not an alert)
+	 */
 	ARIAmodal.keytrolls = function ( e ) {
 		var keyCode = e.keyCode || e.which;
 		var escKey = 27;
 		var enterKey = 13;
 		var spaceKey = 32;
 
-		if ( e.target.hasAttribute( 'data-modal-open' ) ) {
+		if ( e.target.hasAttribute('data-modal-open') ) {
 			switch ( keyCode ) {
 				case enterKey:
 				case spaceKey:
