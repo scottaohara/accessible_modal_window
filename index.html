@@ -65,6 +65,36 @@
         <a href="#">readme on the GitHub repo</a>.
       </p>
 
+      <details>
+        <summary>
+          Test information
+        </summary>
+        <p>
+          Each dialog will have different focus start points. And when each dialog is open, focus (via <kbd>tab</kbd> key or virtual cursor) should <strong>not</strong> be able to reach the document beneath the dialog. Browser chrome controls (browser buttons and address bar, etc.) <strong>should</strong> remain accessible.
+        </p>
+        <p>
+          The following dialogs have been tested with:
+        </p>
+        <ul>
+          <li>
+            JAWS 18 &amp; 2018 with Firefox, Chrome and Internet Explorer 11.
+          </li>
+          <li>
+            NVDA 2018.1 with Firefox and Chrome
+          </li>
+          <li>
+            VoiceOver + macOS High Sierra and iOS 11
+          </li>
+          <li>
+            TalkBack + Chrome on Android Oreo
+          </li>
+        </ul>
+      </details>
+
+
+
+
+
       <section>
         <h3>
           Modal Test 1
@@ -139,11 +169,11 @@
 
         <div id="modal_1b" data-modal>
           <h2 data-autofocus>
-            Announcement
+            My title
           </h2>
 
           <div>
-            <p>Content goes here</p>
+            <p>Content would go here if there were content that should go here.</p>
           </div>
         </div>
 
@@ -260,24 +290,26 @@
             </p>
           </div>
 
-          <label for="c_name">
-            <span style="display: block;">
-              Name:
-            </span>
-            <input type="text" id="c_name" data-autofocus>
-          </label>
+          <form>
+            <label for="c_name">
+              <span style="display: block;">
+                Name:
+              </span>
+              <input type="text" id="c_name" data-autofocus>
+            </label>
 
-          <div>
-            <button type="button" class="btn" data-modal-close-btn>
-              Cancel
-            </button>
-            <button type="submit"
-              class="btn"
-              data-modal-close-btn
-              onClick="event.preventDefault();">
-              Submit
-            </button>
-          </div>
+            <div>
+              <button type="reset" class="btn" data-modal-close-btn>
+                Cancel
+              </button>
+              <button type="submit"
+                class="btn"
+                data-modal-close-btn
+                onClick="event.preventDefault();">
+                Submit
+              </button>
+            </div>
+          </form>
         </div>
         <!-- end dialog markup -->
 
@@ -286,7 +318,13 @@
             Modal Test 3 details
           </summary>
           <p>
-            ...
+            A dialog with an autofocused <code>input</code>. The description of the dialog consists of two paragraphs which are both wrapped in a <code>div[data-modal-description]</code>.
+          </p>
+          <p>
+            As there are two buttons that serve to close the dialog (manually set "cancel" and "submit" buttons), an auto-generate close button will not be added to the dialog.
+          </p>
+          <p>
+            As the instance of the dialog is not 'destroyed' when a user hits the <kbd>Esc</kbd> key, or touches or clicks outside the dialog, if a user reopens the dialog, any value they added to the text input will remain. If a user activates the "cancel" button, the form will be reset, as the button has a <code>type="reset"</code>.
           </p>
         </details>
       </section>
@@ -413,13 +451,16 @@
             An alert dialog should be used when a response is required from a user. Where standard dialogs may allow for multiple passive ways to exit them, such as mouse clicking outside the dialog, or using a close button that provides no concrete commitment from a user that they actually engaged with the dialog's contents; an alert dialog should only be closed via purposeful button activations by a user.
           </p>
           <p>
-            For instance, an alert dialog may have a single "OK" button to indicate that the user is compliant with the message the dialog presents to them. Or a specific choice of "deny" or "confirm" buttons, to indicate that a user agrees or disagrees with the dialog's primary message.
+            For instance, an alert dialog may have a single "OK" button to indicate that the user is compliant with the message the dialog presents to them. Or a specific choice of "confirm" or "deny" buttons, to indicate that a user agrees or disagrees with the dialog's primary message.
           </p>
           <p>
-            With this in mind, it should be noted that an alert dialog will not auto generate close buttons. Authors should enter the specific actionable elements to dismiss the dialog. Alert dialogs also do not allow for a mouse click outside of the dialog to close them.
+            With this in mind, it should be noted that an alert dialog will not auto generate close buttons. Authors should enter the specific actionable elements to dismiss the dialog. Alert dialogs do not allow for a mouse click or tap outside of the dialog to dismiss.
           </p>
           <p>
             If an alert dialog contains a short message and a single actionable item, then that item may be autofocused, and the dialog may utilize <code>aria-describedby</code> to read out the contents of the dialog to the user, to decrease a user having to navigate the dialog themselves.  If an alert dialog contains more than a confirmation button to dismiss it, e.g. there is a confirm, deny, or other choices to dismiss the dialog, then autofocusing a choice may lead some users to believe that is their only choice.
+          </p>
+          <p>
+            In this instance, the dialog itself should be given focus so a user can parse through the dialog and understand their options via their own discovery methods.
           </p>
         </details>
       </section>
