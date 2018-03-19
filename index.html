@@ -61,8 +61,9 @@
       </h2>
 
       <p>
-        Each of the following tests show off different features of the modal dialog script. For a listing of all the dialog configuration options, see the
-        <a href="#">readme on the GitHub repo</a>.
+        Each of the following tests show off different features of the modal dialog script.
+<!--         For a listing of all the dialog configuration options, see the
+        <a href="#">readme on the GitHub repo</a>. -->
       </p>
 
       <details>
@@ -397,7 +398,22 @@
             Modal Test 4 details
           </summary>
           <p>
-            ...
+            Dialog with a manually set <code>aria-describedby</code> pointing to the description text of the dialog.
+          </p>
+          <p>
+            There is no autofocus set for this dialog as a test for what the announcement would be like in different screen readers for when the dialog wrapper receives focus by default.
+          </p>
+          <p>
+            <b>NVDA</b> will sequentially read through all the elements within the dialog unless a user begins to interact via keyboard controls.
+          </p>
+          <p>
+            <b>VoiceOver</b> will announce the accessible name and role of the dialog. After a short pause, it will read the <code>aria-describedby</code> content of the dialog.
+          </p>
+          <p>
+            <b>JAWS + Firefox and Chrome</b> will announce the accessible name and role of the dialog and the <code>aria-describedby</code> content of the dialog.
+          </p>
+          <p>
+            <b>JAWS + IE11</b> will announce the accessible name and role of the dialog and the <code>aria-describedby</code> content of the dialog. It will then announce the first child (heading) and description of the dialog again.
           </p>
         </details>
       </section>
