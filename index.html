@@ -138,10 +138,8 @@
           </button>
         </p>
 
-        <div id="modal_1"
-          data-modal
-          data-modal-class="test"
-          data-modal-compact>
+        <!-- dialog markup -->
+        <div id="modal_1" data-modal data-modal-class="test-class">
           <h2>
             Announcement
           </h2>
@@ -150,21 +148,20 @@
             <p>Content goes here</p>
           </div>
         </div>
+        <!-- end dialog markup -->
 
         <details>
           <summary>
             Modal Test 1 details
           </summary>
           <p>
-            Each of the trigger elements are progressively enhanced (as needed)
-            into buttons. They all open the same modal dialog. They each
-            are assigned their own unique ID that will be used to refocus the
-            correct element upon closing of the dialog.
+            Each of the trigger elements are progressively enhanced (as needed) into buttons. They all open the same modal dialog.
           </p>
           <p>
-            The dialog utilizes <code>data-modal-label</code> to set its
-            accessible name; <code>data-modal-class</code> to apply a specific class
-            to itself, when JavaScript is available; <code>data-modal-compact</code>
+            Each "button" is assigned their own unique ID which will be stored in a <code>var</code> when a dialog is opened, and referred to again when the dialog is closed and focus needs to return to the element that opened it.
+          </p>
+          <p>
+            The dialog utilizes <code>data-modal-class</code> to take a set value and add it as a class to itself, when JavaScript is available. The <code></code> attribute
             to keep the dialog from going full screen on small screen devices,
             and <code>data-modal-close</code> to auto-generate a close icon button.
           </p>
@@ -185,9 +182,9 @@
           </button>
         </p>
 
+        <!-- dialog markup -->
         <div id="modal_2"
           data-modal
-          data-modal-compact
           data-modal-close="Close Me!"
           data-modal-close-class="btn"
           data-modal-focus-close>
@@ -203,6 +200,7 @@
             </p>
           </div>
         </div>
+        <!-- end dialog markup -->
 
         <details>
           <summary>
@@ -233,6 +231,7 @@
           </button>
         </p>
 
+        <!-- dialog markup -->
         <div id="modal_3" hidden data-modal>
           <h2>
            Another Announcement
@@ -265,8 +264,8 @@
               Submit
             </button>
           </div>
-
         </div>
+        <!-- end dialog markup -->
 
         <details>
           <summary>
@@ -293,6 +292,7 @@
           </a>
         </p>
 
+        <!-- dialog markup -->
         <div id="modal_4"
           hidden
           data-modal
@@ -336,9 +336,9 @@
                 Confirm
               </button>
             </div>
-
           </form>
         </div>
+        <!-- end dialog markup -->
 
         <details>
           <summary>
@@ -365,6 +365,7 @@
           </a>
         </p>
 
+        <!-- dialog markup -->
         <div id="modal_5"
           hidden
           data-modal="alert">
@@ -388,6 +389,7 @@
             </button>
           </div>
         </div>
+        <!-- end dialog markup -->
 
         <details>
           <summary>
@@ -409,18 +411,28 @@
       </section>
     </main>
 
+    <!--
+      The modal dialog script functions without *requiring* the inert
+      polyfill script. However, there may be instances where users can
+      escape dialogs if the script is not used.
+    -->
+    <script src="https://cdn.rawgit.com/GoogleChrome/inert-polyfill/v0.1.0/inert-polyfill.min.js"></script>
     <script src="assets/js/aria.modal.js"></script>
     <script>
-      window.addEventListener( "hashchange", function( e ) {
-          var el = document.getElementById( location.hash.substring( 1 ) );
-          if ( el ) {
-            if ( !/^(?:a|select|input|button|textarea)$/i.test( el.tagName ) ) {
-              el.tabIndex = -1;
-            }
-            el.focus();
+      /**
+       * This script is for the skip link and to ensure that moving focus
+       * via hashchange is respected in all browsers.
+       */
+      window.addEventListener("hashchange", function( e ) {
+        var el = document.getElementById(location.hash.substring(1));
+        if ( el ) {
+          if ( !/^(?:a|select|input|button|textarea)$/i.test( el.tagName ) ) {
+            el.tabIndex = -1;
           }
-        }, false );
+          el.focus();
+        }
+      }, false);
     </script>
-    <script src="https://cdn.rawgit.com/GoogleChrome/inert-polyfill/v0.1.0/inert-polyfill.min.js"></script>
+
   </body>
 </html>
