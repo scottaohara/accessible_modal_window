@@ -66,6 +66,7 @@
 
 		for ( i = 0; i < trigger.length; i++ ) {
 			self = trigger[i];
+			var getOpenTarget = self.getAttribute('data-modal-open');
 
 			/**
 			 * If not a button, update the semantics to make it announce as a button.
@@ -74,14 +75,16 @@
 			 * target ID from the href value.
 			 */
 			if ( self.nodeName !== 'BUTTON' ) {
+				var hrefTarget = self.getAttribute('href');
 				self.setAttribute('role', 'button');
 
-				if ( !self.hasAttribute('href') || self.getAttribute('tabindex') !== 0 ) {
+				if ( self.getAttribute('tabindex') !== 0 && !self.hasAttribute('href') ) {
 					self.tabIndex = 0;
 				}
 
-				if ( self.getAttribute('data-modal-open') === '' && self.getAttribute('href') ) {
-					self.setAttribute('data-modal-open', self.getAttribute('href').split('#')[1] );
+				if ( getOpenTarget === '' && hrefTarget ) {
+					self.setAttribute('data-modal-open', hrefTarget.split('#')[1] );
+					getOpenTarget = hrefTarget.split('#')[1];
 				}
 			}
 
@@ -90,7 +93,7 @@
 			 * a button. If not, then the button targets nothing
 			 * and there's not much that can be done with that.
 			 */
-			if ( self.getAttribute('data-modal-open') ) {
+			if ( getOpenTarget ) {
 				/**
 				 * A button should have an aria-haspopup="dialog" to convey to users that
 				 * *this* button will launch a modal dialog.
@@ -109,8 +112,7 @@
 				 * enabled via other user actions. So, in that scenario look for a
 				 * data-modal-disabled attribute, to keep the button disabled.
 				 */
-				if ( self.hasAttribute('disabled')
-						 && !self.hasAttribute('data-modal-disabled') ) {
+				if ( self.hasAttribute('disabled') && !self.hasAttribute('data-modal-disabled') ) {
 					self.removeAttribute('disabled');
 				}
 
@@ -127,8 +129,7 @@
 				 * Get modal target and supply the button with a unique ID to easily
 				 * reference for returning focus to, once the modal dialog is closed.
 				 */
-				var target = self.getAttribute('data-modal-open');
-				self.id = target + '__trigger-' + self.nodeName;
+				self.id = getOpenTarget + '__trigger-' + self.nodeName;
 
 				/**
 				 * Events
@@ -153,18 +154,21 @@
 
 		for ( i = 0; i < modal.length; i++ ) {
 			var self = modal[i];
-			var getClass   = self.getAttribute('data-modal-class') || 'a11y-modal';
-			var heading    = self.querySelector('h1') ||
-                       self.querySelector('h2') ||
-                       self.querySelector('h3') ||
-                       self.querySelector('h4');
-			var modalLabel = self.hasAttribute('data-modal-label');
+			var modalType   = self.getAttribute('data-modal');
+			var getClass    = self.getAttribute('data-modal-class') || 'a11y-modal';
+			var heading     = self.querySelector('h1') ||
+                        self.querySelector('h2') ||
+                        self.querySelector('h3') ||
+                        self.querySelector('h4');
+			var modalLabel  = self.getAttribute('data-modal-label');
+			var hideHeading = self.getAttribute('data-modal-hide-heading');
+			var modalDesc   = self.querySelector('[data-modal-description]');
 
 			/**
 			 * Check to see if this is meant to be an alert or normal dialog.
 			 * Supply the appropriate role.
 			 */
-			if ( self.getAttribute('data-modal') === 'alert' ) {
+			if ( modalType === 'alert' ) {
 				self.setAttribute('role', 'alertdialog');
 			}
 			else {
@@ -196,7 +200,7 @@
 			 * Modal dialogs need at least one actionable item
 			 * to close them...
 			 */
-			ARIAmodal.setupModalCloseBtn( self, getClass );
+			ARIAmodal.setupModalCloseBtn(self, getClass);
 
 			/**
 			 * This attribute currently makes it difficult to navigate
@@ -213,11 +217,9 @@
 			 * Do a check to see if there is an element flagged to be the
 			 * description of the modal dialog.
 			 */
-			if ( self.querySelector('[data-modal-description]') ) {
-				var getDesc = self.querySelector('[data-modal-description]');
-				getDesc.id = getDesc.id || 'md_desc_' + Math.floor(Math.random() * 999) + 1;
-
-				self.setAttribute('aria-describedby', getDesc.id);
+			if ( modalDesc ) {
+				modalDesc.id = modalDesc.id || 'md_desc_' + Math.floor(Math.random() * 999) + 1;
+				self.setAttribute('aria-describedby', modalDesc.id);
 			}
 
 			/**
@@ -225,7 +227,7 @@
 			 * or if an aria-label should be set to the dialog instead.
 			 */
 			if ( modalLabel ) {
-				self.setAttribute('aria-label', self.getAttribute('data-modal-label'));
+				self.setAttribute('aria-label', modalLabel);
 			}
 			else {
 				if ( heading ) {
@@ -259,6 +261,9 @@
 	 * listeners so that they will close their parent modal dialog.
 	 */
 	ARIAmodal.setupModalCloseBtn = function ( self, getClass ) {
+		var modalType  = self.getAttribute('data-modal');
+		var modalClose = self.getAttribute('data-modal-close');
+		var modalCloseClass = self.getAttribute('data-modal-close-class');
 		var manualClose = self.querySelectorAll('[data-modal-close-btn]');
 		var btnClass = getClass;
 		var i;
@@ -286,20 +291,20 @@
 			 * visible text of the close button, and do not position it in the upper right
 			 * of the modal dialog.
 			 */
-			if ( !self.getAttribute('data-modal-close') && self.getAttribute('data-modal') !== 'alert' ) {
+			if ( !modalClose && modalType !== 'alert' ) {
 				closeBtn.innerHTML = closeIcon;
 				closeBtn.setAttribute('aria-label', 'Close');
 				closeBtn.classList.add('is-icon-btn');
 			}
 			else {
-				closeBtn.innerHTML = self.getAttribute('data-modal-close');
+				closeBtn.innerHTML = modalClose;
 
-				if ( self.getAttribute('data-modal-close-class') ) {
-					closeBtn.classList.add(self.getAttribute('data-modal-close-class'));
+				if ( modalCloseClass ) {
+					closeBtn.classList.add(modalCloseClass);
 				}
 			}
 
-			if ( self.getAttribute('data-modal') !== 'alert' ) {
+			if ( modalType !== 'alert' ) {
 				self.appendChild(closeBtn);
 			}
 
@@ -321,7 +326,8 @@
 		var i;
 		var getTarget = this.getAttribute('data-modal-open');
 		var target = doc.getElementById(getTarget);
-		var focusTarget = target;
+		var focusTarget = target; // default to the modal dialog container
+		var getAutofocus = target.querySelector('[autofocus]') || target.querySelector('[data-autofocus]');
 
 		/**
 		 * In case these are links, negate default behavior and just
@@ -336,12 +342,15 @@
 		initialTrigger = this.id;
 
 		/**
-		 * If a modal dialog contains a form control that is set to
-		 * autofocus, then focus should be placed on that form control,
+		 * If a modal dialog contains an that is meant to be autofocused,
+		 * then focus should be placed on that element (likely form control),
 		 * instead of the wrapping dialog container.
+		 *
+		 * If a dialog has an attribute indicating the close button should
+		 * be autofocused, focus the first close button found.
 		 */
-		if ( target.querySelector('[autofocus]') || target.querySelector('[data-autofocus]') ) {
-			focusTarget = target.querySelector('[autofocus]') || target.querySelector('[data-autofocus]');
+		if ( getAutofocus ) {
+			focusTarget = getAutofocus;
 		}
 		else if ( target.hasAttribute('data-modal-focus-close') ) {
 			focusTarget = target.querySelector('[class*="close-btn"]');
@@ -376,6 +385,12 @@
 	};
 
 
+	/**
+	 * Function for closing a modal dialog.
+	 * Remove inert, and aria-hidden from non-dialog parent elements.
+	 * Remove activeClass from body element.
+	 * Focus the appropriate element.
+	 */
 	ARIAmodal.closeModal = function ( e ) {
 		var trigger = doc.getElementById(initialTrigger) || null;
 		var i;
@@ -388,7 +403,7 @@
 		for ( i = 0; i < children.length; i++ ) {
 			children[i].removeAttribute('aria-hidden');
 			children[i].removeAttribute('inert');
-			body.classList.remove('modal-open');
+			body.classList.remove(activeClass);
 		}
 
 		/**
@@ -397,7 +412,7 @@
 		 * the modal-open flag on the body can be removed.
 		 * Keyboard focus must be appropriately managed...
 		 */
-		body.classList.remove('modal-open');
+		body.classList.remove(activeClass);
 		for ( var i = 0; i < modal.length; i++ ) {
 			if ( !modal[i].hasAttribute('hidden') ) {
 				modal[i].setAttribute('hidden', '');
@@ -436,21 +451,20 @@
 			}
 		}
 
-		if ( body.classList.contains('modal-open') ) {
+		if ( body.classList.contains(activeClass) ) {
 			switch ( keyCode ) {
 				case escKey:
 					if ( activeDialog.getAttribute('role') !== 'alertdialog' ) {
 						ARIAmodal.closeModal();
 					}
-
 					break;
 
 				default:
 					break;
 			}
 
-			var firstFocus = doc.querySelector('[data-modal]:not([hidden]) .' + firstClass);
-			var lastFocus = doc.querySelector('[data-modal]:not([hidden]) .' + lastClass);
+			var firstFocus = doc.querySelector('#' + activeDialog.id + ' .' + firstClass);
+			var lastFocus = doc.querySelector('#' + activeDialog.id + ' .' + lastClass);
 
 			if ( doc.activeElement.classList.contains(lastClass) ) {
 				if ( keyCode === 9 && !e.shiftKey ) {
@@ -470,7 +484,9 @@
 
 
 	/**
-	 * desc
+	 * If a dialog is opened and a user mouse clicks or touch screen taps outside
+	 * the visible bounds of the dialog content (onto the overlay 'screen') then
+	 * the dialog should run the close function.
 	 */
 	ARIAmodal.outsideClose = function ( e ) {
 		if ( body.classList.contains(activeClass) && !e.target.hasAttribute('data-modal-open') ) {
