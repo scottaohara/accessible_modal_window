@@ -153,7 +153,7 @@
 
 		for ( i = 0; i < modal.length; i++ ) {
 			var self = modal[i];
-			var getClass   = self.getAttribute('data-modal-class');
+			var getClass   = self.getAttribute('data-modal-class') || 'a11y-modal';
 			var heading    = self.querySelector('h1') ||
                        self.querySelector('h2') ||
                        self.querySelector('h3') ||
@@ -170,6 +170,12 @@
 			else {
 				self.setAttribute('role', 'dialog');
 			}
+
+			/**
+			 * Set either the default dialog class or a class passed
+			 * in from the data-modal-class attribute.
+			 */
+			self.classList.add(getClass);
 
 			/**
 			 * Modal dialogs need to be hidden by default.
@@ -254,7 +260,7 @@
 	 */
 	ARIAmodal.setupModalCloseBtn = function ( self, getClass ) {
 		var manualClose = self.querySelectorAll('[data-modal-close-btn]');
-		var btnClass = 'a11y-modal';
+		var btnClass = getClass;
 		var i;
 
 		if ( manualClose.length < 2 ) {
@@ -267,9 +273,7 @@
 			 *
 			 * If no custom class set, then use default "a11y-modal" class.
 			 */
-			if ( getClass ) {
-				btnClass = getClass;
-			}
+			btnClass = getClass;
 
 			self.classList.add(btnClass);
 			closeBtn.classList.add(btnClass + '__close-btn');
