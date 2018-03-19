@@ -20,6 +20,7 @@
 	var children = doc.querySelectorAll('body > *:not([data-modal])');
 
 	var initialTrigger;
+	var activeDialog;
 
 	var firstClass = 'js-first-focus';
 	var lastClass = 'js-last-focus';
@@ -327,6 +328,7 @@
 		/**
 		 * Keep track of the trigger that opened the initial dialog.
 		 */
+		activeDialog = doc.getElementById(getTarget);
 		initialTrigger = this.id;
 
 		/**
@@ -366,7 +368,7 @@
 		doc.addEventListener('click', ARIAmodal.outsideClose, false);
 		doc.addEventListener('touchend', ARIAmodal.outsideClose, false);
 
-		return initialTrigger;
+		return [initialTrigger, activeDialog];
 	};
 
 
@@ -402,6 +404,11 @@
 		 * Return focus to the trigger that opened the modal dialog.
 		 */
 		trigger.focus();
+
+		// reset initialTrigger and activeDialog as everything has closed.
+		initialTrigger = undefined;
+		activeDialog = undefined;
+		return [initialTrigger, activeDialog];
 	};
 
 
@@ -428,7 +435,10 @@
 		if ( body.classList.contains('modal-open') ) {
 			switch ( keyCode ) {
 				case escKey:
-					ARIAmodal.closeModal();
+					if ( activeDialog.getAttribute('role') !== 'alertdialog' ) {
+						ARIAmodal.closeModal();
+					}
+
 					break;
 
 				default:
@@ -460,10 +470,9 @@
 	 */
 	ARIAmodal.outsideClose = function ( e ) {
 		if ( body.classList.contains(activeClass) && !e.target.hasAttribute('data-modal-open') ) {
-			var specifiedElement = doc.querySelector('[data-modal]:not([hidden])');
-			var isClickInside = specifiedElement.contains(e.target);
+			var isClickInside = activeDialog.contains(e.target);
 
-			if ( !isClickInside && specifiedElement.getAttribute('role') !== 'alertdialog') {
+			if ( !isClickInside && activeDialog.getAttribute('role') !== 'alertdialog') {
 				ARIAmodal.closeModal();
 			}
 		}
