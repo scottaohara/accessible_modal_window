@@ -1,4 +1,7 @@
 # Accessible Modal Dialog  
+
+*Note: this readme is still being rewritten.**
+
 A vanilla (aka plain old JavaScript), accessible modal dialog script, written in ES5 with no need for a build process.
 
 ## Usage  
@@ -41,7 +44,7 @@ The `hidden` attribute will be removed when JavaScript is enabled, but will ensu
 The bare minimum default markup for the modal dialog would be the following:  
 
 ```html
-<div id="unique_ID_1" data-modal>
+<div id="unique_ID_to_match_data-modal-open" data-modal>
   <h1>
     A descriptive title for the dialog
   </h1>
@@ -57,19 +60,27 @@ The bare minimum default markup for the modal dialog would be the following:
 The following attributes are used to setup instances of the dialog triggers (buttons), the dialog container, and any necessary child elements of the dialogs.  
 
 
+#### Trigger Attributes
+- `data-modal-open`
+- ``
+- `hidden`: Set to a trigger to hide it in the event that JavaScript is unavailable.
+- `disabled`: Set to a trigger to disable it in the event that JavaScript is unavailable.
+
+
+#### Dialog Attributes
+- `hidden`: All dialogs that are not meant to be visible if JavaScript or CSS are disabled should have this attribute.
+- `data-modal` (leave blank, or accepts "alert" value)
+- `data-modal-class` (accepts value)
+- `data-modal-close` Adding a value to this attribute will change the auto generated close button from an "icon" button to an inline button with a visible label of the value. 
+- `data-modal-close-class` The value added to this attribute will be applied to the generated close button as a class.
+- `data-modal-focus-close`: This attribute serves as a hook to autofocus the generated close button when the dialog is opened.
+
+
 #### Dialog Children Attributes
 - `autofocus`: If a dialog has this attribute on a child element, move focus to this element instead of the dialog container.
 - `data-autofocus`: Since it is invalid to have multiple `autofocus` attributes in a single document, but there may be multiple dialog instances, use this attribute to simulate an automatic focus with JavaScript.
 - `data-modal-description`: This attribute will be used to auto-generate a unique ID, and become the pointer for the generated `aria-describedby` that is added to the dialog container.
 - `data-modal-close-btn`: Add this attribute to `button` elements within the dialog that should be allowed to close the dialog.
-
-### Additional Functionality  
-Include [Matt Casserly's hash.click function](https://github.com/mattcass/hash.click) to auto open modal windows on page load, if their URI is part of the address bar. This will emulate a click of the modal trigger, so the standard modal open events will be performed.
-
-```html
-  <script src="assets/js/a11y.modal.js"></script>
-  <script src="assets/js/hash.click.js"></script>
-```
 
 
 ## Previous Versions
