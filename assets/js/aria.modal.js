@@ -161,7 +161,7 @@
                         self.querySelector('h3') ||
                         self.querySelector('h4');
 			var modalLabel  = self.getAttribute('data-modal-label');
-			var hideHeading = self.getAttribute('data-modal-hide-heading');
+			var hideHeading = self.hasAttribute('data-modal-hide-heading');
 			var modalDesc   = self.querySelector('[data-modal-description]');
 
 			/**
@@ -243,6 +243,14 @@
 				else {
 					console.warn('Dialogs should have their purpose conveyed by a heading element (h1).');
 				}
+			}
+
+			/**
+			 * If a dialog has a data-modal-hide-heading attribute, then that means this
+			 * dialog's heading should be visually hidden.
+			 */
+			if ( hideHeading ) {
+				self.querySelector('#' + heading.id).classList.add('at-only');
 			}
 
 			/**
