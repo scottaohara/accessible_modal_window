@@ -2,15 +2,16 @@
 	'use strict';
 
 	/**
-	 * Local object for method references
-	 * and define script metadata
+	 * Local object for method references,
+	 * define script metadata, and other
+	 * global variables.
 	 */
 	var ARIAmodal = {};
 	w.ARIAmodal   = ARIAmodal;
 
 	ARIAmodal.NS      = 'ARIAmodal';
 	ARIAmodal.AUTHOR  = 'Scott O\'Hara';
-	ARIAmodal.VERSION = '3.0.0';
+	ARIAmodal.VERSION = '3.0.1';
 	ARIAmodal.LICENSE = 'https://github.com/scottaohara/accessible_modal_window/blob/master/LICENSE';
 
 	var activeClass = 'modal-open';
@@ -25,9 +26,7 @@
 	var firstClass = 'js-first-focus';
 	var lastClass = 'js-last-focus';
 
-	var closeIcon = '<span data-modal-x></span>';
-
-	var focusableElements = 'button:not([hidden]), [href]:not([hidden]), input:not([hidden]), select:not([hidden]), textarea:not([hidden]), [tabindex]:not([tabindex="-1"]):not([hidden]), summary, [contenteditable]:not([hidden])';
+	var focusableElements = 'button:not([hidden]), [href]:not([hidden]), input:not([hidden]), select:not([hidden]), textarea:not([hidden]), [tabindex="0"]:not([hidden]), summary, [contenteditable]:not([hidden]), audio[controls], video[controls]';
 
 
 	/**
@@ -200,7 +199,7 @@
 			 * Modal dialogs need at least one actionable item
 			 * to close them...
 			 */
-			ARIAmodal.setupModalCloseBtn(self, getClass);
+			ARIAmodal.setupModalCloseBtn(self, getClass, modalType);
 
 			/**
 			 * This attribute currently makes it difficult to navigate
@@ -272,11 +271,11 @@
 	 * Setup any necessary close buttons, and add appropriate
 	 * listeners so that they will close their parent modal dialog.
 	 */
-	ARIAmodal.setupModalCloseBtn = function ( self, getClass ) {
-		var modalType  = self.getAttribute('data-modal');
+	ARIAmodal.setupModalCloseBtn = function ( self, getClass, modalType ) {
 		var modalClose = self.getAttribute('data-modal-close');
 		var modalCloseClass = self.getAttribute('data-modal-close-class');
 		var manualClose = self.querySelectorAll('[data-modal-close-btn]');
+		var closeIcon = '<span data-modal-x></span>';
 		var btnClass = getClass;
 		var i;
 
@@ -433,12 +432,12 @@
 
 		/**
 		 * Return focus to the trigger that opened the modal dialog.
+		 * Reset initialTrigger and activeDialog since everything should be reset.
 		 */
 		trigger.focus();
-
-		// reset initialTrigger and activeDialog as everything has closed.
 		initialTrigger = undefined;
 		activeDialog = undefined;
+
 		return [initialTrigger, activeDialog];
 	};
 
@@ -475,8 +474,9 @@
 					break;
 			}
 
-			var firstFocus = doc.querySelector('#' + activeDialog.id + ' .' + firstClass);
-			var lastFocus = doc.querySelector('#' + activeDialog.id + ' .' + lastClass);
+			// get first and last focusable elements from activeDialog
+			var firstFocus = activeDialog.querySelector('.' + firstClass);
+			var lastFocus = activeDialog.querySelector('.' + lastClass);
 
 			if ( doc.activeElement.classList.contains(lastClass) ) {
 				if ( keyCode === 9 && !e.shiftKey ) {
