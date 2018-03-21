@@ -11,7 +11,7 @@
 
 	ARIAmodal.NS      = 'ARIAmodal';
 	ARIAmodal.AUTHOR  = 'Scott O\'Hara';
-	ARIAmodal.VERSION = '3.0.1';
+	ARIAmodal.VERSION = '3.0.2';
 	ARIAmodal.LICENSE = 'https://github.com/scottaohara/accessible_modal_window/blob/master/LICENSE';
 
 	var activeClass = 'modal-open';
@@ -378,8 +378,17 @@
 			body.classList.add(activeClass);
 
 			for ( i = 0; i < children.length; i++ ) {
+				if ( children[i].hasAttribute('aria-hidden') ) {
+					children[i].setAttribute('data-keep-hidden', children[i].getAttribute('aria-hidden') );
+				}
 				children[i].setAttribute('aria-hidden', 'true');
-				children[i].setAttribute('inert', 'true');
+
+				if ( children[i].getAttribute('inert') ) {
+					children[i].setAttribute('data-keep-inert', '');
+				}
+				else {
+					children[i].setAttribute('inert', 'true');
+				}
 			}
 		}
 		else {
@@ -412,8 +421,20 @@
 		 * children from being focusable.
 		 */
 		for ( i = 0; i < children.length; i++ ) {
-			children[i].removeAttribute('aria-hidden');
-			children[i].removeAttribute('inert');
+			if ( !children[i].hasAttribute('data-keep-inert') ) {
+				children[i].removeAttribute('inert');
+			}
+
+			if ( children[i].getAttribute('data-keep-hidden') ) {
+				children[i].setAttribute('aria-hidden', children[i].getAttribute('data-keep-hidden') );
+			}
+			else {
+				children[i].removeAttribute('aria-hidden');
+			}
+
+			children[i].removeAttribute('data-keep-inert');
+			children[i].removeAttribute('data-keep-hidden');
+
 			body.classList.remove(activeClass);
 		}
 
