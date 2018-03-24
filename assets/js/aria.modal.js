@@ -11,7 +11,7 @@
 
 	ARIAmodal.NS      = 'ARIAmodal';
 	ARIAmodal.AUTHOR  = 'Scott O\'Hara';
-	ARIAmodal.VERSION = '3.0.2';
+	ARIAmodal.VERSION = '3.0.3';
 	ARIAmodal.LICENSE = 'https://github.com/scottaohara/accessible_modal_window/blob/master/LICENSE';
 
 	var activeClass = 'modal-open';
@@ -21,7 +21,7 @@
 	var children = doc.querySelectorAll('body > *:not([data-modal])');
 
 	var initialTrigger;
-	var activeDialog;
+	var activeModal;
 
 	var firstClass = 'js-first-focus';
 	var lastClass = 'js-last-focus';
@@ -134,7 +134,7 @@
 				 * Events
 				 */
 				self.addEventListener('click', ARIAmodal.openModal);
-				self.addEventListener('keydown', ARIAmodal.keytrolls, false);
+				self.addEventListener('keydown', ARIAmodal.keyEvents, false);
 			}
 			else {
 				console.warn('Missing target modal dialog - [data-modal-open="IDREF"]');
@@ -271,12 +271,12 @@
 	 * Setup any necessary close buttons, and add appropriate
 	 * listeners so that they will close their parent modal dialog.
 	 */
-	ARIAmodal.setupModalCloseBtn = function ( self, getClass, modalType ) {
+	ARIAmodal.setupModalCloseBtn = function ( self, modalClass, modalType ) {
 		var modalClose = self.getAttribute('data-modal-close');
 		var modalCloseClass = self.getAttribute('data-modal-close-class');
 		var manualClose = self.querySelectorAll('[data-modal-close-btn]');
 		var closeIcon = '<span data-modal-x></span>';
-		var btnClass = getClass;
+		var btnClass = modalClass;
 		var i;
 
 		if ( manualClose.length < 2 ) {
@@ -289,10 +289,8 @@
 			 *
 			 * If no custom class set, then use default "a11y-modal" class.
 			 */
-			btnClass = getClass;
-
-			self.classList.add(btnClass);
-			closeBtn.classList.add(btnClass + '__close-btn');
+			self.classList.add(modalClass);
+			closeBtn.classList.add(modalClass + '__close-btn');
 
 			/**
 			 * If there is no data-modal-close attribute, or it has no set value,
@@ -326,7 +324,7 @@
 			manualClose[i].addEventListener('click', ARIAmodal.closeModal);
 		}
 
-		doc.addEventListener('keydown', ARIAmodal.keytrolls, false);
+		doc.addEventListener('keydown', ARIAmodal.keyEvents, false);
 	}; // ARIAmodal.setupModalCloseBtn
 
 
@@ -335,10 +333,13 @@
 	 */
 	ARIAmodal.openModal = function ( e ) {
 		var i;
-		var getTarget = this.getAttribute('data-modal-open');
-		var target = doc.getElementById(getTarget);
-		var focusTarget = target; // default to the modal dialog container
-		var getAutofocus = target.querySelector('[autofocus]') || target.querySelector('[data-autofocus]');
+		var getTargetModal = this.getAttribute('data-modal-open');
+		/**
+		 * Update the activeModal
+		 */
+		activeModal = doc.getElementById(getTargetModal);
+		var focusTarget = activeModal; // default to the modal dialog container
+		var getAutofocus = activeModal.querySelector('[autofocus]') || activeModal.querySelector('[data-autofocus]');
 
 		/**
 		 * In case these are links, negate default behavior and just
@@ -349,7 +350,6 @@
 		/**
 		 * Keep track of the trigger that opened the initial dialog.
 		 */
-		activeDialog = doc.getElementById(getTarget);
 		initialTrigger = this.id;
 
 		/**
@@ -363,8 +363,8 @@
 		if ( getAutofocus ) {
 			focusTarget = getAutofocus;
 		}
-		else if ( target.hasAttribute('data-modal-focus-close') ) {
-			focusTarget = target.querySelector('[class*="close-btn"]');
+		else if ( activeModal.hasAttribute('data-modal-focus-close') ) {
+			focusTarget = activeModal.querySelector('[class*="close-btn"]');
 		}
 
 		/**
@@ -395,13 +395,13 @@
 			console.warn('It is not advised to open dialogs from within other dialogs. Instead consider replacing the contents of this dialog with new content. Or providing a stepped, or tabbed interface within this dialog.');
 		}
 
-		target.removeAttribute('hidden');
+		activeModal.removeAttribute('hidden');
 		focusTarget.focus();
 
 		doc.addEventListener('click', ARIAmodal.outsideClose, false);
 		doc.addEventListener('touchend', ARIAmodal.outsideClose, false);
 
-		return [initialTrigger, activeDialog];
+		return [initialTrigger, activeModal];
 	};
 
 
@@ -453,13 +453,13 @@
 
 		/**
 		 * Return focus to the trigger that opened the modal dialog.
-		 * Reset initialTrigger and activeDialog since everything should be reset.
+		 * Reset initialTrigger and activeModal since everything should be reset.
 		 */
 		trigger.focus();
 		initialTrigger = undefined;
-		activeDialog = undefined;
+		activeModal = undefined;
 
-		return [initialTrigger, activeDialog];
+		return [initialTrigger, activeModal];
 	};
 
 
@@ -467,7 +467,7 @@
 	 * Keyboard controls for when the modal dialog is open.
 	 * ESC should close the dialog (when not an alert)
 	 */
-	ARIAmodal.keytrolls = function ( e ) {
+	ARIAmodal.keyEvents = function ( e ) {
 		var keyCode = e.keyCode || e.which;
 		var escKey = 27;
 		var enterKey = 13;
@@ -486,7 +486,7 @@
 		if ( body.classList.contains(activeClass) ) {
 			switch ( keyCode ) {
 				case escKey:
-					if ( activeDialog.getAttribute('role') !== 'alertdialog' ) {
+					if ( activeModal.getAttribute('role') !== 'alertdialog' ) {
 						ARIAmodal.closeModal();
 					}
 					break;
@@ -495,9 +495,9 @@
 					break;
 			}
 
-			// get first and last focusable elements from activeDialog
-			var firstFocus = activeDialog.querySelector('.' + firstClass);
-			var lastFocus = activeDialog.querySelector('.' + lastClass);
+			// get first and last focusable elements from activeModal
+			var firstFocus = activeModal.querySelector('.' + firstClass);
+			var lastFocus = activeModal.querySelector('.' + lastClass);
 
 			if ( doc.activeElement.classList.contains(lastClass) ) {
 				if ( keyCode === 9 && !e.shiftKey ) {
@@ -513,7 +513,7 @@
 				}
 			}
 		}
-	}; // ARIAmodal.keytrolls()
+	}; // ARIAmodal.keyEvents()
 
 
 	/**
@@ -523,9 +523,9 @@
 	 */
 	ARIAmodal.outsideClose = function ( e ) {
 		if ( body.classList.contains(activeClass) && !e.target.hasAttribute('data-modal-open') ) {
-			var isClickInside = activeDialog.contains(e.target);
+			var isClickInside = activeModal.contains(e.target);
 
-			if ( !isClickInside && activeDialog.getAttribute('role') !== 'alertdialog') {
+			if ( !isClickInside && activeModal.getAttribute('role') !== 'alertdialog') {
 				ARIAmodal.closeModal();
 			}
 		}
@@ -537,9 +537,10 @@
 	 * initialize functions within here.
 	 */
 	ARIAmodal.init = function () {
+		ARIAmodal.organizeDOM();
 		ARIAmodal.setupTrigger();
 		ARIAmodal.setupModal();
-		ARIAmodal.organizeDOM();
+
 	};
 
 
