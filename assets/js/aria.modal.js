@@ -11,7 +11,7 @@
 
 	ARIAmodal.NS      = 'ARIAmodal';
 	ARIAmodal.AUTHOR  = 'Scott O\'Hara';
-	ARIAmodal.VERSION = '3.0.3';
+	ARIAmodal.VERSION = '3.0.4';
 	ARIAmodal.LICENSE = 'https://github.com/scottaohara/accessible_modal_window/blob/master/LICENSE';
 
 	var activeClass = 'modal-open';
@@ -486,9 +486,7 @@
 		if ( body.classList.contains(activeClass) ) {
 			switch ( keyCode ) {
 				case escKey:
-					if ( activeModal.getAttribute('role') !== 'alertdialog' ) {
-						ARIAmodal.closeModal();
-					}
+					ARIAmodal.closeModal();
 					break;
 
 				default:
