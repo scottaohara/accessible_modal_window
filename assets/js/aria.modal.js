@@ -363,7 +363,7 @@
 		if ( getAutofocus ) {
 			focusTarget = getAutofocus;
 		}
-		else if ( activeModal.hasAttribute('data-modal-focus-close') ) {
+		else if ( activeModal.hasAttribute('data-modal-close-focus') ) {
 			focusTarget = activeModal.querySelector('[class*="close-btn"]');
 		}
 
