@@ -272,9 +272,9 @@
 	 * listeners so that they will close their parent modal dialog.
 	 */
 	ARIAmodal.setupModalCloseBtn = function ( self, modalClass, modalType ) {
+		var manualClose = self.querySelectorAll('[data-modal-close-btn]');
 		var modalClose = self.getAttribute('data-modal-close');
 		var modalCloseClass = self.getAttribute('data-modal-close-class');
-		var manualClose = self.querySelectorAll('[data-modal-close-btn]');
 		var closeIcon = '<span data-modal-x></span>';
 		var btnClass = modalClass;
 		var i;
@@ -493,9 +493,11 @@
 					break;
 			}
 
-			// get first and last focusable elements from activeModal
-			var firstFocus = activeModal.querySelector('.' + firstClass);
-			var lastFocus = activeModal.querySelector('.' + lastClass);
+			if ( body.classList.contains(activeClass) ) {
+				// get first and last focusable elements from activeModal
+				var firstFocus = activeModal.querySelector('.' + firstClass);
+				var lastFocus = activeModal.querySelector('.' + lastClass);
+			}
 
 			if ( doc.activeElement.classList.contains(lastClass) ) {
 				if ( keyCode === 9 && !e.shiftKey ) {
