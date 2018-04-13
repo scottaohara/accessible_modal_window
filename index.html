@@ -60,7 +60,7 @@
       <p>
         Each of the following tests show off different features of the modal dialog script.
         For more information about the functionality and options of these dialog demos, see the
-        <a href="https://github.com/scottaohara/accessible_modal_window#accessible-modal-dialog">documentation on GitHub</a>. 
+        <a href="https://github.com/scottaohara/accessible_modal_window#accessible-modal-dialog">documentation on GitHub</a>.
       </p>
 
       <details>
@@ -180,10 +180,10 @@
             Modal Test 1b details
           </summary>
           <p>
-            If a heading is set to receive autofocus then the script will auto-generate a <code>tabindex="-1"</code> for the heading.
+            In this test the heading is set to receive autofocus.
           </p>
           <p>
-            <strong>Please note:</strong> that with default NVDA settings, NVDA will be verbose in the initial announcement of the dialog if the heading is focused by default. Ideally, the dialog container or a form control within a succinct dialog should be the initially focused element.
+            <strong>Please note:</strong> that with default NVDA settings, NVDA will be verbose in the initial announcement of the dialog if the heading is focused by default. Ideally, the dialog container or a form control within a dialog should be the initially focused element. Per the latter, an <code>aria-describedby</code> should be used to provide a succinct description of the dialog's contents.
           </p>
           <p>
             JAWS and VoiceOver will announce the name of the dialog, the dialog role, and then announce the heading text and element. For instance:
@@ -332,7 +332,7 @@
         <h3>
           Modal Test 4
           <span>
-            something
+            A modal dialog with a nested form. An <code>aria-describedby</code> is set, but the dialog itself is focused to showcase how this will announce.
           </span>
         </h3>
 
@@ -345,12 +345,13 @@
         <!-- dialog markup -->
         <div id="modal_4"
           hidden
-          data-modal>
+          data-modal
+          aria-describedby="form_desc_4">
           <h1>
             Make a selection
           </h1>
 
-          <p>
+          <p id="form_desc_4">
             Select the option you would like.
           </p>
 
