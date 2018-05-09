@@ -11,11 +11,12 @@
 
 	ARIAmodal.NS      = 'ARIAmodal';
 	ARIAmodal.AUTHOR  = 'Scott O\'Hara';
-	ARIAmodal.VERSION = '3.0.4';
+	ARIAmodal.VERSION = '3.0.5';
 	ARIAmodal.LICENSE = 'https://github.com/scottaohara/accessible_modal_window/blob/master/LICENSE';
 
 	var activeClass = 'modal-open';
 	var body = doc.body;
+	var main = doc.getElementsByTagName('main')[0];
 
 	var modal = doc.querySelectorAll('[data-modal]');
 	var children = doc.querySelectorAll('body > *:not([data-modal])');
@@ -414,6 +415,7 @@
 	ARIAmodal.closeModal = function ( e ) {
 		var trigger = doc.getElementById(initialTrigger) || null;
 		var i;
+		var m;
 
 		/**
 		 * Loop through all the elements that were hidden to
@@ -434,30 +436,43 @@
 
 			children[i].removeAttribute('data-keep-inert');
 			children[i].removeAttribute('data-keep-hidden');
-
-			body.classList.remove(activeClass);
 		}
 
 		/**
 		 * When a modal closes:
-		 * the modal should be reset to hidden,
-		 * the modal-open flag on the body can be removed.
-		 * Keyboard focus must be appropriately managed...
+		 * the modal-open flag on the body can be removed,
+		 * and the modal should be reset to hidden.
 		 */
 		body.classList.remove(activeClass);
-		for ( var i = 0; i < modal.length; i++ ) {
-			if ( !modal[i].hasAttribute('hidden') ) {
-				modal[i].setAttribute('hidden', '');
+
+		for ( m = 0; m < modal.length; m++ ) {
+			if ( !modal[m].hasAttribute('hidden') ) {
+				modal[m].setAttribute('hidden', '');
 			}
 		}
 
 		/**
 		 * Return focus to the trigger that opened the modal dialog.
+		 * If the trigger doesn't exist for some reason, move focus to
+		 * either the <main>, or <body> instead.
 		 * Reset initialTrigger and activeModal since everything should be reset.
 		 */
-		trigger.focus();
 		initialTrigger = undefined;
 		activeModal = undefined;
+
+		if ( trigger !== null ) {
+			trigger.focus();
+		}
+		else {
+			if ( main ) {
+				main.tabIndex = -1;
+				main.focus();
+			}
+			else {
+				body.tabIndex = -1;
+				body.focus();
+			}
+		}
 
 		return [initialTrigger, activeModal];
 	};
@@ -530,6 +545,8 @@
 			}
 		}
 	};
+
+
 
 	/**
 	 * Initialize modal Functions
