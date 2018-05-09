@@ -37,7 +37,6 @@
   border: 2px solid;
   bottom: 0;
   box-shadow: 0 0 1800px 400px rgba(0,0,0,.4);
-  display: block;
   left: 0;
   margin: auto;
   max-height: 100%;
@@ -70,8 +69,13 @@
  * set, in combination with the dialog's default
  * position: fixed, will keep dialogs hidden from
  * all users until opened.
+ *
+ * This also solves an issue with iOS VO + Safari not allowing
+ * modal dialogs to be focused, if the dialog is initially
+ * set to "display: none".
  */
 .js [data-modal][hidden] {
+  display: block;
   opacity: 0;
   pointer-events: none;
   transform: translateY(20vh);
