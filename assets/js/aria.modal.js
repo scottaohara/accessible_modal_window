@@ -23,6 +23,7 @@
 
 	var initialTrigger;
 	var activeModal;
+	var useAriaModal = false;
 
 	var firstClass = 'js-first-focus';
 	var lastClass = 'js-last-focus';
@@ -203,15 +204,30 @@
 			ARIAmodal.setupModalCloseBtn(self, getClass, modalType);
 
 			/**
-			 * This attribute currently makes it difficult to navigate
+			 * The aria-modal attribute currently makes it difficult to navigate
 			 * through the contents of a modal dialog with VoiceOver.
 			 *
 			 * Up/down arrows do not have access to all content, and
 			 * using VO + left/right also do not have access to all
 			 * content, but do have access to different content then
 			 * up/down arrows alone.
+			 *
+			 * Additionally, NVDA will mostly respect the aria-modal attribute
+			 * with one notable bug, where if a user navigates to the address
+			 * bar via NVDA key + F6, a user can re-enter document that is obscured
+			 * by the open dialog, and can navigate the content 'beneath' the
+			 * dialog with arrow keys, or quick keys.
+			 *
+			 * Using the tab key inconsistently returns a user to the modal
+			 * dialog's contents, or may produce no keyboard focus change.
+			 *
+			 * This attribute can be added to a particular dialog if the
+			 * dialog has a data-aria-modal attribute set.
 			 */
-			// self.setAttribute('aria-modal', 'true');
+			if ( self.hasAttribute('data-aria-modal') ) {
+				self.setAttribute('aria-modal', 'true');
+			}
+
 
 			/**
 			 * Do a check to see if there is an element flagged to be the
@@ -342,6 +358,8 @@
 		var focusTarget = activeModal; // default to the modal dialog container
 		var getAutofocus = activeModal.querySelector('[autofocus]') || activeModal.querySelector('[data-autofocus]');
 
+		useAriaModal = activeModal.hasAttribute('aria-modal');
+
 		/**
 		 * In case these are links, negate default behavior and just
 		 * do what this script tells these triggers to do.
@@ -379,10 +397,12 @@
 			body.classList.add(activeClass);
 
 			for ( i = 0; i < children.length; i++ ) {
-				if ( children[i].hasAttribute('aria-hidden') ) {
-					children[i].setAttribute('data-keep-hidden', children[i].getAttribute('aria-hidden') );
+				if ( !useAriaModal ) {
+					if ( children[i].hasAttribute('aria-hidden') ) {
+						children[i].setAttribute('data-keep-hidden', children[i].getAttribute('aria-hidden') );
+					}
+					children[i].setAttribute('aria-hidden', 'true');
 				}
-				children[i].setAttribute('aria-hidden', 'true');
 
 				if ( children[i].getAttribute('inert') ) {
 					children[i].setAttribute('data-keep-inert', '');
@@ -398,6 +418,7 @@
 
 		activeModal.removeAttribute('hidden');
 		focusTarget.focus();
+
 
 		doc.addEventListener('click', ARIAmodal.outsideClose, false);
 		doc.addEventListener('touchend', ARIAmodal.outsideClose, false);
@@ -427,6 +448,8 @@
 				children[i].removeAttribute('inert');
 			}
 
+			children[i].removeAttribute('data-keep-inert');
+
 			if ( children[i].getAttribute('data-keep-hidden') ) {
 				children[i].setAttribute('aria-hidden', children[i].getAttribute('data-keep-hidden') );
 			}
@@ -434,7 +457,6 @@
 				children[i].removeAttribute('aria-hidden');
 			}
 
-			children[i].removeAttribute('data-keep-inert');
 			children[i].removeAttribute('data-keep-hidden');
 		}
 
@@ -457,9 +479,6 @@
 		 * either the <main>, or <body> instead.
 		 * Reset initialTrigger and activeModal since everything should be reset.
 		 */
-		initialTrigger = undefined;
-		activeModal = undefined;
-
 		if ( trigger !== null ) {
 			trigger.focus();
 		}
@@ -473,6 +492,9 @@
 				body.focus();
 			}
 		}
+
+		initialTrigger = undefined;
+		activeModal = undefined;
 
 		return [initialTrigger, activeModal];
 	};
