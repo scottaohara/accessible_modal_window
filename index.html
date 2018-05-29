@@ -25,7 +25,7 @@
     <main id="main" class="content-area" aria-label="content">
 
       <h2>
-        Dialog Demos
+        An ARIA Dialog Demo
       </h2>
 
       <p>
@@ -66,7 +66,7 @@
 
       <section>
         <h3>
-          Modal Test 1
+          Modal Dialog Test 1
           <span>A single modal dialog launched from different triggers</span>
         </h3>
 
@@ -86,11 +86,11 @@
         <!-- dialog markup -->
         <div id="modal_1" data-modal data-modal-class="test-class">
           <h2>
-            Announcement
+            Privacy Information
           </h2>
 
           <div>
-            <p>Content goes here</p>
+            <p>We heard you like to know about updates to privacy policies. So we've done just that.</p>
           </div>
         </div>
         <!-- end dialog markup -->
@@ -115,69 +115,13 @@
             In this example the dialog container is focused by default.  This will result in JAWS + Firefox and VoiceOver (on desktop) announcing the accessible name and role of the dialog when its opened.
           </p>
           <p>
-            With JAWS and Internet Explorer 11, the accessible name and role of the dialog will be announced, and then the first child element of the dialog will be announced.
+            With JAWS and Internet Explorer 11, the accessible name and role of the dialog will be announced, and then the first child element of the dialog, and its role, will be announced.
           </p>
           <p>
-            With NVDA and Firefox, NVDA will announce the accessible name of the dialog, but will not announce the role. It will then treat the dialog as if it was a new document loaded, and begin reading the contents of the dialog in sequential order.
+            With NVDA and Firefox, NVDA will announce the accessible name of the dialog, but will <b>not announce the dialog role</b>. It will then treat the dialog as if it was a new document loaded, and begin reading the contents of the dialog in sequential order.
           </p>
         </details>
       </section>
-
-
-      <section>
-        <h3>
-          Modal Test 1b
-          <span>A modal dialog with its heading autofocused</span>
-        </h3>
-
-        <p>
-          <span class="btn" data-modal-open="modal_1b">
-            Launch Modal 1b
-          </span>
-        </p>
-
-        <div id="modal_1b" data-modal>
-          <h2 data-autofocus>
-            My title
-          </h2>
-
-          <div>
-            <p>Content would go here if there were content that should go here.</p>
-          </div>
-        </div>
-
-        <details>
-          <summary>
-            Modal Test 1b details
-          </summary>
-          <p>
-            In this test the heading is set to receive autofocus.
-          </p>
-          <p>
-            <strong>Please note:</strong> that with default NVDA settings, NVDA will be verbose in the initial announcement of the dialog if the heading is focused by default. Ideally, the dialog container or a form control within a dialog should be the initially focused element. Per the latter, an <code>aria-describedby</code> should be used to provide a succinct description of the dialog's contents.
-          </p>
-          <p>
-            JAWS and VoiceOver will announce the name of the dialog, the dialog role, and then announce the heading text and element. For instance:
-          </p>
-          <p>
-            <b>VoiceOver (desktop high sierra):</b>
-            <q>Heading Text (from aria-labelledby), <i>dialog</i>, <i>heading level 2</i>, Heading Text"</q>.
-          </p>
-          <p>
-            <b>JAWS (2018):</b>
-            <q>Heading Text (from aria-labelledby), <i>dialog</i>, Heading Text, <i>heading level 2</i></q>.
-          </p>
-          <p>
-            <b>NVDA (2018.1):</b>
-            <q>Heading Text (from aria-labelledby), <i>dialog</i>, Heading Text, <i>heading level 2</i>. Heading Text. <i>Heading level 2</i> Heading Text. <b>all other contents of dialog are announced</b>.</q>
-          </p>
-          <p>
-            <b>VoiceOver (iOS):</b>
-            <q>Heading Text <i>heading level 2</i>.
-          </p>
-        </details>
-      </section>
-
 
       <section>
         <h3>
