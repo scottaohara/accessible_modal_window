@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en-us" class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title>
+      Vanilla Modal Dialogs
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
+    <link rel="stylesheet" href="../assets--demo/demo.css">
+    <link rel="stylesheet" href="../assets/css/aria.modal.css">
+  </head>
+  <body>
+    <a href="#main" class="at-only">
+      Skip to main content
+    </a>
+
+    <header class="content-area">
+      <h1>
+        Accessible Modal Dialogs
+        with <span>Vanilla <abbr title="JavaScript">JS</abbr></span>
+      </h1>
+    </header>
+
+    <main id="main" class="content-area" aria-label="content">
+
+      <h2>
+        <abbr>ARIA</abbr> Modal Dialog Demos
+      </h2>
+
+      <p>
+        Each of the following tests show off different features of the modal dialog script.
+        For more information about the functionality and options of these dialog demos, see the
+        <a href="https://github.com/scottaohara/accessible_modal_window#accessible-modal-dialog">modal dialog documentation on GitHub</a>.
+      </p>
+
+      <details>
+        <summary>
+          Test information
+        </summary>
+        <p>
+          Each dialog will have different focus start points. And when each dialog is open, focus (via <kbd>tab</kbd> key or virtual cursor) should <strong>not</strong> be able to reach the document beneath the dialog. Browser chrome controls (browser buttons and address bar, etc.) <strong>should</strong> remain accessible.
+        </p>
+        <p>
+          The following dialogs have been tested with:
+        </p>
+        <ul>
+          <li>
+            JAWS 18 &amp; 2018 with Firefox, Chrome and Internet Explorer 11.
+          </li>
+          <li>
+            NVDA 2018.1 with Firefox and Chrome
+          </li>
+          <li>
+            VoiceOver + macOS High Sierra and iOS 11
+          </li>
+          <li>
+            TalkBack + Chrome on Android Oreo
+          </li>
+        </ul>
+      </details>
+
+
+
+
+
+      <section>
+        <h3>
+          Modal Dialog Test 1
+          <span>A single modal dialog launched from different triggers</span>
+        </h3>
+
+        <p>
+          <!-- pulls target from href -->
+          <a href="#modal_1" class="btn" data-modal-open>
+            Launch Modal 1 (link)
+          </a>
+          <span class="btn" data-modal-open="modal_1">
+            Launch Modal 1 (span)
+          </span>
+          <button type="button" class="btn" data-modal-open="modal_1">
+            Launch Modal 1 (button)
+          </button>
+        </p>
+
+        <!-- dialog markup -->
+        <div id="modal_1" data-modal data-modal-class="test-class">
+          <h2>
+            Privacy Information
+          </h2>
+
+          <div>
+            <p>We heard you like to know about updates to privacy policies. So we've done just that.</p>
+          </div>
+        </div>
+        <!-- end dialog markup -->
+
+        <details>
+          <summary>
+            Modal Test 1 details
+          </summary>
+          <p>
+            Each of the trigger elements are progressively enhanced (as needed) into buttons. They all open the same modal dialog.
+          </p>
+          <p>
+            Each "button" is assigned their own unique ID, when activated the ID of the specific button used will be stored in a <code>var</code>. The ID will be referred to again when the dialog is closed and focus needs to return to the specific element that opened it.
+          </p>
+          <p>
+            The dialog utilizes the value of <code>data-modal-class</code> to add the value as a class to itself, when JavaScript is available.
+          </p>
+          <p>
+            A close <code>button</code> is auto-generated from the script, as there are no manually set close buttons within the dialog.
+          </p>
+          <p>
+            In this example the dialog container is focused by default.  This will result in JAWS + Firefox and VoiceOver (on desktop) announcing the accessible name and role of the dialog when its opened.
+          </p>
+          <p>
+            With JAWS and Internet Explorer 11, the accessible name and role of the dialog will be announced, and then the first child element of the dialog, and its role, will be announced.
+          </p>
+          <p>
+            With NVDA and Firefox, NVDA will announce the accessible name of the dialog, but will <b>not announce the dialog role</b>. It will then treat the dialog as if it was a new document loaded, and begin reading the contents of the dialog in sequential order.
+          </p>
+        </details>
+      </section>
+
+
+      <section>
+        <h3>
+          Modal Test 1b
+          <span>A modal dialog with its heading autofocused</span>
+        </h3>
+
+        <p>
+          <span class="btn" data-modal-open="modal_1b">
+            Launch Modal 1b
+          </span>
+        </p>
+
+        <div id="modal_1b" data-modal>
+          <h2 data-autofocus>
+            My title
+          </h2>
+
+          <div>
+            <p>Content would go here if there were content that should go here.</p>
+          </div>
+        </div>
+
+        <details>
+          <summary>
+            Modal Test 1b details
+          </summary>
+          <p>
+            In this test the heading is set to receive autofocus.
+          </p>
+          <p>
+            <strong>Please note:</strong> that with default NVDA settings, NVDA will be verbose in the initial announcement of the dialog if the heading is focused by default. Ideally, the dialog container or a form control within a dialog should be the initially focused element. Per the latter, an <code>aria-describedby</code> should be used to provide a succinct description of the dialog's contents.
+          </p>
+          <p>
+            JAWS and VoiceOver will announce the name of the dialog, the dialog role, and then announce the heading text and element. For instance:
+          </p>
+          <p>
+            <b>VoiceOver (desktop high sierra):</b>
+            <q>Heading Text (from aria-labelledby), <i>dialog</i>, <i>heading level 2</i>, Heading Text"</q>.
+          </p>
+          <p>
+            <b>JAWS (2018):</b>
+            <q>Heading Text (from aria-labelledby), <i>dialog</i>, Heading Text, <i>heading level 2</i></q>.
+          </p>
+          <p>
+            <b>NVDA (2018.1):</b>
+            <q>Heading Text (from aria-labelledby), <i>dialog</i>, Heading Text, <i>heading level 2</i>. Heading Text. <i>Heading level 2</i> Heading Text. <b>all other contents of dialog are announced</b>.</q>
+          </p>
+          <p>
+            <b>VoiceOver (iOS):</b>
+            <q>Heading Text <i>heading level 2</i>.
+          </p>
+        </details>
+      </section>
+
+
+      <section>
+        <h3>
+          Modal Test 2
+          <span>A modal dialog with an autofocused, auto-generated, close button and visually hidden heading</span>
+        </h3>
+
+        <p>
+          <button type="button" class="btn"
+            data-modal-open="modal_2">
+            Launch Modal 2
+          </button>
+        </p>
+
+        <!-- dialog markup -->
+        <div id="modal_2"
+          data-modal
+          data-modal-close="OK"
+          data-modal-close-class="btn"
+          data-modal-close-focus
+          data-modal-hide-heading>
+
+          <h2>
+            Topic Title
+          </h2>
+
+          <div>
+            <p id="test_desc_id" data-modal-description>
+              Content goes here, to talk about this topic. It's very important, because why else would a modal dialog be used?
+            </p>
+          </div>
+        </div>
+        <!-- end dialog markup -->
+
+        <details>
+          <summary>
+            Modal Test 2 details
+          </summary>
+          <p>
+            Here the dialog has an auto-generated close button, which is focused when the dialog is opened. The text of the close button and a class are passed to the generated close button via the <code>data-modal-close</code> and <code>data-modal-close-class</code> attributes respectively. When an auto-generated close button has a text string set, it will not receive the styles of an "X" close button.
+          </p>
+          <p>
+            A <code>data-modal-description</code> has been added to the child element (in this case a <code>p</code> element), which serves as the primary description of the dialog. This attribute will trigger a function to setup an appropriate <code>ID</code> and <code>aria-describedby</code> for the dialog.
+          </p>
+          <p>
+            When the dialog is opened and the close button is focused, the accessible name of the dialog, its description, and the close button are all announced by screen readers.
+          </p>
+        </details>
+      </section>
+
+
+      <section>
+        <h3>
+          Modal Test 3
+          <span>A dialog containing an autofocused input</span>
+        </h3>
+
+        <p>
+          <button type="button"
+            class="btn"
+            data-modal-open="modal_3"
+            hidden>
+            Launch Modal 3
+          </button>
+        </p>
+
+        <!-- dialog markup -->
+        <div id="modal_3" hidden data-modal>
+          <h2>
+           Another Announcement
+          </h2>
+
+          <div class="callout-test" data-modal-description>
+            <p>
+              Please provide us your name.
+            </p>
+            <p>
+              Maybe so we can personalize your experience?
+            </p>
+          </div>
+
+          <form>
+            <label for="c_name">
+              <span style="display: block;">
+                Name:
+              </span>
+              <input type="text" id="c_name" data-autofocus>
+            </label>
+
+            <div>
+              <button type="reset" class="btn" data-modal-close-btn>
+                Cancel
+              </button>
+              <button type="submit"
+                class="btn"
+                data-modal-close-btn
+                onClick="event.preventDefault();">
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
+        <!-- end dialog markup -->
+
+        <details>
+          <summary>
+            Modal Test 3 details
+          </summary>
+          <p>
+            A dialog with an autofocused <code>input</code>. The description of the dialog consists of two paragraphs which are both wrapped in a <code>div[data-modal-description]</code>.
+          </p>
+          <p>
+            As there are two buttons that serve to close the dialog (manually set "cancel" and "submit" buttons), an auto-generate close button will not be added to the dialog.
+          </p>
+          <p>
+            As the instance of the dialog is not 'destroyed' when a user hits the <kbd>Esc</kbd> key, or touches or clicks outside the dialog, if a user reopens the dialog, any value they added to the text input will remain. If a user activates the "cancel" button, the form will be reset, as the button has a <code>type="reset"</code>.
+          </p>
+        </details>
+      </section>
+
+
+      <section>
+        <h3>
+          Modal Test 4
+          <span>
+            A modal dialog with a nested form. An <code>aria-describedby</code> is set, but the dialog itself is focused to showcase how this will announce.
+          </span>
+        </h3>
+
+        <p>
+          <a class="btn" data-modal-open="modal_4">
+            Launch Modal 4
+          </a>
+        </p>
+
+        <!-- dialog markup -->
+        <div id="modal_4"
+          hidden
+          data-modal
+          aria-describedby="form_desc_4">
+          <h1>
+            Make a selection
+          </h1>
+
+          <p id="form_desc_4">
+            Select the option you would like.
+          </p>
+
+          <form>
+            <fieldset>
+              <legend>
+                <h2>
+                  You have options
+                </h2>
+              </legend>
+
+              <div>
+                <label for="opt_1">
+                  <input type="radio" id="opt_1" name="text_radios">
+                  Option 1
+                </label>
+              </div>
+
+              <div>
+                <label for="opt_2">
+                  <input type="radio" id="opt_2" name="text_radios">
+                  Option 2
+                </label>
+              </div>
+            </fieldset>
+
+            <div>
+              <button type="submit"
+                class="btn"
+                data-modal-close-btn
+                onClick="event.preventDefault();">
+                Confirm
+              </button>
+            </div>
+          </form>
+        </div>
+        <!-- end dialog markup -->
+
+        <details>
+          <summary>
+            Modal Test 4 details
+          </summary>
+          <p>
+            Dialog with a manually set <code>aria-describedby</code> pointing to the description text of the dialog.
+          </p>
+          <p>
+            There is no autofocus set for this dialog as a test for what the announcement would be like in different screen readers for when the dialog wrapper receives focus by default.
+          </p>
+          <p>
+            <b>NVDA</b> will sequentially read through all the elements within the dialog unless a user begins to interact via keyboard controls.
+          </p>
+          <p>
+            <b>VoiceOver</b> will announce the accessible name and role of the dialog. After a short pause, it will read the <code>aria-describedby</code> content of the dialog.
+          </p>
+          <p>
+            <b>JAWS + Firefox and Chrome</b> will announce the accessible name and role of the dialog and the <code>aria-describedby</code> content of the dialog.
+          </p>
+          <p>
+            <b>JAWS + IE11</b> will announce the accessible name and role of the dialog and the <code>aria-describedby</code> content of the dialog. It will then announce the first child (heading) and description of the dialog again.
+          </p>
+        </details>
+      </section>
+
+
+      <section>
+        <h3>
+          Modal Test 5
+          <span>
+            An alert modal dialog
+          </span>
+        </h3>
+
+        <p>
+          <a class="btn" data-modal-open="modal_5">
+            Launch Alert Modal
+          </a>
+        </p>
+
+        <!-- dialog markup -->
+        <div id="modal_5"
+          hidden
+          data-modal="alert">
+          <h1>
+           An important message
+          </h1>
+
+          <div>
+            <p data-modal-description>
+              This is a short description of this alert.
+            </p>
+
+            <button type="button" class="btn" data-modal-close-btn>
+              Cancel
+            </button>
+            <button type="button"
+              class="btn"
+              data-autofocus
+              data-modal-close-btn>
+              OK
+            </button>
+          </div>
+        </div>
+        <!-- end dialog markup -->
+
+        <details>
+          <summary>
+            Modal Test 5 details
+          </summary>
+          <p>
+            An alert dialog should be used when a response is required from a user. Where standard dialogs may allow for multiple passive ways to exit them, such as mouse clicking outside the dialog, or using a close button that provides no concrete commitment from a user that they actually engaged with the dialog's contents; an alert dialog should only be closed via purposeful button activations by a user.
+          </p>
+          <p>
+            For instance, an alert dialog may have a single "OK" button to indicate that the user is compliant with the message the dialog presents to them. Or a specific choice of "confirm" or "deny" buttons, to indicate that a user agrees or disagrees with the dialog's primary message.
+          </p>
+          <p>
+            With this in mind, it should be noted that an alert dialog will not auto generate close buttons. Authors should enter the specific actionable elements to dismiss the dialog. Alert dialogs do not allow for a mouse click or tap outside of the dialog to dismiss.
+          </p>
+          <p>
+            If an alert dialog contains a short message and a single actionable item, then that item may be autofocused, and the dialog may utilize <code>aria-describedby</code> to read out the contents of the dialog to the user, to decrease a user having to navigate the dialog themselves.  If an alert dialog contains more than a confirmation button to dismiss it, e.g. there is a confirm, deny, or other choices to dismiss the dialog, then autofocusing a choice may lead some users to believe that is their only choice.
+          </p>
+          <p>
+            In this instance, the dialog itself should be given focus so a user can parse through the dialog and understand their options via their own discovery methods.
+          </p>
+        </details>
+      </section>
+    </main>
+
+    <footer class="content-area">
+      <p><a href="/">Return to index</a></p>
+      <p>Made by <a href="https://twitter.com/scottohara">@scottohara</a> |
+      <a href="https://www.scottohara.me">scottohara.me</a></p>
+    </footer>
+
+    <!--
+      The modal dialog script functions without *requiring* the inert
+      polyfill script. However, there may be instances where users can
+      escape dialogs if the script is not used.
+    -->
+    <script src="https://cdn.rawgit.com/GoogleChrome/inert-polyfill/v0.1.0/inert-polyfill.min.js"></script>
+    <script src="../assets--demo/demo.js"></script>
+    <script src="../assets/js/aria.modal.js"></script>
+
+  </body>
+</html>
