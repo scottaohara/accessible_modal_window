@@ -1,15 +1,14 @@
 # Accessible Modal Dialog  
-
-*Note: this readme is still being rewritten.**
-
-A vanilla (aka plain old JavaScript), accessible modal dialog script, written in ES5 with no need for a build process.
+A vanilla JavaScript, accessible modal dialog script, written in ES5.
 
 ## Usage  
 Include the _a11y.modal.js_ file at the bottom of your document, or concatenated into your primary .js file, as part of your build process.
 
-Ideally modal dialogs are are triggered by either a `button` or an element that has been modified to have the semantics and keyboard functionality of a `button`.  While this script does allow dialogs to be fired by other means, a dialog opening without a purposeful action can be a confusing and frustrating user experience to many.
+Ideally modal dialogs are activated by a purposeful user interaction with a `button`, or an element that has been modified to have the semantics and keyboard functionality of a `button`.  While this script does allow dialogs to be activated by other means, a dialog opening without a purposeful action can be a confusing and frustrating user experience to many.
 
-The baseline for a button to open a modal dialog should consist of the following:  
+### Modal Dialog Trigger
+The baseline for a `button` to open a modal dialog should consist of the following:  
+
 ```html
 <button type="button"
   class="_your_class(es)_here_"
@@ -18,9 +17,11 @@ The baseline for a button to open a modal dialog should consist of the following
   Launch My Modal
 </button>
 ```
-The `data-modal-open="..."` attribute is used to point to the specific modal this `button` is meant to trigger.  Adding a `disabled` attribute ensures that if JavaScript is blocked, or fails, that users will understand the button *should* do something, but is presently inactive.
 
-If JavaScript is unavailable and the contents of a dialog will still make sense as part of the page's content, then an `a` element can be used as the dialog trigger, and progressively enhanced to be a `button`.
+The `data-modal-open="..."` attribute is used to point to the specific modal this `button` is meant to activate.  Adding a `disabled` attribute ensures that if JavaScript is blocked, or fails, that users will understand the `button` *should* do something, but is currently inactive.
+
+If JavaScript is unavailable, and the contents of a dialog will still make sense as part of the page's content, then an `a` element may be used as the dialog trigger, and progressively enhanced to be a `button`. This will allow the `a` to act as an in-page link to the would-be dialog's contents.
+
 ```html
 <a href="#unique_ID_2"
   class="_your_class(es)_here_" 
@@ -28,9 +29,11 @@ If JavaScript is unavailable and the contents of a dialog will still make sense 
   Launch My Modal
 </a>
 ```
-The `href` attribute can act as the identifier for the target dialog, if the `data-modal-open` attribute value is not set. However, if you would like this link to go to another location, if JavaScript is disabled, then set the `href` to the appropriate URL, and set the `data-modal-open` to the `IDREF` of the dialog within the document.
+
+The `href` attribute of a link may act as the identifier for the target dialog, if the `data-modal-open` attribute value is empty. However, if you would like this link to go to another location, if JavaScript were disabled, then set the `href` to the appropriate URL, and set the `data-modal-open` to the `IDREF` of the dialog within the document.
 
 If a dialog's content would be completely useless without JavaScript enabled, and you do *not* want to have a disabled `button` in the UI, then instead use the following markup pattern:
+
 ```html
 <button type="button"
   class="_your_class(es)_here_"
@@ -39,9 +42,11 @@ If a dialog's content would be completely useless without JavaScript enabled, an
   Launch My Modal
 </button>
 ```
+
 The `hidden` attribute will be removed when JavaScript is enabled, but will ensure the `button` is completely hidden if JavaScript is not available.
 
-The bare minimum default markup for the modal dialog would be the following:  
+### Modal Dialog Base Markup
+The bare minimum markup for a modal dialog would be the following:  
 
 ```html
 <div id="unique_ID_to_match_data-modal-open" data-modal>
