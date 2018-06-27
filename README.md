@@ -1,7 +1,7 @@
 # Accessible Modal Dialog  
 A vanilla JavaScript, accessible modal dialog script, written in ES5.
 
-## Usage  
+## Standard Usage  
 Include the _a11y.modal.js_ file at the bottom of your document, or concatenated into your primary .js file, as part of your build process.
 
 Ideally modal dialogs are activated by a purposeful user interaction with a `button`, or an element that has been modified to have the semantics and keyboard functionality of a `button`.  While this script does allow dialogs to be activated by other means, a dialog opening without a purposeful action can be a confusing and frustrating user experience to many.
@@ -18,7 +18,7 @@ The baseline for a `button` to open a modal dialog should consist of the followi
 </button>
 ```
 
-The `data-modal-open="..."` attribute is used to point to the specific modal this `button` is meant to activate.  Adding a `disabled` attribute ensures that if JavaScript is blocked, or fails, that users will understand the `button` *should* do something, but is currently inactive.
+The `data-modal-open` attribute is used to point to the specific modal this `button` is meant to activate.  Adding a `disabled` attribute ensures that if JavaScript is blocked, or fails, that users will understand the `button` *should* do something, but is currently inactive.
 
 If JavaScript is unavailable, and the contents of a dialog will still make sense as part of the page's content, then an `a` element may be used as the dialog trigger, and progressively enhanced to be a `button`. This will allow the `a` to act as an in-page link to the would-be dialog's contents.
 
@@ -59,14 +59,11 @@ The bare minimum markup for a modal dialog would be the following:
 </div>
 ```
 
-
 ## Lack of features are not bugs
-This script does *not* presently utilize the `aria-haspopup="dialog"` on the dialog triggers. Nor does it `aria-modal` on the dialog element. These attributes are currently in the dialog script, but commented out until they receive wider browser + screen reader support.  
-
-For example, with screen readers that do not yet understand the `aria-haspopup="dialog"`, they treat it as if the trigger opens a `role="menu"`, and the announcements for that are *not* what someone would expect for a dialog.  Additionally, VoiceOver on macOS High Sierra will flat out not recognize some child elements of a dialog, if navigating by <kbd>up</kbd> or <kbd>down</kbd> arrow keys, or if navigating by <kbd>VO</kbd> + <kbd>left</kbd> or <kbd>right</kbd> arrow keys. The content missed is not the same between navigation controls, and with the use of the `inert` polyfill and `aria-hidden`, there is currently nothing missed from not using `aria-modal` on the dialog.  
-
+This script does *not* presently utilize the `aria-haspopup="dialog"` on the dialog triggers. Nor does it use `aria-modal` on the dialog element. The code to add these attributes are currently in the dialog script, but commented out until they receive wider browser and screen reader support.  
+ 
 ## Inert Polyfill
-For this script to provide peak accessibility, it must also utilize the [`inert` polyfill from Google](https://github.com/GoogleChrome/inert-polyfill). While the dialogs have a function to keep focus within the dialog, looping through any focusable elements within itself, the inert polyfill will help prevent a user from accessing the browser's chrome (e.g. the address bar) and then being able to navigate back into the obscured document. The dialog script doubles down on the elements with `inert="true"` and also add an `aria-hidden="true"` as well. This ensures that not only can users not access elements within the obscured document by keyboard navigation, but that these elements will not be revealed in screen reader listings of elements within a document (e.g. listings of regions, headings or form controls with NVDA and JAWS, or be revealed in VoiceOver's rotor menus.)
+For this script to provide peak accessibility, it must also utilize the [`inert` polyfill from Google](https://github.com/GoogleChrome/inert-polyfill). While the dialogs have a function to keep focus within the dialog, looping through any focusable elements within itself, the inert polyfill will help prevent a user from accessing the browser's chrome (e.g. the address bar) and then being able to navigate back into the obscured document. The dialog script doubles down on the elements with `inert="true"` and also add an `aria-hidden="true"` as well. This ensures that not only can users not access elements within the obscured document by keyboard navigation, but that these elements will not be revealed in screen reader listings of elements within a document (e.g. listings of landmarks/regions, headings or form controls with NVDA and JAWS, or be revealed in VoiceOver's rotor menus.)
 
 
 ### Configuration attributes  
@@ -74,19 +71,23 @@ The following attributes are used to setup instances of the dialog triggers (but
 
 
 #### Trigger Attributes
-- `data-modal-open`
-- ``
-- `hidden`: Set to a trigger to hide it in the event that JavaScript is unavailable.
-- `disabled`: Set to a trigger to disable it in the event that JavaScript is unavailable.
+- `data-modal-open`: If used on a `button` or element with `role=button`, this attribute must contain the `id` of the `dialog` it is to activate.  If used on an `a` element with an `href` pointing to the `dialog` it is to activate, then this attribute can be set to the empty string.
+- `hidden`: Use this attribute to hide a trigger in the event that JavaScript is unavailable and it wouldn't make sense for the trigger to be available to users.
+- `disabled`: Set to a trigger to disable it in the event that JavaScript is unavailable and the trigger would perform no function.
+- `data-modal-auto`: Indicates that the trigger's associated modal dialog should activate on page load.
+- `data-modal-auto-persist`: Indicates that the trigger's associated modal dialog should continue to activate on page reload. Without this attribute, the associated modal dialog will only auto activate once.
 
 
 #### Dialog Attributes
-- `hidden`: All dialogs that are not meant to be visible if JavaScript or CSS are disabled should have this attribute.
-- `data-modal` (leave blank, or accepts "alert" value)
-- `data-modal-class` (accepts value)
-- `data-modal-close` Adding a value to this attribute will change the auto generated close button from an "icon" button to an inline button with a visible label of the value. 
-- `data-modal-close-class` The value added to this attribute will be applied to the generated close button as a class.
+- `data-modal`: The primary hook for indicating the element is meant to be transformed into a modal dialog. Leaving the attribute's value empty will result in a standard `role="dialog"`. Setting the value to be "alert" will indicate that the script should add `role="alertdialog"` to the element. 
+- `data-modal-class`: Setting a value to this attribute will add the value as a class name to the dialog when JavaScript is enabled. Useful if you want to progressively enhance the markup from static content to a modal dialog, but don't want it to visually look like a dialog without JavaScript.
+- `data-modal-hide-heading`: This attribute will find set a class of `at-only` to the first heading of the modal dialog.
+- `data-modal-close`: Adding a value to this attribute will change the auto generated close button from an "icon" button to an inline button with a visible label of the value. 
+- `data-modal-close-class`: The value set to this attribute will be become a class name added to generated close button.
 - `data-modal-focus-close`: This attribute serves as a hook to autofocus the generated close button when the dialog is opened.
+- `data-modal-auto`: Indicates this modal dialog should activate on page load.
+- `data-modal-auto-persist`: Indicates that this modal dialog should continue to activate on page reload. Without this attribute, the modal dialog will only auto activate once.
+- `hidden`: All dialogs that are not meant to be visible if JavaScript or CSS are disabled should have this attribute.
 
 
 #### Dialog Children Attributes
@@ -111,7 +112,7 @@ Things of note for why certain decisions were made, and how different screen rea
 
 
 ## Previous Versions
-Read about older version of this script that required jQuery.   
+Read about previous versions of this script:  
 [Version 1 - Smashing Magazine Article](http://www.smashingmagazine.com/2014/09/making-modal-windows-better-for-everyone/)  
 [Version 2 - Release Article](http://www.scottohara.me/blog/2016/09/07/revised-modal-window.html)  
 
