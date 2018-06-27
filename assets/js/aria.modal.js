@@ -11,7 +11,7 @@
 
 	ARIAmodal.NS      = 'ARIAmodal';
 	ARIAmodal.AUTHOR  = 'Scott O\'Hara';
-	ARIAmodal.VERSION = '3.0.5';
+	ARIAmodal.VERSION = '3.1.0';
 	ARIAmodal.LICENSE = 'https://github.com/scottaohara/accessible_modal_window/blob/master/LICENSE';
 
 	var activeClass = 'modal-open';
@@ -24,6 +24,7 @@
 	var initialTrigger;
 	var activeModal;
 	var useAriaModal = false;
+	var returnToBody = false;
 
 	var firstClass = 'js-first-focus';
 	var lastClass = 'js-last-focus';
@@ -348,9 +349,9 @@
 	/**
 	 * Actions
 	 */
-	ARIAmodal.openModal = function ( e ) {
+	ARIAmodal.openModal = function ( e, autoOpen ) {
 		var i;
-		var getTargetModal = this.getAttribute('data-modal-open');
+		var getTargetModal = autoOpen || this.getAttribute('data-modal-open');
 		/**
 		 * Update the activeModal
 		 */
@@ -361,15 +362,31 @@
 		useAriaModal = activeModal.hasAttribute('aria-modal');
 
 		/**
-		 * In case these are links, negate default behavior and just
-		 * do what this script tells these triggers to do.
+		 * If a modal dialog was auto-opened, then a user should
+		 * be returned to the top of the document when the modal
+		 * is closed, so that they do not have to figure out where
+		 * they've been placed in the DOM
 		 */
-		e.preventDefault();
+		if ( autoOpen ) {
+			returnToBody = true;
+		}
 
 		/**
-		 * Keep track of the trigger that opened the initial dialog.
+		 * if a modal was auto-opened on page load, then the
+		 * following do not apply.
 		 */
-		initialTrigger = this.id;
+		if ( !autoOpen ) {
+			/**
+			 * In case these are links, negate default behavior and just
+			 * do what this script tells these triggers to do.
+			 */
+			e.preventDefault();
+
+			/**
+			 * Keep track of the trigger that opened the initial dialog.
+			 */
+			initialTrigger = this.id;
+		}
 
 		/**
 		 * If a modal dialog contains an that is meant to be autofocused,
@@ -419,11 +436,10 @@
 		activeModal.removeAttribute('hidden');
 		focusTarget.focus();
 
-
 		doc.addEventListener('click', ARIAmodal.outsideClose, false);
 		doc.addEventListener('touchend', ARIAmodal.outsideClose, false);
 
-		return [initialTrigger, activeModal];
+		return [initialTrigger, activeModal, returnToBody];
 	};
 
 
@@ -483,7 +499,7 @@
 			trigger.focus();
 		}
 		else {
-			if ( main ) {
+			if ( main && !returnToBody ) {
 				main.tabIndex = -1;
 				main.focus();
 			}
@@ -495,8 +511,9 @@
 
 		initialTrigger = undefined;
 		activeModal = undefined;
+		returnToBody = false;
 
-		return [initialTrigger, activeModal];
+		return [initialTrigger, activeModal, returnToBody];
 	};
 
 
@@ -566,8 +583,105 @@
 				ARIAmodal.closeModal();
 			}
 		}
-	};
+	}; // ARIAmodal.outsideClose()
 
+
+	/**
+	 * Open a modal dialog on page load
+	 */
+	ARIAmodal.autoLoad = function ( ) {
+		var getAuto = doc.querySelectorAll('[data-modal-auto]');
+		var hashValue = w.location.hash || null;
+		var autoOpen;
+		var useHash = false;
+		var e = null;
+
+
+		/**
+		 * A modal ID in the URL should take precedent over any data attributes on
+		 * the page. The script must first check if a hash exists, and then if so,
+		 * does it match an ID in the document? And finally, is that ID associated
+		 * with a modal dialog?  If so, set useHash to TRUE.
+		 */
+		if ( hashValue !== null ) {
+			autoOpen = hashValue.split('#')[1];
+
+			// stop right here if a stray hash is at the end of the URL
+			if ( autoOpen === '' ) {
+				return false;
+			}
+			else if ( autoOpen === '!null' ) {
+				return false
+			}
+			else {
+				// does the hash actually represent an element, or is it null?
+				var checkforDialog = doc.getElementById(autoOpen) || null;
+
+				// if not null...
+				if ( checkforDialog !== null ) {
+					// do a final check to ensure the hash/ID is for a dialog or alertdialog
+					// and if so, return useHash as TRUE
+					if ( checkforDialog.getAttribute('role') === 'dialog' || checkforDialog.getAttribute('role') === 'alertdialog') {
+						useHash = true;
+					}
+				}
+			}
+		}
+
+		/**
+		 * Since only a single modal should be open at a time, perform the following
+		 * if/else checks:
+		 *
+		 * If a URL contains a fragment that matches the ID of a dialog, auto open it.
+		 *
+		 * Else If the attribute was found on a dialog container, then directly perform
+		 * the openModal function.
+		 *
+		 * Else If a button or "button" was found with the attribute data-modal-auto,
+		 * then perform a click to auto-open this dialog.
+		 *
+		 * If a dialog or button does not have the attribute data-modal-auto-persist,
+		 * then update the URL fragment to a value that will not open a modal dialog on
+		 * subsequent reloads.
+		 *
+		 * If data-modal-auto-persist does exist, then you can continue to bother your
+		 * users with likely a poor user experience. :)
+		 */
+		if ( useHash ) {
+			ARIAmodal.openModal( e, autoOpen );
+
+			if ( getAuto.length > 1 ) {
+				console.warn('Only the modal indicated by the hash value will load.')
+			}
+		}
+		else if ( getAuto[0].getAttribute('role') === 'dialog' || getAuto[0].getAttribute('role') === 'alertdialog' ) {
+
+			autoOpen = getAuto[0].id;
+
+			ARIAmodal.openModal( e, autoOpen );
+
+			if ( getAuto.length > 1 ) {
+				console.warn('Multiple modal dialogs can not auto load.')
+			}
+		}
+		else if ( getAuto[0].getAttribute('role') === 'button' || getAuto[0].tagName === 'BUTTON' ) {
+		 	autoOpen = getAuto[0].id;
+		 	getAuto[0].click();
+		}
+
+		/**
+		 * Ideally a user shouldn't have to be barraged with the same modal dialog over
+		 * and over again, if they refresh their browser window.
+		 *
+		 * So unless the attribute "data-modal-auto-persist" exists, which should be used
+		 * to specifically state that a particular dialog should continue to auto-load,
+		 * regardless of page refresh, modify the URL fragment to a string that will
+		 * not auto-load a modal.
+		 */
+		if ( !doc.getElementById(autoOpen).hasAttribute('data-modal-auto-persist') ) {
+			w.location.replace("#!null");
+		}
+	};
 
 
 	/**
@@ -579,7 +693,7 @@
 		ARIAmodal.organizeDOM();
 		ARIAmodal.setupTrigger();
 		ARIAmodal.setupModal();
-
+		ARIAmodal.autoLoad();
 	};
 
 

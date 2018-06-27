@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en-us" class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title>
+      Auto-load Dialog
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
+    <link rel="stylesheet" href="assets--demo/demo.css">
+    <link rel="stylesheet" href="assets/css/aria.modal.css">
+  </head>
+  <body>
+    <a href="#main" class="at-only">
+      Skip to main content
+    </a>
+
+    <header class="content-area">
+      <h1>
+        Modal dialog that auto-loads on page view
+      </h1>
+    </header>
+
+    <main id="main" class="content-area" aria-label="content">
+
+      <h2>
+        Dialog tests
+      </h2>
+
+      <p>
+        The following two examples can auto-load a dialog on page view.  Only a single modal dialog can auto-load at a time, as multiple open dialogs should not be allowed.
+      </p>
+
+
+      <section>
+        <h3>
+          Modal Dialog Test 1
+          <span>Auto-loaded from URL hash</span>
+        </h3>
+
+        <p>
+          <span class="btn" data-modal-open="modal_1">
+            Manually Launch Modal 1
+          </span>
+        </p>
+
+        <!-- dialog markup -->
+        <div id="modal_1" data-modal data-modal-class="test-class">
+          <h2>
+            Auto-loaded test 1
+          </h2>
+
+          <div>
+            <p>
+              This dialog will open automatically if the URL fragment "#modal_1" is present.
+            </p>
+            <p>
+              If a URL contains the ID of a dialog, this method will take precedent over other auto-loading methods.
+            </p>
+          </div>
+        </div>
+        <!-- end dialog markup -->
+      </section>
+
+      <section>
+        <h3>
+          Modal Dialog Test 2
+          <span>Auto-loaded from data-modal-auto attribute</span>
+        </h3>
+
+        <p>
+          <button type="button" class="btn"
+            data-modal-open="modal_2" data-modal-auto>
+            Manually Launch Modal 2
+          </button>
+        </p>
+
+        <!-- dialog markup -->
+        <div id="modal_2"
+          data-modal
+          data-modal-close="OK"
+          data-modal-close-class="btn"
+          data-modal-close-focus
+          data-modal-hide-heading>
+
+          <h2>
+            Auto-load test 2
+          </h2>
+
+          <div>
+            <p id="test_desc_id" data-modal-description>
+              This modal dialog opens by default because the dialog container
+              has the attribute "data-modal-auto". This attribute could have
+              been placed on the button to manually open this dialog, instead, and
+              it would have produced the same auto-load effect.
+            </p>
+          </div>
+        </div>
+        <!-- end dialog markup -->
+      </section>
+    </main>
+
+    <!--
+      The modal dialog script functions without *requiring* the inert
+      polyfill script. However, there may be instances where users can
+      escape dialogs if the script is not used.
+    -->
+    <script src="https://cdn.rawgit.com/GoogleChrome/inert-polyfill/v0.1.0/inert-polyfill.min.js"></script>
+    <script src="assets--demo/demo.js"></script>
+    <script src="assets/js/aria.modal.js"></script>
+
+  </body>
+</html>
