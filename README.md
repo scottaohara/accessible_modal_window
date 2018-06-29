@@ -1,6 +1,8 @@
 # Accessible Modal Dialog  
 A vanilla JavaScript, accessible modal dialog script, written in ES5.
 
+See the [live demo and test files](http://scottaohara.github.io/accessible_modal_window).
+
 ## Standard Usage  
 Include the _a11y.modal.js_ file at the bottom of your document, or concatenated into your primary .js file, as part of your build process.
 
