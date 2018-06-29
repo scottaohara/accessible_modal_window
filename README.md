@@ -3,6 +3,21 @@ A vanilla JavaScript, accessible modal dialog script, written in ES5.
 
 See the [live demo and test files](http://scottaohara.github.io/accessible_modal_window).
 
+## Install
+You can get this package [on npm](https://www.npmjs.com/package/aria-modal-dialog):
+```
+$ npm i aria-modal-dialog
+```
+
+Clone it:
+```
+$ git clone https://github.com/scottaohara/accessible_modal_window.git
+```
+
+Or [download a zip of the repository](https://github.com/scottaohara/accessible_modal_window/archive/master.zip).
+
+The CSS for this component is included in `assets/css/`. The classes are added to the base markup when the script/page loads. The base CSS has only the most necessary styling to visually convey it as a modal dialog. You *will need to* modify the CSS to integrate the dialog into your project's visual aesthetic.  
+
 ## Standard Usage  
 Include the _a11y.modal.js_ file at the bottom of your document, or concatenated into your primary .js file, as part of your build process.
 
@@ -18,6 +33,13 @@ The baseline for a `button` to open a modal dialog should consist of the followi
   disabled>
   Launch My Modal
 </button>
+<!--
+  Swap out disabled with the hidden attribute if you want the trigger to be 
+  completely hidden if JavaScript is unavailable fo rsome reason.  
+
+  Both the hidden attribute and the disabled attribute will be removed during the
+  scripts setup function.
+-->
 ```
 
 The `data-modal-open` attribute is used to point to the specific modal this `button` is meant to activate.  Adding a `disabled` attribute ensures that if JavaScript is blocked, or fails, that users will understand the `button` *should* do something, but is currently inactive.
@@ -33,19 +55,6 @@ If JavaScript is unavailable, and the contents of a dialog will still make sense
 ```
 
 The `href` attribute of a link may act as the identifier for the target dialog, if the `data-modal-open` attribute value is empty. However, if you would like this link to go to another location, if JavaScript were disabled, then set the `href` to the appropriate URL, and set the `data-modal-open` to the `IDREF` of the dialog within the document.
-
-If a dialog's content would be completely useless without JavaScript enabled, and you do *not* want to have a disabled `button` in the UI, then instead use the following markup pattern:
-
-```html
-<button type="button"
-  class="_your_class(es)_here_"
-  data-modal-open="IDREF_of_modal_to_open"
-  hidden>
-  Launch My Modal
-</button>
-```
-
-The `hidden` attribute will be removed when JavaScript is enabled, but will ensure the `button` is completely hidden if JavaScript is not available.
 
 ### Modal Dialog Base Markup
 The bare minimum markup for a modal dialog would be the following:  
