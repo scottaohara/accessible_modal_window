@@ -1,0 +1,40 @@
+{
+  "title": "Accessible ARIA Modal Dialogs",
+  "name": "a11y_modal_dialog",
+  "description": "ES5 script to create accessible modal dialogs",
+  "version": "3.1.0",
+  "main": "index.js",
+  "homepage": "https://github.com/scottaohara/accessible_modal_window#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://scottaohara@github.com/scottaohara/accessible_modal_window.git"
+  },
+  "bugs": {
+    "url": "https://github.com/scottaohara/accessible_modal_window/issues"
+  },
+  "keywords": [
+    "a11y",
+    "aria",
+    "accessibility",
+    "alertdialog",
+    "javascript",
+    "es5",
+    "dialog",
+    "modal",
+    "inert"
+  ],
+  "license": "MIT",
+  "author": [
+    {
+      "name": "Scott O'Hara",
+      "email": "sao.npm@gmail.com",
+      "web": "https://www.scottohara.me"
+    }
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "inert-polyfill": "^0.2.5"
+  }
+}
