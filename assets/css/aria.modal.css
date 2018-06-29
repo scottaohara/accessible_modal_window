@@ -1,3 +1,5 @@
+*,*:after,*:before{box-sizing:border-box;}
+
 /**
  * Including the at-only style with the dialog CSS as it is required
  * to visually hide a dialog's heading if desired.
@@ -24,14 +26,15 @@
  * double scroll bars.
  * (browser window + dialog if long enough content)
  */
-.js body.modal-open {
+body.modal-open {
   overflow: hidden;
 }
 
 /**
  * Modal Dialog base styling
  */
-.js [data-modal] {
+.js [data-modal],
+.a11y-modal {
   -webkit-overflow-scrolling: touch;
   background: #fff;
   border: 2px solid;
@@ -54,7 +57,8 @@
 }
 
 @media screen and ( min-height: 440px ) and ( min-width: 500px ) {
-  .js [data-modal] {
+  .js [data-modal],
+  .a11y-modal {
     bottom: auto;
     top: 50%;
     transform: translateY(-50%);
@@ -74,17 +78,22 @@
  * modal dialogs to be focused, if the dialog is initially
  * set to "display: none".
  */
-.js [data-modal][hidden] {
+.js [data-modal][hidden]
+.a11y-modal[hidden] {
   display: block;
   opacity: 0;
   pointer-events: none;
-  transform: translateY(20vh);
+  transform: translateY(15vh);
   visibility: hidden;
 }
 
+.a11y-modal__close-btn {
+  border: none;
+}
 
 .is-icon-btn {
   background: none;
+  border: none;
   height: 2em;
   padding: 0;
   position: absolute;

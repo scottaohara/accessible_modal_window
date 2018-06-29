@@ -148,9 +148,13 @@
       escape dialogs if the script is not used.
     -->
     <script src="https://cdn.rawgit.com/GoogleChrome/inert-polyfill/v0.1.0/inert-polyfill.min.js"></script>
+    <!--
+      if installing via npm, inert polyfill included as a dependency
+      <script src="../node_modules/inert-polyfill/inert-polyfill.min.js"></script>
+    -->
     <!-- the demo.js script ensures that elements that do not have a -1 tabindex, will receive one and appropriately receive focus for interactions like activating a skip link, in browsers that require this  -->
     <script src="assets--demo/demo.js"></script>
-    <script src="assets/js/aria.modal.js"></script>
+    <script src="assets/js/aria.modal.min.js"></script>
 
   </body>
 </html>
