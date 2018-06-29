@@ -62,7 +62,7 @@ The bare minimum markup for a modal dialog would be the following:
 ```
 
 ## Lack of features are not bugs
-This script does *not* presently utilize the `aria-haspopup="dialog"` on the dialog triggers. Nor does it use `aria-modal` on the dialog element. The code to add these attributes are currently in the dialog script, but commented out until they receive wider browser and screen reader support.  
+This script does *not* presently utilize the `aria-haspopup="dialog"` on the dialog triggers. Nor does it use `aria-modal` on the dialog element. The code to add these attributes are currently in the dialog script, but commented out until they receive full non-breaking support.  
  
 ## Inert Polyfill
 For this script to provide peak accessibility, it must also utilize the [`inert` polyfill from Google](https://github.com/GoogleChrome/inert-polyfill). While the dialogs have a function to keep focus within the dialog, looping through any focusable elements within itself, the inert polyfill will help prevent a user from accessing the browser's chrome (e.g. the address bar) and then being able to navigate back into the obscured document. The dialog script doubles down on the elements with `inert="true"` and also add an `aria-hidden="true"` as well. This ensures that not only can users not access elements within the obscured document by keyboard navigation, but that these elements will not be revealed in screen reader listings of elements within a document (e.g. listings of landmarks/regions, headings or form controls with NVDA and JAWS, or be revealed in VoiceOver's rotor menus.)
