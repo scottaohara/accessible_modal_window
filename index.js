@@ -11,7 +11,7 @@
 
 	ARIAmodal.NS      = 'ARIAmodal';
 	ARIAmodal.AUTHOR  = 'Scott O\'Hara';
-	ARIAmodal.VERSION = '3.1.1';
+	ARIAmodal.VERSION = '3.1.2';
 	ARIAmodal.LICENSE = 'https://github.com/scottaohara/accessible_modal_window/blob/master/LICENSE';
 
 	var activeClass = 'modal-open';
@@ -647,6 +647,7 @@
 		 * If data-modal-auto-persist does exist, then you can continue to bother your
 		 * users with likely a poor user experience. :)
 		 */
+
 		if ( useHash ) {
 			ARIAmodal.openModal( e, autoOpen );
 
@@ -654,19 +655,21 @@
 				console.warn('Only the modal indicated by the hash value will load.')
 			}
 		}
-		else if ( getAuto[0].getAttribute('role') === 'dialog' || getAuto[0].getAttribute('role') === 'alertdialog' ) {
+		else if ( getAuto.length !== 0 ) {
+			if ( getAuto[0].getAttribute('role') === 'dialog' || getAuto[0].getAttribute('role') === 'alertdialog' ) {
 
-			autoOpen = getAuto[0].id;
+				autoOpen = getAuto[0].id;
 
-			ARIAmodal.openModal( e, autoOpen );
+				ARIAmodal.openModal( e, autoOpen );
 
-			if ( getAuto.length > 1 ) {
-				console.warn('Multiple modal dialogs can not auto load.')
+				if ( getAuto.length > 1 ) {
+					console.warn('Multiple modal dialogs can not auto load.')
+				}
 			}
-		}
-		else if ( getAuto[0].getAttribute('role') === 'button' || getAuto[0].tagName === 'BUTTON' ) {
-		 	autoOpen = getAuto[0].id;
-		 	getAuto[0].click();
+			else if ( getAuto[0].getAttribute('role') === 'button' || getAuto[0].tagName === 'BUTTON' ) {
+			 	autoOpen = getAuto[0].id;
+			 	getAuto[0].click();
+			}
 		}
 
 		/**
@@ -678,7 +681,7 @@
 		 * regardless of page refresh, modify the URL fragment to a string that will
 		 * not auto-load a modal.
 		 */
-		if ( !doc.getElementById(autoOpen).hasAttribute('data-modal-auto-persist') ) {
+		if ( getAuto.length !== 0 && !doc.getElementById(autoOpen).hasAttribute('data-modal-auto-persist') ) {
 			w.location.replace("#!null");
 		}
 	};
