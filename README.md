@@ -57,7 +57,7 @@ If JavaScript is unavailable, and the contents of a dialog will still make sense
 The `href` attribute of a link may act as the identifier for the target dialog, if the `data-modal-open` attribute value is empty. However, if you would like this link to go to another location, if JavaScript were disabled, then set the `href` to the appropriate URL, and set the `data-modal-open` to the `IDREF` of the dialog within the document.
 
 ### Modal Dialog Base Markup
-The bare minimum markup for a modal dialog would be the following:  
+The minimum markup for a modal dialog would be the following:  
 
 ```html
 <div id="unique_ID_to_match_data-modal-open" data-modal>
@@ -70,8 +70,23 @@ The bare minimum markup for a modal dialog would be the following:
 </div>
 ```
 
+If you need to support NVDA prior to 2017.4, then consider the following minimum markup pattern, which will add a `role="document"` to the `div` that wraps the contents of the modal dialog. This will correctly allow users to navigate the contents of a dialog with NVDA's virtual cursor, and not automatically enter users into forms/application mode:
+
+```html
+<div id="unique_ID_to_match_data-modal-open" data-modal>
+  <div data-modal-document>
+    <h1>
+      A descriptive title for the dialog
+    </h1>
+    <div>
+      <!-- primary content of the dialog here -->
+    </div>
+  </div>
+</div>
+```
+
 ## Lack of features are not bugs
-This script does *not* presently utilize the `aria-haspopup="dialog"` on the dialog triggers. Nor does it use `aria-modal` on the dialog element. The code to add these attributes are currently in the dialog script, but commented out until they receive full non-breaking support.  
+This script does *not* presently utilize the `aria-haspopup="dialog"` on a dialog's trigger(s). Nor does it use `aria-modal` on the element with `role="dialog"`. The code to add these attributes are currently in the dialog script, but commented out until they receive full non-breaking support (see Screen Reader quirks).  
  
 ## Inert Polyfill
 For this script to provide peak accessibility, it must also utilize the [`inert` polyfill from Google](https://github.com/GoogleChrome/inert-polyfill). While the dialogs have a function to keep focus within the dialog, looping through any focusable elements within itself, the inert polyfill will help prevent a user from accessing the browser's chrome (e.g. the address bar) and then being able to navigate back into the obscured document. The dialog script doubles down on the elements with `inert="true"` and also add an `aria-hidden="true"` as well. This ensures that not only can users not access elements within the obscured document by keyboard navigation, but that these elements will not be revealed in screen reader listings of elements within a document (e.g. listings of landmarks/regions, headings or form controls with NVDA and JAWS, or be revealed in VoiceOver's rotor menus.)

@@ -25,12 +25,14 @@
     <main id="main" class="content-area" aria-label="content">
       <article>
         <h2>
-          An ARIA Dialog Demo
+          ARIA Modal Dialog Demos
         </h2>
 
         <p>
-          Each of the following tests show off different features of the modal dialog script.
-          For more information about the functionality and options of these dialog demos, see the
+          The following example, and each of the linked example tests showcase different features of the modal dialog script.
+        </p>
+        <p>
+          For more information about the functionality and options of these examples, see the
           <a href="https://github.com/scottaohara/accessible_modal_window#accessible-modal-dialog">modal dialog documentation on GitHub</a>.
         </p>
 
@@ -39,10 +41,10 @@
             Test information
           </summary>
           <p>
-            Each dialog (presented here and on subsequent test pages) may have different focus start points for testing purposes.
+            Each dialog (presented here and on linked pages) may have different initial focus placements, for testing purposes. There may be some initially focused items that result in verbose announcements, for demonstrative purposes. Such examples should likely be avoided in production.
           </p>
           <p>
-            When each dialog is open, focus (via <kbd>tab</kbd> key or virtual cursor) should <strong>not</strong> be able to reach the document beneath the dialog. Browser chrome controls (browser buttons and address bar, etc.) <strong>should</strong> remain accessible.
+            When each dialog is open, focus (via <kbd>tab</kbd> key or virtual cursor) should <strong>not</strong> be able to reach the document beneath the dialog. Browser chrome controls (browser buttons and address bar, etc.) <strong>should</strong> remain accessible via other means (for example, hitting the <kbd>F6</kbd> key to focus a browser's address bar).
           </p>
           <p>
             Dialogs have been tested with:
@@ -55,7 +57,7 @@
               NVDA 2018.1 with Firefox (ESR 52) and Chrome (latest)
             </li>
             <li>
-              VoiceOver + macOS High Sierra and iOS 11
+              VoiceOver + macOS High Sierra and iOS 11.4
             </li>
             <li>
               TalkBack + Chrome on Android Oreo
@@ -77,19 +79,21 @@
 
           <!-- dialog markup -->
           <div id="modal_1" data-modal>
-            <h2>
-              Privacy Information
-            </h2>
+            <div data-modal-document>
+              <h2>
+                Privacy Information
+              </h2>
 
-            <div>
-              <p>
-                We heard you like to know about updates to privacy policies.
-                So you should be pleased to know we've updated our privacy policy.
-              </p>
-              <p>
-                Please contain your excitement.
-              </p>
-            </div>
+              <div>
+                <p>
+                  We heard you like to know about updates to privacy policies.
+                  So you should be pleased to know we've updated our privacy policy.
+                </p>
+                <p>
+                  Please contain your excitement.
+                </p>
+              </div>
+          </div>
           </div>
           <!-- end dialog markup -->
 
@@ -153,6 +157,7 @@
     -->
     <!-- the demo.js script ensures that elements that do not have a -1 tabindex, will receive one and appropriately receive focus for interactions like activating a skip link, in browsers that require this  -->
     <script src="assets--demo/demo.js"></script>
+    <!--  <script src="index.js"></script> -->
     <script src="assets/js/aria.modal.min.js"></script>
 
   </body>

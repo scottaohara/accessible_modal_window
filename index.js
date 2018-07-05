@@ -11,7 +11,7 @@
 
 	ARIAmodal.NS      = 'ARIAmodal';
 	ARIAmodal.AUTHOR  = 'Scott O\'Hara';
-	ARIAmodal.VERSION = '3.1.2';
+	ARIAmodal.VERSION = '3.2.0';
 	ARIAmodal.LICENSE = 'https://github.com/scottaohara/accessible_modal_window/blob/master/LICENSE';
 
 	var activeClass = 'modal-open';
@@ -165,6 +165,7 @@
 			var modalLabel  = self.getAttribute('data-modal-label');
 			var hideHeading = self.hasAttribute('data-modal-hide-heading');
 			var modalDesc   = self.querySelector('[data-modal-description]');
+			var modalDoc    = self.querySelector('[data-modal-document]');
 
 			/**
 			 * Check to see if this is meant to be an alert or normal dialog.
@@ -229,6 +230,19 @@
 				self.setAttribute('aria-modal', 'true');
 			}
 
+
+			/**
+			 * Older versions of NVDA used to automatically turn on forms mode
+			 * when a user entered a modal dialog. A role="document", surrounding
+			 * the content of the dialog would allow non-form dialogs to be
+			 * navigated correctly by the virtual cursor.
+			 *
+			 * If a dialog needs to be compatible with older NVDA, look for
+			 * a data-modal-document, and give that a role=document.
+			 */
+			if ( modalDoc ) {
+				modalDoc.setAttribute('role', 'document');
+			}
 
 			/**
 			 * Do a check to see if there is an element flagged to be the
