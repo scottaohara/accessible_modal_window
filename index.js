@@ -11,12 +11,12 @@
 
 	ARIAmodal.NS      = 'ARIAmodal';
 	ARIAmodal.AUTHOR  = 'Scott O\'Hara';
-	ARIAmodal.VERSION = '3.2.0';
+	ARIAmodal.VERSION = '3.2.1';
 	ARIAmodal.LICENSE = 'https://github.com/scottaohara/accessible_modal_window/blob/master/LICENSE';
 
 	var activeClass = 'modal-open';
 	var body = doc.body;
-	var main = doc.getElementsByTagName('main')[0];
+	var main = doc.getElementsByTagName('main')[0] || body;
 
 	var modal = doc.querySelectorAll('[data-modal]');
 	var children = doc.querySelectorAll('body > *:not([data-modal])');
@@ -161,7 +161,7 @@
 			var heading     = self.querySelector('h1') ||
                         self.querySelector('h2') ||
                         self.querySelector('h3') ||
-                        self.querySelector('h4');
+                        self.querySelector('h4'); // h5/h6??
 			var modalLabel  = self.getAttribute('data-modal-label');
 			var hideHeading = self.hasAttribute('data-modal-hide-heading');
 			var modalDesc   = self.querySelector('[data-modal-description]');
@@ -366,10 +366,9 @@
 	ARIAmodal.openModal = function ( e, autoOpen ) {
 		var i;
 		var getTargetModal = autoOpen || this.getAttribute('data-modal-open');
-		/**
-		 * Update the activeModal
-		 */
+		// Update the activeModal
 		activeModal = doc.getElementById(getTargetModal);
+
 		var focusTarget = activeModal; // default to the modal dialog container
 		var getAutofocus = activeModal.querySelector('[autofocus]') || activeModal.querySelector('[data-autofocus]');
 
@@ -386,7 +385,7 @@
 		}
 
 		/**
-		 * if a modal was auto-opened on page load, then the
+		 * If a modal was auto-opened on page load, then the
 		 * following do not apply.
 		 */
 		if ( !autoOpen ) {
@@ -448,7 +447,13 @@
 		}
 
 		activeModal.removeAttribute('hidden');
-		focusTarget.focus();
+
+		// Mostly reliable fix for iOS issue where VO focus is not moved
+		// to the dialog on open. Credit to Thomas Jaggi - codepen.io/backflip
+		// for the fix.
+		requestAnimationFrame(function () {
+	    focusTarget.focus();
+	  });
 
 		doc.addEventListener('click', ARIAmodal.outsideClose, false);
 		doc.addEventListener('touchend', ARIAmodal.outsideClose, false);
@@ -536,10 +541,11 @@
 	 * ESC should close the dialog (when not an alert)
 	 */
 	ARIAmodal.keyEvents = function ( e ) {
-		var keyCode = e.keyCode || e.which;
-		var escKey = 27;
+		var keyCode  = e.keyCode || e.which;
+		var escKey 	 = 27;
 		var enterKey = 13;
 		var spaceKey = 32;
+		var tabKey   = 9;
 
 		if ( e.target.hasAttribute('data-modal-open') ) {
 			switch ( keyCode ) {
@@ -562,20 +568,20 @@
 			}
 
 			if ( body.classList.contains(activeClass) ) {
-				// get first and last focusable elements from activeModal
+				// Get first and last focusable elements from activeModal
 				var firstFocus = activeModal.querySelector('.' + firstClass);
 				var lastFocus = activeModal.querySelector('.' + lastClass);
 			}
 
 			if ( doc.activeElement.classList.contains(lastClass) ) {
-				if ( keyCode === 9 && !e.shiftKey ) {
+				if ( keyCode === tabKey && !e.shiftKey ) {
 					e.preventDefault();
 					firstFocus.focus();
 				}
 			}
 
 			if ( doc.activeElement.classList.contains(firstClass) ) {
-				if ( keyCode === 9 && e.shiftKey ) {
+				if ( keyCode === tabKey && e.shiftKey ) {
 					e.preventDefault();
 					lastFocus.focus();
 				}
@@ -610,7 +616,6 @@
 		var useHash = false;
 		var e = null;
 
-
 		/**
 		 * A modal ID in the URL should take precedent over any data attributes on
 		 * the page. The script must first check if a hash exists, and then if so,
@@ -628,12 +633,12 @@
 				return false
 			}
 			else {
-				// does the hash actually represent an element, or is it null?
+				// Check that the hash actually represent an element, or is it null?
 				var checkforDialog = doc.getElementById(autoOpen) || null;
 
-				// if not null...
+				// If not null...
 				if ( checkforDialog !== null ) {
-					// do a final check to ensure the hash/ID is for a dialog or alertdialog
+					// Do a final check to ensure the hash/ID is for a dialog or alertdialog
 					// and if so, return useHash as TRUE
 					if ( checkforDialog.getAttribute('role') === 'dialog' || checkforDialog.getAttribute('role') === 'alertdialog') {
 						useHash = true;
@@ -673,7 +678,6 @@
 			if ( getAuto[0].getAttribute('role') === 'dialog' || getAuto[0].getAttribute('role') === 'alertdialog' ) {
 
 				autoOpen = getAuto[0].id;
-
 				ARIAmodal.openModal( e, autoOpen );
 
 				if ( getAuto.length > 1 ) {
@@ -702,9 +706,9 @@
 
 
 	/**
-	 * Initialize modal Functions
-	 * if expanding this script, place any other
-	 * initialize functions within here.
+	 * Initialize modal functions.
+	 * If expanding this script, put
+	 * additional initialize functions here.
 	 */
 	ARIAmodal.init = function () {
 		ARIAmodal.organizeDOM();
