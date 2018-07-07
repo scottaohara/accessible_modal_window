@@ -1,7 +1,7 @@
 # Accessible Modal Dialog  
 A vanilla JavaScript, accessible modal dialog script, written in ES5.
 
-See the [live demo and test files](http://scottaohara.github.io/accessible_modal_window).
+See the [live demo and test pages](http://scottaohara.github.io/accessible_modal_window).
 
 ## Install
 You can get this package [on npm](https://www.npmjs.com/package/aria-modal-dialog):
