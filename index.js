@@ -704,7 +704,17 @@
 		}
 	};
 
+	
+	/**
+	 * If modals are being added to the DOM dynamically, redefine the modal variable
+	 * and initialize again.
+	 */
+	ARIAmodal.refresh = function () {
+		modal = doc.querySelectorAll('[data-modal]');
+		ARIAmodal.init();
+	};
 
+	
 	/**
 	 * Initialize modal functions.
 	 * If expanding this script, put
