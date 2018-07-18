@@ -711,6 +711,7 @@
 	 */
 	ARIAmodal.refresh = function () {
 		modal = doc.querySelectorAll('[data-modal]');
+		children = doc.querySelectorAll('body > *:not([data-modal])');
 		ARIAmodal.init();
 	};
 
