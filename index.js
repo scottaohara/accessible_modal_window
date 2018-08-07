@@ -11,7 +11,7 @@
 
 	ARIAmodal.NS      = 'ARIAmodal';
 	ARIAmodal.AUTHOR  = 'Scott O\'Hara';
-	ARIAmodal.VERSION = '3.2.1';
+	ARIAmodal.VERSION = '3.3.0';
 	ARIAmodal.LICENSE = 'https://github.com/scottaohara/accessible_modal_window/blob/master/LICENSE';
 
 	var activeClass = 'modal-open';
@@ -29,7 +29,7 @@
 	var firstClass = 'js-first-focus';
 	var lastClass = 'js-last-focus';
 
-	var focusableElements = 'button:not([hidden]), [href]:not([hidden]), input:not([hidden]), select:not([hidden]), textarea:not([hidden]), [tabindex="0"]:not([hidden]), summary, [contenteditable]:not([hidden]), audio[controls], video[controls]';
+	var focusableElements = 'button:not([hidden]):not([disabled]), [href]:not([hidden]), input:not([hidden]):not([type="hidden"]):not([disabled]), select:not([hidden]):not([disabled]), textarea:not([hidden]):not([disabled]), [tabindex="0"]:not([hidden]):not([disabled]), summary, [contenteditable]:not([hidden]), audio[controls], video[controls]';
 
 
 	/**
