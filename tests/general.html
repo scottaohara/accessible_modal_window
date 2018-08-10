@@ -199,11 +199,13 @@
             A <code>data-modal-description</code> has been added to the child element (in this case a <code>p</code> element), which serves as the primary description of the dialog. This attribute will trigger a function to setup an appropriate <code>ID</code> and <code>aria-describedby</code> for the dialog.
           </p>
           <p>
-            When the dialog is opened and the close button is focused, the accessible name of the dialog, its description, and the close button are all announced by screen readers.
+            When the dialog is opened and the close button is focused, the accessible name of the dialog, its description, and the close button are all announced by screen readers, except for TalkBack + Chrome.
+          </p>
+          <p>
+            TalkBack (Android Accessibility Suite 6.2) + Android Chrome only announce "OK, button. Double tap to activate".
           </p>
         </details>
       </section>
-
 
       <section>
         <h3>
