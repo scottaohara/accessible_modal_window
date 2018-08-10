@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en-us" class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title>
+      Vanilla Modal Dialog Tests
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
+    <link rel="stylesheet" href="../assets--demo/demo.css">
+    <link rel="stylesheet" href="../assets/css/aria.modal.css">
+  </head>
+  <body>
+    <a href="#main" class="at-only">
+      Skip to main content
+    </a>
+
+    <header class="content-area">
+      <h1>
+        Accessible Modal Dialogs
+        with <span>Vanilla <abbr title="JavaScript">JS</abbr></span>
+      </h1>
+    </header>
+
+    <main id="main" class="content-area" aria-label="content">
+
+      <h2>
+        <abbr>ARIA</abbr> Modal Dialog Demos
+      </h2>
+
+      <p>
+        Test page for focusing elements within a dialog.
+      </p>
+
+      <p>
+        Test date: August 9, 2018. <br>Where not specifically noted, tests were performed with the latest version of a browser and/or screen reader.
+      </p>
+
+
+      <section>
+        <h3>
+          Test 1: <code>aria-describedby</code> Modal
+        </h3>
+        <p>A modal dialog with an autofocused text field, and an <code>aria-describedby</code> attribute pointing to three elements prior to where focus is placed.</p>
+
+        <p>
+          <button type="button" class="btn"
+            data-modal-open="modal_1">
+            Launch Modal 1
+          </button>
+        </p>
+
+        <!-- dialog markup -->
+        <div id="modal_1"
+          data-modal
+          data-modal-close="OK"
+          data-modal-close-class="btn"
+          data-modal-hide-heading
+          aria-describedby="td_id_1 td_id_2 td_id_3">
+
+          <h2>
+            example
+          </h2>
+
+          <div>
+            <p id="td_id_1">
+              The content of this dialog is separated into different elements.
+            </p>
+            <p id="td_id_2">
+              To simulate a real world design pattern.
+            </p>
+            <ul id="td_id_3">
+              <li>Where requirements to</li>
+              <li>complete the form</li>
+              <li>were listed out</li>
+            </ul>
+
+            <label for="c_name_dd">
+              <span style="display: block;">
+                Name:
+              </span>
+              <input type="text" id="c_name_dd" data-autofocus>
+            </label>
+          </div>
+        </div>
+        <!-- end dialog markup -->
+
+        <details>
+          <summary>
+            Modal Test 1 details
+          </summary>
+          <p>
+            In this test, the text field is autofocused. An <code>aria-describedby</code> has been added to the modal dialog to point to the three elements (two paragraphs and an unordered list) that serve as introductory content to the dialog.
+          </p>
+          <p>
+            When the dialog is opened and the text field is focused, the following announcements occur in the noted screen readers:
+          </p>
+
+          <dl>
+            <dt>
+              JAWS 2018 + IE11 and JAWS 2018 + Chrome
+            </dt>
+            <dd>
+              <p>
+              example, dialog.
+              <br>
+              Paragraph 1. Paragraph 2. Each list item is announced as a single text string (no announcement of bullets).
+              <br>
+              Text field announcement
+            </dd>
+
+            <dt>
+              JAWS 18 & Firefox ESR, JAWS 2018 + Firefox Firefox 63 (Nightly)
+            </dt>
+            <dd>
+              <p>
+              example, dialog.
+              <br>
+              Paragraph 1. Paragraph 2. Each list item is announced as a single text string and bullets are announced prior to each list item.
+              <br>
+              Text field announcement
+            </dd>
+
+            <dt>
+              JAWS 2018 + Edge
+            </dt>
+            <dd>
+              <p>
+              example, dialog.
+              <br>
+              (aria-describedby content is ignored)
+              <br>
+              Text field announcement
+            </dd>
+
+            <dt>
+              Narrator + Edge
+            </dt>
+            <dd>
+              Dialog, example
+              <br>
+              Text field announcement
+              <br>
+              Each list item is announced as a single text string (no announcement of bullets).
+            </dd>
+
+            <dt>
+              NVDA 2018.2 + Chrome
+            </dt>
+            <dd>
+              <p>
+              example, dialog.
+              <br>
+              Paragraph 1. Paragraph 2. Each list item is announced as a single text string (no announcement of bullets).
+              <br>
+              Text field announcement
+            </dd>
+
+            <dt>
+              NVDA 2018.2 + Firefox 63 (Nightly) & Firefox ESR
+            </dt>
+            <dd>
+              <p>
+              example, dialog.
+              <br>
+              Paragraph 1. Paragraph 2. Each list item is announced as a single text string and bullets are announced prior to each list item.
+              <br>
+              Text field announcement
+            </dd>
+
+
+            <dt>
+              VoiceOver + Safari 11.1.1 &amp; 11.1.2 on macOS High Sierra 10.12.6 &amp; 10.13.6
+            </dt>
+            <dd>
+              <p>
+              example, web dialog.
+              <br>
+              Text field announcement
+              <br>
+              Paragraph 1. Paragraph 2. Each list item is announced as a single text string (no announcement of bullets).
+
+              <p>
+                Note: after closing and opening the dialog again, only "Name: edit text" was announced. Neither being moved to a web dialog, or any of the content from the <code>aria-describedby</code> were announced on subsequent activations of the modal until the page was refreshed.
+              </p>
+            </dd>
+
+            <dt>
+              VoiceOver + Safari on iOS 11.4.1
+            </dt>
+            <dd>
+              <p>
+                example, web dialog.
+                <br>
+                Paragraph 1. Paragraph 2. Each list item is announced as a single text string (no announcement of bullets).
+                <br>
+                Text field announcement
+              </p>
+            </dd>
+
+            <dt>
+              TalkBack (Android Accessibility Suite 6.2) + Android Chrome
+            </dt>
+            <dd>
+              <p>
+                Text field announcement
+              </p>
+              <p>
+                There is no other information about the dialog announced by TalkBack.
+              </p>
+            </dd>
+          </dl>
+
+          <p>
+            Note that descriptive text / hints can be disabled with screen readers.  In such situations, the <code>aria-describedby</code> content would not be announced.
+          </p>
+        </details>
+      </section>
+
+
+      <section>
+        <h3>
+          Test 2: <code>aria-describedby</code> Modal
+        </h3>
+        <p>A modal dialog with an autofocused text field, and an <code>aria-describedby</code> attribute pointing to a single element containing the content prior to where focus is placed.</p>
+
+        <p>
+          <button type="button" class="btn"
+            data-modal-open="modal_2">
+            Launch Modal 2
+          </button>
+        </p>
+
+        <!-- dialog markup -->
+        <div id="modal_2"
+          data-modal
+          data-modal-close="Done"
+          data-modal-close-class="btn"
+          data-modal-hide-heading
+          aria-describedby="td_id_group">
+
+          <h2>
+            example
+          </h2>
+
+          <div>
+            <div id="td_id_group">
+              <p>
+                The content of this dialog is separated into different elements.
+              </p>
+              <p>
+                To simulate a real world design pattern.
+              </p>
+              <ul>
+                <li>Where requirements to</li>
+                <li>complete the form</li>
+                <li>were listed out</li>
+              </ul>
+            </div>
+            <label for="c_name_dd2">
+              <span style="display: block;">
+                Name:
+              </span>
+              <input type="text" id="c_name_dd2" data-autofocus>
+            </label>
+          </div>
+        </div>
+        <!-- end dialog markup -->
+
+        <details>
+          <summary>
+            Modal Test 2 details
+          </summary>
+          <p>
+            In this test, the text field is autofocused. An <code>aria-describedby</code> has been added to the modal dialog to point to the container of the introductory content (two paragraphs and an unordered list) so as to only have to maintain a single ID for the <code>aria-describedby</code>.
+          </p>
+          <p>
+            When the dialog is opened and the text field is focused, the following announcements occur in the noted screen readers:
+          </p>
+
+          <dl>
+            <dt>
+              JAWS 2018 + IE11 and JAWS 2018 + Chrome
+            </dt>
+            <dd>
+              <p>
+              example, dialog.
+              <br>
+              Paragraph 1. Paragraph 2. Each list item is announced as a single text string (no announcement of bullets).
+              <br>
+              Text field announcement
+            </dd>
+
+            <dt>
+              JAWS 18 & Firefox ESR, JAWS 2018 + Firefox Firefox 63 (Nightly)
+            </dt>
+            <dd>
+              <p>
+              example, dialog.
+              <br>
+              Paragraph 1. Paragraph 2. Each list item is announced as a single text string and bullets are announced prior to each list item.
+              <br>
+              Text field announcement
+            </dd>
+
+            <dt>
+              JAWS 2018 + Edge
+            </dt>
+            <dd>
+              <p>
+              example, dialog.
+              <br>
+              (aria-describedby content is ignored)
+              <br>
+              Text field announcement
+            </dd>
+
+            <dt>
+              Narrator + Edge
+            </dt>
+            <dd>
+              Dialog, example
+              <br>
+              Text field announcement
+              <br>
+              Each list item is announced as a single text string (no announcement of bullets).
+            </dd>
+
+            <dt>
+              NVDA 2018.2 + Chrome
+            </dt>
+            <dd>
+              <p>
+              example, dialog.
+              <br>
+              Paragraph 1. Paragraph 2. Each list item is announced as a single text string (no announcement of bullets).
+              <br>
+              Text field announcement
+            </dd>
+
+            <dt>
+              NVDA 2018.2 + Firefox 63 (Nightly) & Firefox ESR
+            </dt>
+            <dd>
+              <p>
+              example, dialog.
+              <br>
+              Paragraph 1. Paragraph 2. Each list item is announced as a single text string and bullets are announced prior to each list item.
+              <br>
+              Text field announcement
+            </dd>
+
+            <dt>
+              VoiceOver + Safari 11.1.1 &amp; 11.1.2 on macOS High Sierra 10.12.6 &amp; 10.13.6
+            </dt>
+            <dd>
+              <p>
+                example, web dialog.
+                <br>
+                Text field announcement
+                <br>
+                Paragraph 1. Paragraph 2. <b>The contents of the list are not announced</b>.
+              </p>
+              <p>
+                Note: after closing and opening the dialog again, only "Name: edit text" was announced. Neither being moved to a web dialog, or any of the content from the <code>aria-describedby</code> were announced on subsequent activations of the modal until the page was refreshed.
+              </p>
+            </dd>
+
+            <dt>
+              VoiceOver + Safari on iOS 11.4.1
+            </dt>
+            <dd>
+              <p>
+                example, web dialog.
+                <br>
+                Paragraph 1. Paragraph 2. <b>The contents of the list are not announced</b>.
+                <br>
+                Text field announcement
+              </p>
+            </dd>
+
+            <dt>
+              TalkBack (Android Accessibility Suite 6.2) + Android Chrome
+            </dt>
+            <dd>
+              <p>
+                Text field announcement
+              </p>
+              <p>
+                There is no other information about the dialog announced by TalkBack.
+              </p>
+            </dd>
+          </dl>
+        </details>
+      </section>
+
+      <p>
+        Note for tests 1 and 2, if descriptive text / hint announcements are disabled with screen readers, then none of the <code>aria-describedby</code> content would be announced in either test. It would be up to the user to navigate to the content to have it announced.
+      </p>
+
+      <section>
+        <h3>
+          Test 3: Focused Heading Modal
+        </h3>
+        <p>A modal dialog where the heading is autofocused.</p>
+
+        <p>
+          <button type="button" class="btn"
+            data-modal-open="modal_3">
+            Launch Modal 3
+          </button>
+        </p>
+
+        <!-- dialog markup -->
+        <div id="modal_3"
+          data-modal
+          data-modal-close="Done"
+          data-modal-close-class="btn">
+
+          <h2 data-autofocus>
+            example
+          </h2>
+
+          <div>
+            <p>
+              The content of this dialog is separated into different elements.
+            </p>
+            <p>
+              To simulate a real world design pattern.
+            </p>
+            <ul>
+              <li>Where requirements to</li>
+              <li>complete the form</li>
+              <li>were listed out</li>
+            </ul>
+            <label for="c_name_dd3">
+              <span style="display: block;">
+                Name:
+              </span>
+              <input type="text" id="c_name_dd3">
+            </label>
+          </div>
+        </div>
+        <!-- end dialog markup -->
+
+        <details>
+          <summary>
+            Modal Test 3 details
+          </summary>
+          <p>
+            When the dialog is opened and the heading is focused, the following announcements occur in the noted screen readers:
+          </p>
+
+          <dl>
+            <dt>
+              JAWS 2018 + Edge &amp; IE11
+            </dt>
+            <dd>
+              <p>
+                example dialog, example
+              </p>
+            </dd>
+
+            <dt>
+              JAWS 2018 + Chrome, JAWS 2018 + Firefox Firefox 63 (Nightly) and JAWS 18 & Firefox ESR
+            </dt>
+            <dd>
+              <p>
+                example dialog, example heading level 2
+              </p>
+            </dd>
+
+            <dt>
+              Narrator + Edge
+            </dt>
+            <dd>
+              <p>
+                Dialog, example. Focus on example. At level 2
+              </p>
+              <p>
+                Immediately hitting tab to enter the text field, "example" will be announced prior to the text field announcement.
+              </p>
+            </dd>
+
+            <dt>
+              NVDA 2018.2 + Chrome, Firefox 63 (Nightly) & Firefox ESR
+            </dt>
+            <dd>
+              <p>
+                example, dialog.
+                example, heading level 2
+                example, heading level 2 example
+                (begins reading out the remainder of all contents in the dialog)
+              </p>
+              <p>Using the virtual cursor, or hitting control to stop announcements, at any point during the read out will keep the virtual cursor right where NVDA left off, allowing a user to navigate from that point in the dialog.</p>
+            </dd>
+
+            <dt>
+              VoiceOver + Safari 11.1.1 &amp; 11.1.2 on macOS High Sierra 10.12.6 &amp; 10.13.6
+            </dt>
+            <dd>
+              <p>
+                Example, web dialog, heading level 2 example
+              </p>
+            </dd>
+
+            <dt>
+              VoiceOver + Safari on iOS 11.4.1
+            </dt>
+            <dd>
+              <p>
+                example, web dialog, example heading level 2
+              </p>
+              <p>
+                Swiping through content, entering the text field, "example, web dialog" will be announced prior to the text field announcement.
+              </p>
+            </dd>
+
+            <dt>
+              TalkBack (Android Accessibility Suite 6.2) + Android Chrome
+            </dt>
+            <dd>
+              <p>
+                example, heading 2, double tap to activate (because of the tabindex=-1)
+              </p>
+              <p>
+                Unlike with VoiceOver, TalkBack allows for a backwards swipe to focus the dialog container itself.  It will then announce "example, dialog" and then begin sequentially reading the contents of the dialog.
+              </p>
+            </dd>
+          </dl>
+        </details>
+      </section>
+
+
+      <section>
+        <h3>
+          Test 4: Focusing the Modal Dialog
+        </h3>
+        <p>A modal dialog where the dialog itself is focused.</p>
+
+        <p>
+          <button type="button" class="btn"
+            data-modal-open="modal_4">
+            Launch Modal 4
+          </button>
+        </p>
+
+        <!-- dialog markup -->
+        <div id="modal_4"
+          data-modal
+          data-modal-close="Done"
+          data-modal-close-class="btn">
+
+          <h2>
+            example
+          </h2>
+
+          <div>
+            <p>
+              The content of this dialog is separated into different elements.
+            </p>
+            <p>
+              To simulate a real world design pattern.
+            </p>
+            <ul>
+              <li>Where requirements to</li>
+              <li>complete the form</li>
+              <li>were listed out</li>
+            </ul>
+            <label for="c_name_dd3">
+              <span style="display: block;">
+                Name:
+              </span>
+              <input type="text" id="c_name_dd3">
+            </label>
+          </div>
+        </div>
+        <!-- end dialog markup -->
+
+        <details>
+          <summary>
+            Modal Test 4 details
+          </summary>
+          <p>
+            When the dialog is opened the dialog itself is focused. The following announcements occur in the noted screen readers:
+          </p>
+
+          <dl>
+            <dt>
+              JAWS 2018 + IE11
+            </dt>
+            <dd>
+              <p>
+                example dialog, example heading level 2
+              </p>
+              <p>
+                Pressing down arrow skips past the heading, announces a 'blank', and next down arrow announces the next paragraph.
+              </p>
+            </dd>
+
+            <dt>
+              JAWS 2018 + Edge
+            </dt>
+            <dd>
+              <p>
+                example dialog
+              </p>
+              <p>
+                Pressing down arrow skips past the heading, announces a 'blank', and next down arrow announces the next paragraph.
+              </p>
+              <p>
+                Tabbing into the text field will trigger forms mode and announce "example dialog" and then the text field announcement.
+              </p>
+            </dd>
+
+            <dt>
+              JAWS 2018 + Firefox Firefox 63 (Nightly), and JAWS 18 & Firefox ESR
+            </dt>
+            <dd>
+              <p>
+                Example dialog, page has 1 heading and no links.
+              </p>
+              <p>
+                JAWS will begin reading the contents of the dialog in sequential order. Using the virtual cursor, or hitting control to stop announcements, at any point during the read out will keep the virtual cursor right where JAWS left off.
+              </p>
+            </dd>
+
+            <dt>
+              JAWS 2018 + Chrome
+            </dt>
+            <dd>
+              <p>
+                Example dialog
+              </p>
+              <p>
+                Pressing down arrow skips past the heading, announces a 'blank', and next down arrow announces the next paragraph.
+              </p>
+            </dd>
+
+            <dt>
+              Narrator + Edge
+            </dt>
+            <dd>
+              <p>
+                Example, dialog
+              </p>
+              <p>
+                Immediately hitting tab to enter the text field, "dialog example" will be announced prior to the text field announcement.
+              </p>
+            </dd>
+
+            <dt>
+              NVDA 2018.2 + Chrome, Firefox 63 (Nightly) & Firefox ESR
+            </dt>
+            <dd>
+              <p>Example.  (no dialog role announcement)</p>
+              <p>NVDA will begin reading the contents of the dialog in sequential order. Using the virtual cursor, or hitting control to stop announcements, at any point during the read out will keep the virtual cursor right where NVDA left off, allowing a user to navigate from that point in the dialog.</p>
+            </dd>
+
+            <dt>
+              VoiceOver + Safari 11.1.1 &amp; 11.1.2 on macOS High Sierra 10.12.6 &amp; 10.13.6
+            </dt>
+            <dd>
+              <p>
+                example, web dialog. [pause] You are currently on a web dialog inside of web content... [continue VO instructions]
+              </p>
+            </dd>
+
+            <dt>
+              VoiceOver + Safari on iOS 11.4.1
+            </dt>
+            <dd>
+              <p>
+                Example, web dialog. Example, heading level 2.
+              </p>
+              <p>
+                VO will automatically move focus to the first element of the dialog.
+              </p>
+            </dd>
+
+            <dt>
+              TalkBack (Android Accessibility Suite 6.2) + Android Chrome
+            </dt>
+            <dd>
+              <p>
+                example, dialog.
+              </p>
+              <p>
+                TalkBack will then announce "example, dialog" and then begin sequentially reading the contents of the dialog.
+              </p>
+            </dd>
+          </dl>
+        </details>
+      </section>
+
+    </main>
+
+    <footer class="content-area">
+      <p><a href="../">Return to index</a></p>
+      <p>Made by <a href="https://twitter.com/scottohara">@scottohara</a> |
+      <a href="https://www.scottohara.me">scottohara.me</a></p>
+    </footer>
+
+    <!--
+      The modal dialog script functions without *requiring* the inert
+      polyfill script. However, there may be instances where users can
+      escape dialogs if the script is not used.
+    -->
+    <script src="https://cdn.rawgit.com/GoogleChrome/inert-polyfill/v0.1.0/inert-polyfill.min.js"></script>
+    <!--
+      if installing via npm, inert polyfill included as a dependency
+      <script src="../node_modules/inert-polyfill/inert-polyfill.min.js"></script>
+    -->
+    <script src="../assets--demo/demo.js"></script>
+    <script src="../assets/js/aria.modal.min.js"></script>
+
+  </body>
+</html>
