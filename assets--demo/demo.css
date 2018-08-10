@@ -4,13 +4,13 @@ header,main,footer {display: block; /* IE */}
 *:focus{outline: 2px solid #921c2b; outline-offset: 2px; text-decoration: none;}
 body,html{background:#fafafa;color:#450c13;font-size:20px;line-height:1.3;margin:0;padding:0;}
 .content-area{padding:20px;margin:auto; max-width:680px;}
+button{border:1px solid transparent; margin:0;}
 a{color:#921c2b}
 .btn, [role="button"]{background:#921c2b;border:1px solid #4d0912;color:#fff;cursor:default;display:inline-block;font-size:.825em;line-height:1;margin-bottom:12px;padding:16px 24px;position:relative;text-align:center;transition:transform .2s, background .2s; text-decoration: none}
 .btn:hover,.btn:focus, [role="button"]:hover, [role="button"]:focus{background:#c12f48;}
 label{display:inline-block;font-size:.75em;font-weight:bold;margin-bottom:.5em}
 input[type="text"]{border:1px solid #333;display:block;font-size:1.4em;margin-bottom:1em;min-width:230px;padding:.5em;width:100%}
 label{margin-top:1.125em}
-button{border:none; margin:0;}
 /** demo styles */
 a.at-only:focus { background: white; padding: 8px;position: fixed; }
 fieldset { margin: 1.25em 0; }
