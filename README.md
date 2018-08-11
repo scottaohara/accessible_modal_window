@@ -111,6 +111,7 @@ The following attributes are used to setup instances of the dialog triggers (but
 - `data-modal-close`: Adding a value to this attribute will change the auto generated close button from an "icon" button to an inline button with a visible label of the value. 
 - `data-modal-close-class`: The value set to this attribute will be become a class name added to generated close button.
 - `data-modal-focus-close`: This attribute serves as a hook to autofocus the generated close button when the dialog is opened.
+- `data-modal-manual-close`: If you want full control over where your close button goes, adding this attribute to the dialog container will stop the generation of a close button. It's up to you to hard code the close button yourself.
 - `data-modal-auto`: Indicates this modal dialog should activate on page load.
 - `data-modal-auto-persist`: Indicates that this modal dialog should continue to activate on page reload. Without this attribute, the modal dialog will only auto activate once.
 - `hidden`: All dialogs that are not meant to be visible if JavaScript or CSS are disabled should have this attribute.

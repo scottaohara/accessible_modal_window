@@ -33,7 +33,7 @@
       </p>
 
       <p>
-        Test date: August 9, 2018. <br>Where not specifically noted, tests were performed with the latest version of a browser and/or screen reader.
+        Test date: August 11, 2018. <br>Where not specifically noted, tests were performed with the latest version of a browser and/or screen reader.
       </p>
 
 
@@ -474,7 +474,7 @@
             </dd>
 
             <dt>
-              JAWS 2018 + Chrome, JAWS 2018 + Firefox 63 (Nightly) and JAWS 18 & Firefox ESR
+              JAWS 2018 + Chrome, Firefox 63 (Nightly) and JAWS 18 & Firefox ESR
             </dt>
             <dd>
               <p>
@@ -512,7 +512,7 @@
             </dt>
             <dd>
               <p>
-                Example, web dialog, heading level 2 example
+                <q>Example, web dialog, heading level 2 example</q>
               </p>
             </dd>
 
@@ -544,11 +544,13 @@
       </section>
 
 
+
+
       <section>
         <h3>
-          Test 4: Focusing the Modal Dialog
+          Test 4: Focused Close Button
         </h3>
-        <p>A modal dialog where the dialog itself is focused.</p>
+        <p>A modal dialog where the close button is the first element in the dialog, and is autofocused.</p>
 
         <p>
           <button type="button" class="btn"
@@ -558,7 +560,147 @@
         </p>
 
         <!-- dialog markup -->
-        <div id="modal_4"
+        <div id="modal_4" data-modal data-modal-manual-close>
+
+          <button type="button"
+            data-autofocus
+            data-modal-close-btn
+            class="a11y-modal__close-btn is-icon-btn"
+            aria-label="Close">
+            <span data-modal-x=""></span>
+          </button>
+
+          <h2>
+            example
+          </h2>
+
+          <div>
+            <p>
+              The content of this dialog is separated into different elements.
+            </p>
+            <p>
+              To simulate a real world design pattern.
+            </p>
+            <ul>
+              <li>Where requirements to</li>
+              <li>complete the form</li>
+              <li>were listed out</li>
+            </ul>
+            <label for="c_name_dd4">
+              <span style="display: block;">
+                Name:
+              </span>
+              <input type="text" id="c_name_dd4">
+            </label>
+          </div>
+        </div>
+        <!-- end dialog markup -->
+
+        <details>
+          <summary>
+            Modal Test 4 details
+          </summary>
+          <p>
+            When the dialog is opened and the first element, the close button, is focused, the following announcements occur in the noted screen readers:
+          </p>
+
+          <dl>
+            <dt>
+              JAWS 18 &amp; 2018 + IE11
+            </dt>
+            <dd>
+              <p>
+                <q>Example Dialog. Close</q>
+                <br>
+                or
+                <br>
+                <q>Example Dialog. Close Button</q>
+              </p>
+            </dd>
+
+            <dt>
+              JAWS 2018 + Edge, Chrome, Firefox 63 (Nightly)
+              and JAWS 18 & Firefox ESR
+            </dt>
+            <dd>
+              <p>
+                <q>Example Dialog. Close button</q>
+              </p>
+            </dd>
+
+            <dt>
+              Narrator + Edge
+            </dt>
+            <dd>
+              <p>
+                <q>Dialog, example. Focus on close, button.</q>
+              </p>
+            </dd>
+
+            <dt>
+              NVDA 2018.1 &amp; .2 + Chrome, Firefox 63 (Nightly) & Firefox ESR
+            </dt>
+            <dd>
+              <p>
+                <q>Example dialog, close button. Example, button close.</q>
+              </p>
+              <p>NVDA will begin reading the contents of the dialog in sequential order. Using the virtual cursor, or hitting control to stop announcements, at any point during the read out will keep the virtual cursor right where NVDA left off, allowing a user to navigate from that point in the dialog.
+              </p>
+            </dd>
+
+            <dt>
+              VoiceOver + Safari 11.1.1 &amp; .2 on macOS High Sierra 10.12.6 &amp; 10.13.6
+            </dt>
+            <dd>
+              <p>
+                <q>Example, web dialog. Close Button.</q>
+              </p>
+            </dd>
+
+            <dt>
+              VoiceOver + Safari on iOS 11.4.1
+            </dt>
+            <dd>
+              <p>
+                <q>Example, web dialog. Close Button.</q>
+              </p>
+            </dd>
+
+            <dt>
+              TalkBack (Android Accessibility Suite 6.2) + Android Chrome
+            </dt>
+            <dd>
+              <p>
+                <q>Close Button</q>
+              </p>
+              <p>
+                Unlike with VoiceOver, TalkBack allows for a backwards swipe to focus the dialog container itself.  It will then announce "example, dialog" and then begin sequentially reading the contents of the dialog.
+              </p>
+            </dd>
+          </dl>
+        </details>
+      </section>
+
+
+
+
+
+
+      <section>
+        <h3>
+          Test 5: Focusing the Modal Dialog
+        </h3>
+        <p>A modal dialog where the dialog itself is focused.</p>
+
+        <p>
+          <button type="button" class="btn"
+            data-modal-open="modal_5">
+            Launch Modal 5
+          </button>
+        </p>
+
+        <!-- dialog markup -->
+        <div id="modal_5"
           data-modal
           data-modal-close="Done"
           data-modal-close-class="btn">
@@ -579,11 +721,11 @@
               <li>complete the form</li>
               <li>were listed out</li>
             </ul>
-            <label for="c_name_dd3">
+            <label for="c_name_dd5">
               <span style="display: block;">
                 Name:
               </span>
-              <input type="text" id="c_name_dd3">
+              <input type="text" id="c_name_dd5">
             </label>
           </div>
         </div>
@@ -591,7 +733,7 @@
 
         <details>
           <summary>
-            Modal Test 4 details
+            Modal Test 5 details
           </summary>
           <p>
             When the dialog is opened the dialog itself is focused. The following announcements occur in the noted screen readers:

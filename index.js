@@ -11,7 +11,7 @@
 
 	ARIAmodal.NS      = 'ARIAmodal';
 	ARIAmodal.AUTHOR  = 'Scott O\'Hara';
-	ARIAmodal.VERSION = '3.3.0';
+	ARIAmodal.VERSION = '3.3.1';
 	ARIAmodal.LICENSE = 'https://github.com/scottaohara/accessible_modal_window/blob/master/LICENSE';
 
 	var activeClass = 'modal-open';
@@ -304,6 +304,7 @@
 	 * listeners so that they will close their parent modal dialog.
 	 */
 	ARIAmodal.setupModalCloseBtn = function ( self, modalClass, modalType ) {
+		var doNotGenerate = self.hasAttribute('data-modal-manual-close');
 		var manualClose = self.querySelectorAll('[data-modal-close-btn]');
 		var modalClose = self.getAttribute('data-modal-close');
 		var modalCloseClass = self.getAttribute('data-modal-close-class');
@@ -311,45 +312,47 @@
 		var btnClass = modalClass;
 		var i;
 
-		if ( manualClose.length < 2 ) {
-			var closeBtn = doc.createElement('button');
-			closeBtn.setAttribute('type', 'button');
+		if ( !doNotGenerate ) {
+			if ( manualClose.length < 2 ) {
+				var closeBtn = doc.createElement('button');
+				closeBtn.setAttribute('type', 'button');
 
-			/**
-			 * If a custom class is set, set that class
-			 * and create BEM classes for direct child elements.
-			 *
-			 * If no custom class set, then use default "a11y-modal" class.
-			 */
-			self.classList.add(modalClass);
-			closeBtn.classList.add(modalClass + '__close-btn');
+				/**
+				 * If a custom class is set, set that class
+				 * and create BEM classes for direct child elements.
+				 *
+				 * If no custom class set, then use default "a11y-modal" class.
+				 */
+				self.classList.add(modalClass);
+				closeBtn.classList.add(modalClass + '__close-btn');
 
-			/**
-			 * If there is no data-modal-close attribute, or it has no set value,
-			 * then inject the close button icon and text into the generated button.
-			 *
-			 * If the data-modal-close attribute has a set value, then use that as the
-			 * visible text of the close button, and do not position it in the upper right
-			 * of the modal dialog.
-			 */
-			if ( !modalClose && modalType !== 'alert' ) {
-				closeBtn.innerHTML = closeIcon;
-				closeBtn.setAttribute('aria-label', 'Close');
-				closeBtn.classList.add('is-icon-btn');
-			}
-			else {
-				closeBtn.innerHTML = modalClose;
-
-				if ( modalCloseClass ) {
-					closeBtn.classList.add(modalCloseClass);
+				/**
+				 * If there is no data-modal-close attribute, or it has no set value,
+				 * then inject the close button icon and text into the generated button.
+				 *
+				 * If the data-modal-close attribute has a set value, then use that as the
+				 * visible text of the close button, and do not position it in the upper right
+				 * of the modal dialog.
+				 */
+				if ( !modalClose && modalType !== 'alert' ) {
+					closeBtn.innerHTML = closeIcon;
+					closeBtn.setAttribute('aria-label', 'Close');
+					closeBtn.classList.add('is-icon-btn');
 				}
-			}
+				else {
+					closeBtn.innerHTML = modalClose;
 
-			if ( modalType !== 'alert' ) {
-				self.appendChild(closeBtn);
-			}
+					if ( modalCloseClass ) {
+						closeBtn.classList.add(modalCloseClass);
+					}
+				}
 
-			closeBtn.addEventListener('click', ARIAmodal.closeModal);
+				if ( modalType !== 'alert' ) {
+					self.appendChild(closeBtn);
+				}
+
+				closeBtn.addEventListener('click', ARIAmodal.closeModal);
+			}
 		}
 
 		for ( i = 0; i < manualClose.length; i++ ) {

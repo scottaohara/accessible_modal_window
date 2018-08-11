@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 Full history of changelog coming...
 
+## 3.3.1 - 2018-08-11
+### Added
+- New attribute for the dialog container, `data-modal-manual-close`. Adding this attribute will cancel out automatic creation of a close button, so you can hard code a single close button wherever you please, within the modal dialog.
+
 ## 3.3.0 - 2018-08-07
 ### Fixed
 - Updated the allowed focusable elements within a dialog that the `js-first-focus` and `js-last-focus` classes can be added to.  This solves a focus bug caused by if an `input type="hidden"` or `disabled` element was the first or last child of a dialog.
