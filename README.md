@@ -131,17 +131,17 @@ Things of note for why certain decisions were made, and how different screen rea
 
   As `visibility: hidden` does not remove an element from the document's flow, it's important that `position: absolute/fixed` is set to the dialog, regardless of whether it's active or not.
 - The first element of a modal dialog should be its heading (which provides its accessible name). 
-  This requirement is to compensate for Internet Explorer 11 + JAWS specifically. With this pairing, setting focus to the dialog element itself will announce the accessible name of the dialog, the dialog role, and then JAWS will announce re-announce the accessible name of the dialog and the role of the first child element of the dialog.
+  This requirement is to compensate for Internet Explorer 11 + JAWS specifically, when the dialog element is focused by default. With this pairing, setting focus to the dialog element itself will announce the accessible name of the dialog, the dialog role, and then JAWS will announce re-announce the accessible name of the dialog and the role of the first child element of the dialog.
   For instance, if the dialog's heading provides the accessible name for the dialog, then JAWS + IE11 will announce "accessible name, dialog. accessible name, heading level #".  However, if the first child is another element that does not match the accessible name of the dialog, such as a button with text "close", it will be announced as:
   "accessible name, dialog. accessible name, button"
 - Note that NVDA will not announce the dialog role when focus is set to the dialog element itself. For instance, in NVDA + IE11, it will simply announce the accessible name of the dialog, and nothing more.  In more standard browser pairings like Firefox or Chrome, the accessible name of the dialog will be announced, and then the contents of the dialog will begin to be announced, without ever mentioning the dialog role.
 
 
-## Previous Versions
-Read about previous versions of this script:  
-[Version 1 - Smashing Magazine Article](http://www.smashingmagazine.com/2014/09/making-modal-windows-better-for-everyone/)  
-[Version 2 - Release Article](http://www.scottohara.me/blog/2016/09/07/revised-modal-window.html)  
-
+## More information about modal dialogs
+Articles I've written about modal dialog accessibility.
+[Making modal windows better for everyone - Smashing Magazine (2014)](https://www.smashingmagazine.com/2014/09/making-modal-windows-better-for-everyone/)  
+[Accessible Modals: Revisited (version 2 release article) (2016)](https://www.scottohara.me/blog/2016/09/07/revised-modal-window.html)  
+[The state of modal dialog acccessibility (2018)](https://developer.paciellogroup.com/blog/2018/06/the-current-state-of-modal-dialog-accessibility/)
 
 ## License & Such  
 This script was written by [Scott O'Hara](https://twitter.com/scottohara).
