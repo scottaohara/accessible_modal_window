@@ -87,6 +87,8 @@ If you need to support NVDA prior to 2017.4, then consider the following minimum
 
 ## Lack of features are not bugs
 This script does *not* presently utilize the `aria-haspopup="dialog"` on a dialog's trigger(s). Nor does it use `aria-modal` on the element with `role="dialog"`. The code to add these attributes are currently in the dialog script, but commented out until they receive full non-breaking support (see Screen Reader quirks).  
+
+*Update August 15, 2018:* Testing with Safari Technology Preview (Release 63 (Safari 12.1, WebKit 13607.1.2.1)) on macOS 10.13.6, it appears that `aria-modal="true"` will begin to work properly with VoiceOver.  This is great news for the future, but until a good percentage of people update from Safari 11.x to 12, `aria-modal` should continued to be used with caution.
  
 ## Inert Polyfill
 For this script to provide peak accessibility, it must also utilize the [`inert` polyfill from Google](https://github.com/GoogleChrome/inert-polyfill). While the dialogs have a function to keep focus within the dialog, looping through any focusable elements within itself, the inert polyfill will help prevent a user from accessing the browser's chrome (e.g. the address bar) and then being able to navigate back into the obscured document. The dialog script doubles down on the elements with `inert="true"` and also add an `aria-hidden="true"` as well. This ensures that not only can users not access elements within the obscured document by keyboard navigation, but that these elements will not be revealed in screen reader listings of elements within a document (e.g. listings of landmarks/regions, headings or form controls with NVDA and JAWS, or be revealed in VoiceOver's rotor menus.)
