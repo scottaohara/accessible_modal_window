@@ -36,10 +36,6 @@
 	 * Function to place the modal dialog(s) as the first child(ren)
 	 * of the body element, so tabbing backwards will move focus
 	 * into the browser's chrome.
-	 *
-	 * Also add a class to all other direct children of the body
-	 * element to help manage focus and to appropriately hide
-	 * content from assistive technology, when modals are open.
 	 */
 	ARIAmodal.organizeDOM = function () {
 		var refEl = body.firstElementChild || null;
