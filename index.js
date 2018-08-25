@@ -11,7 +11,7 @@
 
 	ARIAmodal.NS      = 'ARIAmodal';
 	ARIAmodal.AUTHOR  = 'Scott O\'Hara';
-	ARIAmodal.VERSION = '3.3.1';
+	ARIAmodal.VERSION = '3.3.2';
 	ARIAmodal.LICENSE = 'https://github.com/scottaohara/accessible_modal_window/blob/master/LICENSE';
 
 	var activeClass = 'modal-open';
@@ -29,7 +29,7 @@
 	var firstClass = 'js-first-focus';
 	var lastClass = 'js-last-focus';
 
-	var focusableElements = 'button:not([hidden]):not([disabled]), [href]:not([hidden]), input:not([hidden]):not([type="hidden"]):not([disabled]), select:not([hidden]):not([disabled]), textarea:not([hidden]):not([disabled]), [tabindex="0"]:not([hidden]):not([disabled]), summary, [contenteditable]:not([hidden]), audio[controls], video[controls]';
+	var tabFocusElements = 'button:not([hidden]):not([disabled]), [href]:not([hidden]), input:not([hidden]):not([type="hidden"]):not([disabled]), select:not([hidden]):not([disabled]), textarea:not([hidden]):not([disabled]), [tabindex="0"]:not([hidden]):not([disabled]), summary:not([hidden]), [contenteditable]:not([hidden]), audio[controls]:not([hidden]), video[controls]:not([hidden])';
 
 
 	/**
@@ -67,22 +67,24 @@
 			var getOpenTarget = self.getAttribute('data-modal-open');
 
 			/**
-			 * If not a button, update the semantics to make it announce as a button.
-			 * Provide it with a tabindex if it's not a button or link with href.
-			 * If no data-modal-open value was set, and it's a link, then get the
-			 * target ID from the href value.
+			 * If not a button, update the semantics to make the element
+			 * announce as a button.
+			 * Provide the element with a tabindex if it's not a button or
+			 * <a> with an href attribute.
+			 * If no data-modal-open value was set, and it was an
+			 * <a href>, then get the target ID from the href value.
 			 */
 			if ( self.nodeName !== 'BUTTON' ) {
-				var hrefTarget = self.getAttribute('href');
+				var hasHref = self.getAttribute('href');
 				self.setAttribute('role', 'button');
 
-				if ( self.getAttribute('tabindex') !== 0 && !self.hasAttribute('href') ) {
+				if ( self.tabIndex !== 0 && !self.hasAttribute('href') ) {
 					self.tabIndex = 0;
 				}
 
-				if ( getOpenTarget === '' && hrefTarget ) {
-					self.setAttribute('data-modal-open', hrefTarget.split('#')[1] );
-					getOpenTarget = hrefTarget.split('#')[1];
+				if ( getOpenTarget === '' && hasHref ) {
+					self.setAttribute('data-modal-open', hasHref.split('#')[1] );
+					getOpenTarget = hasHref.split('#')[1];
 				}
 			}
 
@@ -154,10 +156,7 @@
 			var self = modal[i];
 			var modalType   = self.getAttribute('data-modal');
 			var getClass    = self.getAttribute('data-modal-class') || 'a11y-modal';
-			var heading     = self.querySelector('h1') ||
-                        self.querySelector('h2') ||
-                        self.querySelector('h3') ||
-                        self.querySelector('h4'); // h5/h6??
+			var heading     = self.querySelector('h1, h2, h3, h4, h5, h6');
 			var modalLabel  = self.getAttribute('data-modal-label');
 			var hideHeading = self.hasAttribute('data-modal-hide-heading');
 			var modalDesc   = self.querySelector('[data-modal-description]');
@@ -186,7 +185,7 @@
 			 * To ensure they stay hidden, even if CSS is disabled, or purposefully
 			 * turned off, apply a [hidden] attribute to the dialogs.
 			 */
-			self.setAttribute('hidden', '');
+			self.hidden = true;
 
 			/**
 			 * When a modal dialog is opened, the dialog itself
@@ -209,6 +208,9 @@
 			 * using VO + left/right also do not have access to all
 			 * content, but do have access to different content then
 			 * up/down arrows alone.
+			 *
+			 * Note: The VoiceOver issues should be fixed with the release
+			 * of Safari 12.
 			 *
 			 * Additionally, NVDA will mostly respect the aria-modal attribute
 			 * with one notable bug, where if a user navigates to the address
@@ -268,7 +270,7 @@
 					self.setAttribute('aria-labelledby', makeHeading);
 
 					if ( heading.hasAttribute('data-autofocus') ) {
-						heading.setAttribute('tabindex', '-1');
+						heading.tabIndex = '-1';
 					}
 				}
 				else {
@@ -288,7 +290,7 @@
 			 * Get all focusable elements from within a dialog and set the
 			 * first and last elements to have respective classes for later looping.
 			 */
-			var focusable = self.querySelectorAll(focusableElements);
+			var focusable = self.querySelectorAll(tabFocusElements);
 			focusable[0].classList.add(firstClass);
 			focusable[focusable.length - 1].classList.add(lastClass);
 		}
@@ -311,7 +313,7 @@
 		if ( !doNotGenerate ) {
 			if ( manualClose.length < 2 ) {
 				var closeBtn = doc.createElement('button');
-				closeBtn.setAttribute('type', 'button');
+				closeBtn.type = 'button';
 
 				/**
 				 * If a custom class is set, set that class
@@ -503,7 +505,7 @@
 
 		for ( m = 0; m < modal.length; m++ ) {
 			if ( !modal[m].hasAttribute('hidden') ) {
-				modal[m].setAttribute('hidden', '');
+				modal[m].hidden = true;
 			}
 		}
 
