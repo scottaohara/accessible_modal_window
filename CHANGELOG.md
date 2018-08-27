@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 Full history of changelog coming...
 
+## 3.3.3 - 2018-08-26
+### Changed
+If a modal dialog trigger was progressively enhanced from an `a href` into a `role=button`, then that 'button' should no longer have the context menu of a link.  The script will now remove the `href` of these 'buttons' to not have the mismatched context menus.  Additionally, since the `href` is being removed, `tabindex=0` gets added to `<a>` elements.
+
 ## 3.3.2 - 2018-08-25
 ### Changed
 - Minor code simplifications and rewriting/removal of some in line code documentation. 

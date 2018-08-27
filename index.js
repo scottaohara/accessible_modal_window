@@ -11,7 +11,7 @@
 
 	ARIAmodal.NS      = 'ARIAmodal';
 	ARIAmodal.AUTHOR  = 'Scott O\'Hara';
-	ARIAmodal.VERSION = '3.3.2';
+	ARIAmodal.VERSION = '3.3.3';
 	ARIAmodal.LICENSE = 'https://github.com/scottaohara/accessible_modal_window/blob/master/LICENSE';
 
 	var activeClass = 'modal-open';
@@ -65,28 +65,34 @@
 		for ( i = 0; i < trigger.length; i++ ) {
 			self = trigger[i];
 			var getOpenTarget = self.getAttribute('data-modal-open');
+			var hasHref = self.getAttribute('href');
 
 			/**
 			 * If not a button, update the semantics to make the element
-			 * announce as a button.
-			 * Provide the element with a tabindex if it's not a button or
-			 * <a> with an href attribute.
-			 * If no data-modal-open value was set, and it was an
-			 * <a href>, then get the target ID from the href value.
+			 * announce as a button and provide it a tabindex=0 to
+			 * ensure it is keyboard focusable.
 			 */
 			if ( self.nodeName !== 'BUTTON' ) {
-				var hasHref = self.getAttribute('href');
 				self.setAttribute('role', 'button');
-
-				if ( self.tabIndex !== 0 && !self.hasAttribute('href') ) {
-					self.tabIndex = 0;
-				}
-
-				if ( getOpenTarget === '' && hasHref ) {
-					self.setAttribute('data-modal-open', hasHref.split('#')[1] );
-					getOpenTarget = hasHref.split('#')[1];
-				}
+				self.tabIndex = 0;
 			}
+
+			/**
+			 * If getOpenTarget was the empty string, but there is an
+			 * href attribute, then get the possible target from the href
+			 */
+			if ( getOpenTarget === '' && hasHref ) {
+				self.setAttribute('data-modal-open', hasHref.split('#')[1] );
+				getOpenTarget = hasHref.split('#')[1];
+			}
+
+			/**
+			 * If an <a href> was changed to a role=button, then the context
+			 * menu of the 'button' should no longer act as if it's for a link.
+			 * Removing the href attribute will negate the link context menu
+			 * if a user performs a right-click.
+			 */
+			self.removeAttribute('href');
 
 			/**
 			 * Check for if a data-modal-open attribute is on
