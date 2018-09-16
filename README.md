@@ -147,8 +147,8 @@ Articles I've written about modal dialog accessibility.
 [The state of modal dialog acccessibility (2018)](https://developer.paciellogroup.com/blog/2018/06/the-current-state-of-modal-dialog-accessibility/)
 
 ## License & Such  
-This script was written by [Scott O'Hara](https://twitter.com/scottohara).
+This script was written by Scott O'Hara: [Website](https://www.scottohara.me), [Twitter](https://twitter.com/scottohara).
 
 It has an [MIT license](https://github.com/scottaohara/accessible-components/blob/master/LICENSE.md).
 
-Do with it what you will :)
+Use it, modify it, contribute to it to help make your project more accessible :)
