@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 Full history of changelog coming...
 
+## 3.4.0 - 2019-01-09
+### Changed
+If using `data-modal-document` to wrap the contents of a modal dialog in a `role="document"`, the script has been updated to place the generated close button within the `role=document`.  `role=document` may be a necessary child of modal dialogs for people using VoiceOver's quick nav feature (more information in readme).
+
 ## 3.3.3 - 2018-08-26
 ### Changed
 If a modal dialog trigger was progressively enhanced from an `a href` into a `role=button`, then that 'button' should no longer have the context menu of a link.  The script will now remove the `href` of these 'buttons' to not have the mismatched context menus.  Additionally, since the `href` is being removed, `tabindex=0` gets added to `<a>` elements.

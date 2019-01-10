@@ -11,7 +11,7 @@
 
 	ARIAmodal.NS      = 'ARIAmodal';
 	ARIAmodal.AUTHOR  = 'Scott O\'Hara';
-	ARIAmodal.VERSION = '3.3.3';
+	ARIAmodal.VERSION = '3.4.0';
 	ARIAmodal.LICENSE = 'https://github.com/scottaohara/accessible_modal_window/blob/master/LICENSE';
 
 	var activeClass = 'modal-open';
@@ -200,6 +200,21 @@
 			 */
 			self.tabIndex = '-1';
 
+
+			/**
+			 * Older versions of NVDA used to automatically turn on forms mode
+			 * when a user entered a modal dialog. A role="document", surrounding
+			 * the content of the dialog would allow non-form dialogs to be
+			 * navigated correctly by the virtual cursor.
+			 *
+			 * If a dialog needs to be compatible with older NVDA, look for
+			 * a data-modal-document, and give that a role=document.
+			 */
+			if ( modalDoc ) {
+				modalDoc.setAttribute('role', 'document');
+			}
+
+
 			/**
 			 * Modal dialogs need at least one actionable item
 			 * to close them...
@@ -234,19 +249,6 @@
 				self.setAttribute('aria-modal', 'true');
 			}
 
-
-			/**
-			 * Older versions of NVDA used to automatically turn on forms mode
-			 * when a user entered a modal dialog. A role="document", surrounding
-			 * the content of the dialog would allow non-form dialogs to be
-			 * navigated correctly by the virtual cursor.
-			 *
-			 * If a dialog needs to be compatible with older NVDA, look for
-			 * a data-modal-document, and give that a role=document.
-			 */
-			if ( modalDoc ) {
-				modalDoc.setAttribute('role', 'document');
-			}
 
 			/**
 			 * Do a check to see if there is an element flagged to be the
@@ -352,7 +354,12 @@
 				}
 
 				if ( modalType !== 'alert' ) {
-					self.appendChild(closeBtn);
+					if ( self.querySelector('[role="document"]') ) {
+						self.querySelector('[role="document"]').appendChild(closeBtn);
+					}
+					else {
+						self.appendChild(closeBtn);
+					}
 				}
 
 				closeBtn.addEventListener('click', ARIAmodal.closeModal);
