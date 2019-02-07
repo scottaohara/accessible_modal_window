@@ -556,7 +556,7 @@
 	 */
 	ARIAmodal.keyEvents = function ( e ) {
 		var keyCode  = e.keyCode || e.which;
-		var escKey 	 = 27;
+		var escKey   = 27;
 		var enterKey = 13;
 		var spaceKey = 32;
 		var tabKey   = 9;
