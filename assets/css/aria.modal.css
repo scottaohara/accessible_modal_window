@@ -97,8 +97,8 @@ body.modal-open {
   height: 2em;
   padding: 0;
   position: absolute;
-  right: .75em;
-  top: .75em;
+  right: 1em;
+  top: 1em;
   width: 2em;
 }
 
