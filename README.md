@@ -35,16 +35,16 @@ The baseline for a `button` to open a modal dialog should consist of the followi
 </button>
 <!--
   Swap out disabled with the hidden attribute if you want the trigger to be 
-  completely hidden if JavaScript is unavailable fo rsome reason.  
+  completely hidden if JavaScript is unavailable for some reason.  
 
-  Both the hidden attribute and the disabled attribute will be removed during the
-  scripts setup function.
+  The hidden attribute and/or the disabled attribute will be removed 
+  during the script's setup function.
 -->
 ```
 
-The `data-modal-open` attribute is used to point to the specific modal this `button` is meant to activate.  Adding a `disabled` attribute ensures that if JavaScript is blocked, or fails, that users will understand the `button` *should* do something, but is currently inactive.
+The `data-modal-open` attribute is used to point to the specific modal dialog the `button` should activate.  Adding a `disabled` attribute helps ensure that if JavaScript is blocked, or fails, users will be presented with a `button` that correctly conveys current functionality.
 
-If JavaScript is unavailable, and the contents of a dialog will still make sense as part of the page's content, then an `a` element may be used as the dialog trigger, and progressively enhanced to be a `button`. This will allow the `a` to act as an in-page link to the would-be dialog's contents.
+If JavaScript is unavailable, and the contents of a modal dialog would still make sense as part of the document, then an `<a>` element may be used as the dialog trigger, and progressively enhanced to be a `button`. This would then allow the `<a>` to act as an in-page link to the would-be dialog's contents.
 
 ```html
 <a href="#unique_ID_2"
@@ -54,7 +54,7 @@ If JavaScript is unavailable, and the contents of a dialog will still make sense
 </a>
 ```
 
-The `href` attribute of a link may act as the identifier for the target dialog, if the `data-modal-open` attribute value is empty. However, if you would like this link to go to another location, if JavaScript were disabled, then set the `href` to the appropriate URL, and set the `data-modal-open` to the `IDREF` of the dialog within the document.
+The `href` attribute of a link may act as the identifier for the target dialog, if the `data-modal-open` attribute value is empty. However, if you would like this link to go to another location, if JavaScript were disabled, then set the `href` to the appropriate URL, and set the `data-modal-open` to the `IDREF` of the dialog within the document.  Note, the `href` is removed from the `<a>` when the script runs, and a `tabindex=0` is added, as "buttons" shouldn't allow for right click to open in a new window.
 
 ### Modal Dialog Base Markup
 The minimum markup for a modal dialog would be the following:  
@@ -72,6 +72,8 @@ The minimum markup for a modal dialog would be the following:
 
 If you need to support NVDA prior to 2017.4, then consider the following minimum markup pattern, which will add a `role="document"` to the `div` that wraps the contents of the modal dialog. This will correctly allow users to navigate the contents of a dialog with NVDA's virtual cursor, and not automatically enter users into forms/application mode:
 
+Update: This pattern should also be considered for macOS VoiceOver users, as without a `role=document` wrapping all the contents within a `role=dialog`, VoiceOver's quick nav may not be able to access all elements.  Without quick nav on, VoiceOver should have no issues accessing content of a `role=dialog`.
+
 ```html
 <div id="unique_ID_to_match_data-modal-open" data-modal>
   <div data-modal-document>
@@ -86,9 +88,9 @@ If you need to support NVDA prior to 2017.4, then consider the following minimum
 ```
 
 ## Lack of features are not bugs
-This script does *not* presently utilize the `aria-haspopup="dialog"` on a dialog's trigger(s). Nor does it use `aria-modal` on the element with `role="dialog"`. The code to add these attributes are currently in the dialog script, but commented out until they receive full non-breaking support (see Screen Reader quirks).  
+This script does *not* presently use the `aria-haspopup="dialog"` on a dialog's trigger(s). Nor does it use `aria-modal` on the element with `role="dialog"`. The code to add these attributes are currently in the dialog script, but commented out until they receive more robust support (see Screen Reader quirks).  
 
-*Update August 15, 2018:* Testing with Safari Technology Preview (Release 63 (Safari 12.1, WebKit 13607.1.2.1)) on macOS 10.13.6, it appears that `aria-modal="true"` will begin to work properly with VoiceOver.  This is great news for the future, but until a good percentage of people update from Safari 11.x to 12, `aria-modal` should continued to be used with caution.
+*Update August 15, 2018:* Testing with Safari Technology Preview (Release 63 (Safari 12.1, WebKit 13607.1.2.1)) on macOS 10.13.6, `aria-modal="true"` will begin to work properly with VoiceOver.  This is great news for the future, but until a good percentage of people update from Safari 11.x to 12+, `aria-modal` should continued to be used with caution.
  
 ## Inert Polyfill
 For this script to provide peak accessibility, it must also utilize the [`inert` polyfill from Google](https://github.com/GoogleChrome/inert-polyfill). While the dialogs have a function to keep focus within the dialog, looping through any focusable elements within itself, the inert polyfill will help prevent a user from accessing the browser's chrome (e.g. the address bar) and then being able to navigate back into the obscured document. The dialog script doubles down on the elements with `inert="true"` and also add an `aria-hidden="true"` as well. This ensures that not only can users not access elements within the obscured document by keyboard navigation, but that these elements will not be revealed in screen reader listings of elements within a document (e.g. listings of landmarks/regions, headings or form controls with NVDA and JAWS, or be revealed in VoiceOver's rotor menus.)
