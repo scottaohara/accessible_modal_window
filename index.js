@@ -526,21 +526,24 @@
 		 * Return focus to the trigger that opened the modal dialog.
 		 * If the trigger doesn't exist for some reason, move focus to
 		 * either the <main>, or <body> instead.
+		 * Note: Wait a tick before setting focus. See https://github.com/WICG/inert#performance-and-gotchas
 		 * Reset initialTrigger and activeModal since everything should be reset.
 		 */
-		if ( trigger !== null ) {
-			trigger.focus();
-		}
-		else {
-			if ( main && !returnToBody ) {
-				main.tabIndex = -1;
-				main.focus();
+		Promise.resolve().then(function() {
+			if ( trigger !== null ) {
+				trigger.focus();
 			}
 			else {
-				body.tabIndex = -1;
-				body.focus();
+				if ( main && !returnToBody ) {
+					main.tabIndex = -1;
+					main.focus();
+				}
+				else {
+					body.tabIndex = -1;
+					body.focus();
+				}
 			}
-		}
+		});
 
 		initialTrigger = undefined;
 		activeModal = undefined;
