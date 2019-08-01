@@ -111,7 +111,7 @@ The following attributes are used to setup instances of the dialog triggers (but
 #### Dialog Attributes
 - `data-modal`: The primary hook for indicating the element is meant to be transformed into a modal dialog. Leaving the attribute's value empty will result in a standard `role="dialog"`. Setting the value to be "alert" will indicate that the script should add `role="alertdialog"` to the element. 
 - `data-modal-class`: Setting a value to this attribute will add the value as a class name to the dialog when JavaScript is enabled. Useful if you want to progressively enhance the markup from static content to a modal dialog, but don't want it to visually look like a dialog without JavaScript.
-- `data-modal-hide-heading`: This attribute will find set a class of `at-only` to the first heading of the modal dialog.
+- `data-modal-hide-heading`: This attribute will set a class of `at-only` to the first heading of the modal dialog.
 - `data-modal-close`: Adding a value to this attribute will change the auto generated close button from an "icon" button to an inline button with a visible label of the value. 
 - `data-modal-close-class`: The value set to this attribute will be become a class name added to generated close button.
 - `data-modal-focus-close`: This attribute serves as a hook to autofocus the generated close button when the dialog is opened.
