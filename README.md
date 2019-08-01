@@ -19,7 +19,7 @@ Or [download a zip of the repository](https://github.com/scottaohara/accessible_
 The CSS for this component is included in `assets/css/`. The classes are added to the base markup when the script/page loads. The base CSS has only the most necessary styling to visually convey it as a modal dialog. You *will need to* modify the CSS to integrate the dialog into your project's visual aesthetic.  
 
 ## Standard Usage  
-Include the _a11y.modal.js_ file at the bottom of your document, or concatenated into your primary .js file, as part of your build process.
+Include the _aria.modal.min.js_ file at the bottom of your document, or concatenated into your primary .js file, as part of your build process.
 
 Ideally modal dialogs are activated by a purposeful user interaction with a `button`, or an element that has been modified to have the semantics and keyboard functionality of a `button`.  While this script does allow dialogs to be activated by other means, a dialog opening without a purposeful action can be a confusing and frustrating user experience to many.
 
@@ -111,7 +111,7 @@ The following attributes are used to setup instances of the dialog triggers (but
 #### Dialog Attributes
 - `data-modal`: The primary hook for indicating the element is meant to be transformed into a modal dialog. Leaving the attribute's value empty will result in a standard `role="dialog"`. Setting the value to be "alert" will indicate that the script should add `role="alertdialog"` to the element. 
 - `data-modal-class`: Setting a value to this attribute will add the value as a class name to the dialog when JavaScript is enabled. Useful if you want to progressively enhance the markup from static content to a modal dialog, but don't want it to visually look like a dialog without JavaScript.
-- `data-modal-hide-heading`: This attribute will find set a class of `at-only` to the first heading of the modal dialog.
+- `data-modal-hide-heading`: This attribute will set a class of `at-only` to the first heading of the modal dialog.
 - `data-modal-close`: Adding a value to this attribute will change the auto generated close button from an "icon" button to an inline button with a visible label of the value. 
 - `data-modal-close-class`: The value set to this attribute will be become a class name added to generated close button.
 - `data-modal-focus-close`: This attribute serves as a hook to autofocus the generated close button when the dialog is opened.
