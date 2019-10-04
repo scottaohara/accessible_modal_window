@@ -135,7 +135,7 @@
 				 * Get modal target and supply the button with a unique ID to easily
 				 * reference for returning focus to, once the modal dialog is closed.
 				 */
-				self.id = getOpenTarget + '__trigger-' + self.nodeName;
+				self.id = getOpenTarget + '__trigger-' + self.nodeName + '-' + i;
 
 				/**
 				 * Events
