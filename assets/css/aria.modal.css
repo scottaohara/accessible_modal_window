@@ -79,7 +79,7 @@ body.modal-open {
  * modal dialogs to be focused, if the dialog is initially
  * set to "display: none".
  */
-.js [data-modal][hidden]
+.js [data-modal][hidden],
 .a11y-modal[hidden] {
   display: block;
   opacity: 0;
