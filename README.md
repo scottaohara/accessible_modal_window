@@ -1,4 +1,4 @@
-# Accessible Modal Dialog  
+# Accessible Modal Dialog
 A vanilla JavaScript, accessible modal dialog script, written in ES5.
 
 See the [live demo and test pages](http://scottaohara.github.io/accessible_modal_window).
@@ -16,15 +16,15 @@ $ git clone https://github.com/scottaohara/accessible_modal_window.git
 
 Or [download a zip of the repository](https://github.com/scottaohara/accessible_modal_window/archive/master.zip).
 
-The CSS for this component is included in `assets/css/`. The classes are added to the base markup when the script/page loads. The base CSS has only the most necessary styling to visually convey it as a modal dialog. You *will need to* modify the CSS to integrate the dialog into your project's visual aesthetic.  
+The CSS for this component is included in `assets/css/`. The classes are added to the base markup when the script/page loads. The base CSS has only the most necessary styling to visually convey it as a modal dialog. You *will need to* modify the CSS to integrate the dialog into your project's visual aesthetic.
 
-## Standard Usage  
+## Standard Usage
 Include the _a11y.modal.js_ file at the bottom of your document, or concatenated into your primary .js file, as part of your build process.
 
 Ideally modal dialogs are activated by a purposeful user interaction with a `button`, or an element that has been modified to have the semantics and keyboard functionality of a `button`.  While this script does allow dialogs to be activated by other means, a dialog opening without a purposeful action can be a confusing and frustrating user experience to many.
 
 ### Modal Dialog Trigger
-The baseline for a `button` to open a modal dialog should consist of the following:  
+The baseline for a `button` to open a modal dialog should consist of the following:
 
 ```html
 <button type="button"
@@ -34,10 +34,10 @@ The baseline for a `button` to open a modal dialog should consist of the followi
   Launch My Modal
 </button>
 <!--
-  Swap out disabled with the hidden attribute if you want the trigger to be 
-  completely hidden if JavaScript is unavailable for some reason.  
+  Swap out disabled with the hidden attribute if you want the trigger to be
+  completely hidden if JavaScript is unavailable for some reason.
 
-  The hidden attribute and/or the disabled attribute will be removed 
+  The hidden attribute and/or the disabled attribute will be removed
   during the script's setup function.
 -->
 ```
@@ -48,7 +48,7 @@ If JavaScript is unavailable, and the contents of a modal dialog would still mak
 
 ```html
 <a href="#unique_ID_2"
-  class="_your_class(es)_here_" 
+  class="_your_class(es)_here_"
   data-modal-open>
   Launch My Modal
 </a>
@@ -57,7 +57,7 @@ If JavaScript is unavailable, and the contents of a modal dialog would still mak
 The `href` attribute of a link may act as the identifier for the target dialog, if the `data-modal-open` attribute value is empty. However, if you would like this link to go to another location, if JavaScript were disabled, then set the `href` to the appropriate URL, and set the `data-modal-open` to the `IDREF` of the dialog within the document.  Note, the `href` is removed from the `<a>` when the script runs, and a `tabindex=0` is added, as "buttons" shouldn't allow for right click to open in a new window.
 
 ### Modal Dialog Base Markup
-The minimum markup for a modal dialog would be the following:  
+The minimum markup for a modal dialog would be the following:
 
 ```html
 <div id="unique_ID_to_match_data-modal-open" data-modal>
@@ -88,16 +88,16 @@ Update: This pattern should also be considered for macOS VoiceOver users, as wit
 ```
 
 ## Lack of features are not bugs
-This script does *not* presently use the `aria-haspopup="dialog"` on a dialog's trigger(s). Nor does it use `aria-modal` on the element with `role="dialog"`. The code to add these attributes are currently in the dialog script, but commented out until they receive more robust support (see Screen Reader quirks).  
+This script does *not* presently use the `aria-haspopup="dialog"` on a dialog's trigger(s). Nor does it use `aria-modal` on the element with `role="dialog"`. The code to add these attributes are currently in the dialog script, but commented out until they receive more robust support (see Screen Reader quirks).
 
 *Update August 15, 2018:* Testing with Safari Technology Preview (Release 63 (Safari 12.1, WebKit 13607.1.2.1)) on macOS 10.13.6, `aria-modal="true"` will begin to work properly with VoiceOver.  This is great news for the future, but until a good percentage of people update from Safari 11.x to 12+, `aria-modal` should continued to be used with caution.
- 
+
 ## Inert Polyfill
 For this script to provide peak accessibility, it must also utilize the [`inert` polyfill from Google](https://github.com/GoogleChrome/inert-polyfill). While the dialogs have a function to keep focus within the dialog, looping through any focusable elements within itself, the inert polyfill will help prevent a user from accessing the browser's chrome (e.g. the address bar) and then being able to navigate back into the obscured document. The dialog script doubles down on the elements with `inert="true"` and also add an `aria-hidden="true"` as well. This ensures that not only can users not access elements within the obscured document by keyboard navigation, but that these elements will not be revealed in screen reader listings of elements within a document (e.g. listings of landmarks/regions, headings or form controls with NVDA and JAWS, or be revealed in VoiceOver's rotor menus.)
 
 
-### Configuration attributes  
-The following attributes are used to setup instances of the dialog triggers (buttons), the dialog container, and any necessary child elements of the dialogs.  
+### Configuration attributes
+The following attributes are used to setup instances of the dialog triggers (buttons), the dialog container, and any necessary child elements of the dialogs.
 
 
 #### Trigger Attributes
@@ -109,10 +109,10 @@ The following attributes are used to setup instances of the dialog triggers (but
 
 
 #### Dialog Attributes
-- `data-modal`: The primary hook for indicating the element is meant to be transformed into a modal dialog. Leaving the attribute's value empty will result in a standard `role="dialog"`. Setting the value to be "alert" will indicate that the script should add `role="alertdialog"` to the element. 
+- `data-modal`: The primary hook for indicating the element is meant to be transformed into a modal dialog. Leaving the attribute's value empty will result in a standard `role="dialog"`. Setting the value to be "alert" will indicate that the script should add `role="alertdialog"` to the element.
 - `data-modal-class`: Setting a value to this attribute will add the value as a class name to the dialog when JavaScript is enabled. Useful if you want to progressively enhance the markup from static content to a modal dialog, but don't want it to visually look like a dialog without JavaScript.
 - `data-modal-hide-heading`: This attribute will set a class of `at-only` to the first heading of the modal dialog.
-- `data-modal-close`: Adding a value to this attribute will change the auto generated close button from an "icon" button to an inline button with a visible label of the value. 
+- `data-modal-close`: Adding a value to this attribute will change the auto generated close button from an "icon" button to an inline button with a visible label of the value.
 - `data-modal-close-class`: The value set to this attribute will be become a class name added to generated close button.
 - `data-modal-focus-close`: This attribute serves as a hook to autofocus the generated close button when the dialog is opened.
 - `data-modal-manual-close`: If you want full control over where your close button goes, adding this attribute to the dialog container will stop the generation of a close button. It's up to you to hard code the close button yourself.
@@ -131,11 +131,11 @@ The following attributes are used to setup instances of the dialog triggers (but
 ## Screen Reader Quirks
 Things of note for why certain decisions were made, and how different screen reader and browser combos have their own inconsistencies in announcing modal dialogs.
 
-- Do not set dialogs to `display: none` by default.  
-  There is an issue with iOS Safari + VoiceOver where if an element is set to `display: none;` by default, even when set to `display: block;` <abbr>VO</abbr> will not move focus to the element, even if focus is programmatically set. To get around this, the CSS for these dialogs use `visibility: hidden;` for the inactive state, and `visibility: visible;` for showing the dialog.  
+- Do not set dialogs to `display: none` by default.
+  There is an issue with iOS Safari + VoiceOver where if an element is set to `display: none;` by default, even when set to `display: block;` <abbr>VO</abbr> will not move focus to the element, even if focus is programmatically set. To get around this, the CSS for these dialogs use `visibility: hidden;` for the inactive state, and `visibility: visible;` for showing the dialog.
 
   As `visibility: hidden` does not remove an element from the document's flow, it's important that `position: absolute/fixed` is set to the dialog, regardless of whether it's active or not.
-- The first element of a modal dialog should be its heading (which provides its accessible name). 
+- The first element of a modal dialog should be its heading (which provides its accessible name).
   This requirement is to compensate for Internet Explorer 11 + JAWS specifically, when the dialog element is focused by default. With this pairing, setting focus to the dialog element itself will announce the accessible name of the dialog, the dialog role, and then JAWS will announce re-announce the accessible name of the dialog and the role of the first child element of the dialog.
   For instance, if the dialog's heading provides the accessible name for the dialog, then JAWS + IE11 will announce "accessible name, dialog. accessible name, heading level #".  However, if the first child is another element that does not match the accessible name of the dialog, such as a button with text "close", it will be announced as:
   "accessible name, dialog. accessible name, button"
@@ -144,12 +144,20 @@ Things of note for why certain decisions were made, and how different screen rea
 
 
 ## More information about modal dialogs
-Articles I've written about modal dialog accessibility.  
+Articles I've written about modal dialog accessibility.
 * [The state of modal dialog acccessibility (2018)](https://developer.paciellogroup.com/blog/2018/06/the-current-state-of-modal-dialog-accessibility/)
-* [Accessible Modals: Revisited (version 2 release article) (2016)](https://www.scottohara.me/blog/2016/09/07/revised-modal-window.html)  
-* [Making modal windows better for everyone - Smashing Magazine (2014)](https://www.smashingmagazine.com/2014/09/making-modal-windows-better-for-everyone/)  
+* [Accessible Modals: Revisited (version 2 release article) (2016)](https://www.scottohara.me/blog/2016/09/07/revised-modal-window.html)
+* [Making modal windows better for everyone - Smashing Magazine (2014)](https://www.smashingmagazine.com/2014/09/making-modal-windows-better-for-everyone/)
 
-## License & Such  
+## Contributing
+If you want to contribute, please follow these steps:
+
+- Make your changes for example in `index.js` file
+- run `npm install` to get uglify-js installed
+- run `npm run uglify` to minimize into aria.modal.min.js
+- Create a pull request to submit your code
+
+## License & Such
 This script was written by Scott O'Hara: [Website](https://www.scottohara.me), [Twitter](https://twitter.com/scottohara).
 
 It has an [MIT license](https://github.com/scottaohara/accessible-components/blob/master/LICENSE.md).
