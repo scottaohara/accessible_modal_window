@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 Full history of changelog coming...
 
+## 3.4.1 - 2019-10-07
+### Changed
+- Added minor feature: Now supports multiple triggers in page and creates unique id's for each trigger.
+
 ## 3.4.0 - 2019-01-09
 ### Changed
 If using `data-modal-document` to wrap the contents of a modal dialog in a `role="document"`, the script has been updated to place the generated close button within the `role=document`.  `role=document` may be a necessary child of modal dialogs for people using VoiceOver's quick nav feature (more information in readme).
@@ -14,7 +18,7 @@ If a modal dialog trigger was progressively enhanced from an `a href` into a `ro
 
 ## 3.3.2 - 2018-08-25
 ### Changed
-- Minor code simplifications and rewriting/removal of some in line code documentation. 
+- Minor code simplifications and rewriting/removal of some in line code documentation.
 - Updated the name of the "focusableElements" variable to "tabFocusElements" as this listing of elements was not to imply they were the only focusable elements, but that they are what's focusable by use of the tab key.  Additionally, modified some elements to not consider them tab focusable if they have a `hidden` attribute set.
 
 ## 3.3.1 - 2018-08-11
@@ -28,7 +32,7 @@ If a modal dialog trigger was progressively enhanced from an `a href` into a `ro
 ## 3.2.1 - 2018-07-07
 ### Fixed
 - Wrap the `focusTarget.focus()` in a `requestAnimationFrame`. This almost consistently solves for the iOS VoiceOver focus issue, where VO focus is not moved to an opened dialog if the dialog has `display: none` as its default display, or if a dialog contains a `role=document` element as its first child, instead of a heading. Credit to Thomas Jaggi, codepen.io/backflip, for recommending the workaround.
-  
+
 ## 3.2.0 - 2018-07-05
 ### Added
 - Added feature: option to include a child element with a `data-modal-document` attribute, to indicate to the script that this element should have a `role="document"` applied to it, during the setup process. This will correctly allow users to navigate a dialog's contents with their virtual cursor, if using older versions of NVDA.
