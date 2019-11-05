@@ -529,7 +529,7 @@
 		 * Note: Wait a tick before setting focus. See https://github.com/WICG/inert#performance-and-gotchas
 		 * Reset initialTrigger and activeModal since everything should be reset.
 		 */
-		Promise.resolve().then(function() {
+		setTimeout(function() {
 			if ( trigger !== null ) {
 				trigger.focus();
 			}
@@ -543,7 +543,7 @@
 					body.focus();
 				}
 			}
-		});
+		}, 0);
 
 		initialTrigger = undefined;
 		activeModal = undefined;
