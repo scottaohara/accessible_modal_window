@@ -145,7 +145,7 @@ Things of note for why certain decisions were made, and how different screen rea
 
 ## More information about modal dialogs
 Articles I've written about modal dialog accessibility.  
-* [The state of modal dialog acccessibility (2018)](https://developer.paciellogroup.com/blog/2018/06/the-current-state-of-modal-dialog-accessibility/)
+* [The state of modal dialog accessibility (2018)](https://developer.paciellogroup.com/blog/2018/06/the-current-state-of-modal-dialog-accessibility/)
 * [Accessible Modals: Revisited (version 2 release article) (2016)](https://www.scottohara.me/blog/2016/09/07/revised-modal-window.html)  
 * [Making modal windows better for everyone - Smashing Magazine (2014)](https://www.smashingmagazine.com/2014/09/making-modal-windows-better-for-everyone/)  
 
