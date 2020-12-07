@@ -159,7 +159,7 @@
 		var i;
 
 		for ( i = 0; i < modal.length; i++ ) {
-			var self = modal[i];
+			self = modal[i];
 			var modalType   = self.getAttribute('data-modal');
 			var getClass    = self.getAttribute('data-modal-class') || 'a11y-modal';
 			var heading     = self.querySelector('h1, h2, h3, h4, h5, h6');
@@ -560,6 +560,7 @@
 		var enterKey = 13;
 		var spaceKey = 32;
 		var tabKey   = 9;
+		var firstFocus, lastFocus;
 
 		if ( e.target.hasAttribute('data-modal-open') ) {
 			switch ( keyCode ) {
@@ -583,21 +584,25 @@
 
 			if ( body.classList.contains(activeClass) ) {
 				// Get first and last focusable elements from activeModal
-				var firstFocus = activeModal.querySelector('.' + firstClass);
-				var lastFocus = activeModal.querySelector('.' + lastClass);
+				firstFocus = activeModal.querySelector('.' + firstClass);
+				lastFocus = activeModal.querySelector('.' + lastClass);
 			}
 
 			if ( doc.activeElement.classList.contains(lastClass) ) {
 				if ( keyCode === tabKey && !e.shiftKey ) {
 					e.preventDefault();
-					firstFocus.focus();
+					if ( firstFocus !== undefined ) {
+						firstFocus.focus();
+					}
 				}
 			}
 
 			if ( doc.activeElement.classList.contains(firstClass) ) {
 				if ( keyCode === tabKey && e.shiftKey ) {
 					e.preventDefault();
-					lastFocus.focus();
+					if ( lastFocus !== undefined ) {
+						lastFocus.focus();
+					}
 				}
 			}
 		}
@@ -644,7 +649,7 @@
 				return false;
 			}
 			else if ( autoOpen === '!null' ) {
-				return false
+				return false;
 			}
 			else {
 				// Check that the hash actually represent an element, or is it null?
@@ -685,7 +690,7 @@
 			ARIAmodal.openModal( e, autoOpen );
 
 			if ( getAuto.length > 1 ) {
-				console.warn('Only the modal indicated by the hash value will load.')
+				console.warn('Only the modal indicated by the hash value will load.');
 			}
 		}
 		else if ( getAuto.length !== 0 ) {
@@ -695,7 +700,7 @@
 				ARIAmodal.openModal( e, autoOpen );
 
 				if ( getAuto.length > 1 ) {
-					console.warn('Multiple modal dialogs can not auto load.')
+					console.warn('Multiple modal dialogs can not auto load.');
 				}
 			}
 			else if ( getAuto[0].getAttribute('role') === 'button' || getAuto[0].tagName === 'BUTTON' ) {
