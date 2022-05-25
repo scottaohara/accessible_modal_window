@@ -3,6 +3,8 @@ A vanilla JavaScript, accessible modal dialog script, written in ES5.
 
 See the [live demo and test pages](http://scottaohara.github.io/accessible_modal_window).
 
+Please also see [Having an open dialog](https://www.scottohara.me/blog/2019/03/05/open-dialog.html), which provides information on the support for the native `<dialog>` element. As browser support (particularly Safari 15.4 and up adoption) increases, the need for custom dialogs should significantly decrease, rendering custom solutions such as this one here unnecessary.
+
 ## Install
 You can get this package [on npm](https://www.npmjs.com/package/aria-modal-dialog):
 ```
@@ -145,6 +147,7 @@ Things of note for why certain decisions were made, and how different screen rea
 
 ## More information about modal dialogs
 Articles I've written about modal dialog accessibility.  
+* [Having an open dialog (2019 / updated 2022)](https://www.scottohara.me/blog/2019/03/05/open-dialog.html)
 * [The state of modal dialog accessibility (2018)](https://developer.paciellogroup.com/blog/2018/06/the-current-state-of-modal-dialog-accessibility/)
 * [Accessible Modals: Revisited (version 2 release article) (2016)](https://www.scottohara.me/blog/2016/09/07/revised-modal-window.html)  
 * [Making modal windows better for everyone - Smashing Magazine (2014)](https://www.smashingmagazine.com/2014/09/making-modal-windows-better-for-everyone/)  
