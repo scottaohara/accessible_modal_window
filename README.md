@@ -3,7 +3,9 @@ A vanilla JavaScript, accessible modal dialog script, written in ES5.
 
 See the [live demo and test pages](http://scottaohara.github.io/accessible_modal_window).
 
-Please also see [Having an open dialog](https://www.scottohara.me/blog/2019/03/05/open-dialog.html), which provides information on the support for the native `<dialog>` element. As browser support (particularly Safari 15.4 and up adoption) increases, the need for custom dialogs should significantly decrease, rendering custom solutions such as this one here unnecessary.
+**Please read [Having an open dialog](https://www.scottohara.me/blog/2019/03/05/open-dialog.html), which provides information on the support for the native `<dialog>` element. As browser support (particularly Safari 15.4 and up adoption) increases, the need for custom dialogs should significantly decrease, rendering custom solutions such as this one here unnecessary.**
+
+**NOTE: this script has not been actively updated since 2018. I would recommend either using the native `<dialog>` element, or you should check out [a11y-dialog](https://github.com/KittyGiraudel/a11y-dialog) for a script that is more actively updated and delivers a good modal dialog experience.**
 
 ## Install
 You can get this package [on npm](https://www.npmjs.com/package/aria-modal-dialog):
