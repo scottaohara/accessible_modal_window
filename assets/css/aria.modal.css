@@ -1,5 +1,3 @@
-*,*:after,*:before{box-sizing:border-box;}
-
 /**
  * Including the at-only style with the dialog CSS as it is required
  * to visually hide a dialog's heading if desired.
@@ -54,7 +52,7 @@ body.modal-open {
   transform: translateY(0%);
   visibility: visible;
   width: 100%;
-  z-index: 10; /* this should be more than enough... */
+  z-index: 10; /* this 'should' be more than enough... */
 }
 
 @media screen and ( min-height: 440px ) and ( min-width: 500px ) {
@@ -125,7 +123,7 @@ body.modal-open {
   width: 2px;
 }
 
-[data-modal-x]:after {
+[data-modal-x]::after {
   border-right: 2px solid;
   content: "";
   height: 100%;
