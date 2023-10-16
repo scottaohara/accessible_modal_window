@@ -133,3 +133,8 @@ body.modal-open {
   transform: rotate(-90deg);
   width: 100%;
 }
+
+/* this is not the way to do this, but it is how it's being done before this scrip is archived. */
+[data-modal-open] > * {
+  pointer-events: none;
+}
