@@ -1,8 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
-Full history of changelog coming...
+## 3.4.1 - 2023-10-16
+### Changed
+Updated CSS to remove the `box-sizing: border-box` rule. It was not relevant to the dialog.  Added `pointer-events: none` to children of the `[data-modal-open]` triggers - which _is a hack-fix_, but it was the least LOE to resolve the issue.  This is the final version of this script. 
 
 ## 3.4.0 - 2019-01-09
 ### Changed
