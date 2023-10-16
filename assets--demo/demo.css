@@ -1,3 +1,4 @@
+*,*::after,*::before{box-sizing:border-box;}
 *,*:after,*:before{font-family:arial;}
 *{margin-top: 0;}
 header,main,footer {display: block; /* IE */}
